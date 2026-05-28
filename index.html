@@ -1400,31 +1400,36 @@ const projects = [
   },
   {
     id: "til",
-    title: "TABA TIL & Learning",
+    title: "Continuous Learning Archive",
     category: "learning",
-    kicker: "Learning Archive",
-    tagline: "// 성장의 연속성을 보여주는 학습 아카이브",
-    description: "TABA 1기 수업 내용과 클라우드/AI 학습 기록을 정리한 저장소. 프로젝트 결과뿐 아니라 학습 과정과 지속성을 보여주는 보조 자산.",
-    image: "",
-    stack: ["TIL", "Cloud", "AI", "Documentation", "GitHub"],
+    kicker: "Algorithm · Security · Cloud",
+    tagline: '// "어제보다 단단한 코드를 작성하기 위한 매일의 기록"',
+    description: "단순한 지식 습득에 그치지 않고 알고리즘, 시큐어코딩, 클라우드/AI 실무 지식을 체계적으로 아카이빙하여, 언제든 실무에 꺼내 쓸 수 있는 나만의 레퍼런스 자산으로 구축했습니다.",
+    image: "https://ghchart.rshah.org/219138/feed-mina",
+    stack: ["LeetCode (Java)", "Secure Coding (KISA)", "CS Fundamentals", "AI / Cloud", "Documentation"],
     design: [
-      "프로젝트 결과만으로는 보여주기 어려운 학습 과정과 지속성을 기록으로 남기기",
-      "교육 과정의 개념을 재활용 가능한 지식 자산으로 정리하는 구조"
+      "알고리즘: 단순 통과가 아닌 시간·공간 복잡도를 최적화하는 다양한 접근법 고민 및 기록",
+      "보안/인프라: KISA 시큐어코딩 지침과 TABA 실무 지식을 템플릿화하여 실제 프로젝트에 적용 가능하도록 구성",
+      "아카이빙: 파편화되기 쉬운 학습 내용을 카테고리별로 분류해 언제든 꺼내 쓸 수 있는 개인 레퍼런스화"
     ],
     problem: [
-      "결과물 위주의 포트폴리오로는 학습의 깊이와 빈도를 입증하기 어려움",
-      "단발적 학습이 흩어진 메모로 끝나는 일반적 문제"
+      "빠르게 변하는 기술 트렌드 속에서 일회성 프로젝트만으로는 백엔드 개발자로서의 '기본기'와 '꾸준함'을 증명하기 어려움",
+      "해결했던 문제나 보안 이슈를 다시 마주쳤을 때, 기억에만 의존하면 문제 해결 시간이 지연됨"
     ],
     role: [
-      "TABA 1기 수업 내용과 실습 흐름을 GitHub 저장소에 체계적으로 정리",
-      "프로젝트 중심 포트폴리오를 보완하는 학습 아카이브 구조 설계"
+      "LeetCode Top Interview Questions 풀이 및 최적화 방법론(자료구조/알고리즘) 정리",
+      "KISA 소프트웨어 보안 약점 진단 가이드라인 기반의 시큐어 코딩 패턴 학습",
+      "TABA 1기 클라우드/AI 교육 과정 실습 코드 및 트러블슈팅 내역 정리"
     ],
     impact: [
-      "기술 전환 과정과 꾸준한 기록 습관을 보여주는 근거 자산",
-      "블로그 글의 원천 자료로 재활용 가능한 지식 베이스로 확장"
+      "다양한 알고리즘 패턴을 익히며 서버 로직 설계 시 가장 효율적인 자료구조를 선택하는 시야 확보",
+      "시큐어 코딩 원칙을 체화하여 실제 프로젝트(오늘의 냉장고 등)의 인증/보안 모듈 설계에 긍정적 영향",
+      "문제를 마주했을 때 근본적인 원인을 찾고 논리적으로 해결해 나가는 주도적이고 꾸준한 태도 입증"
     ],
     links: [
-      { label: "GitHub", url: "https://github.com/feed-mina/TABA_1-_TIL_yerin-main", primary: true }
+      { label: "LeetCode 풀이 ↗", url: "https://github.com/feed-mina/LEETCODE_TopInterviewQuestions" },
+      { label: "시큐어코딩 학습 ↗", url: "https://github.com/feed-mina/Study_SecureCoding_KISA" },
+      { label: "TABA AI/Cloud ↗", url: "https://github.com/feed-mina/TABA_1-_TIL_yerin-main" }
     ]
   }
 ];
