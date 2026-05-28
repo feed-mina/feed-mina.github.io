@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>오늘의 냉장고 — 프로젝트 발표</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<script src="deck-stage.js"></script>
+<style>
+  :root {
+    --ink: #14201A;
+    --ink-2: #455349;
+    --sub: #6B7B70;
+    --cream: #F6F1E4;
+    --cream-2: #EFE7D3;
+    --line: #D9CFB5;
+    --line-2: #E8DFC8;
+    --card: #FFFFFF;
+    --green: #0F5132;
+    --green-2: #1B6B45;
+    --green-soft: #DCEDE2;
+    --coral: #E8744C;
+    --coral-soft: #FBE3D5;
+    --amber: #E4B43A;
+    --kakao: #FEE500;
+    --kakao-ink: #391B1B;
+    --red: #C0432F;
+    --blue: #25557B;
+    --shadow: 0 1px 0 rgba(20,32,26,.04), 0 12px 28px -16px rgba(20,32,26,.18);
+  }
+  html, body { margin: 0; background: #0a0a0a; font-family: "Pretendard", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  deck-stage { --slide-w: 1920px; --slide-h: 1080px; }
+
+  /* Slide base */
+  section.slide {
+    width: 1920px; height: 1080px; box-sizing: border-box;
+    background: var(--cream);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    padding: 96px 120px;
+  }
+  /* Chrome — page meta */
+  .chrome {
+    position: absolute; left: 120px; right: 120px; top: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 20px; letter-spacing: .06em; color: var(--sub); text-transform: uppercase;
+    font-weight: 500;
+  }
+  .chrome .brand { display: flex; align-items: center; gap: 14px; font-weight: 700; color: var(--green); letter-spacing: .08em; }
+  .chrome .brand::before { content: ""; width: 14px; height: 14px; border-radius: 4px; background: var(--coral); display: inline-block; transform: rotate(45deg); }
+
+  .foot { position: absolute; left: 120px; right: 120px; bottom: 56px; display: flex; justify-content: space-between; font-size: 18px; color: var(--sub); letter-spacing: .04em; }
+
+  /* Typography */
+  .eyebrow { font-size: 22px; font-weight: 700; color: var(--coral); letter-spacing: .14em; text-transform: uppercase; }
+  h1.title { font-size: 116px; font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; color: var(--ink); margin: 0; }
+  h2.title { font-size: 78px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.04; color: var(--ink); margin: 0; }
+  h3.title { font-size: 56px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; color: var(--ink); margin: 0; }
+  .lead { font-size: 30px; line-height: 1.5; color: var(--ink-2); max-width: 1400px; margin: 0; font-weight: 400; }
+  .small { font-size: 20px; line-height: 1.55; color: var(--sub); }
+
+  /* Section divider slides */
+  .slide.section { background: var(--green); color: #fff; padding: 120px; }
+  .slide.section .chrome, .slide.section .foot { color: rgba(255,255,255,.55); }
+  .slide.section .chrome .brand { color: #fff; }
+  .slide.section h2.title, .slide.section h1.title { color: #fff; }
+  .slide.section .eyebrow { color: var(--amber); }
+  .slide.section .lead { color: rgba(255,255,255,.85); }
+
+  /* Slide head */
+  .head { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+  .head .pre { display: flex; align-items: center; gap: 18px; }
+  .pageno { display: inline-flex; align-items: center; justify-content: center; min-width: 56px; padding: 6px 14px; border: 2px solid var(--ink); border-radius: 999px; font-size: 22px; font-weight: 700; }
+
+  /* Body grid */
+  .body { flex: 1; display: flex; flex-direction: column; gap: 40px; margin-top: 48px; }
+
+  /* Cards */
+  .card { background: var(--card); border: 1.5px solid var(--line-2); border-radius: 22px; padding: 36px 40px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 12px; }
+  .card .label { font-size: 18px; font-weight: 700; color: var(--coral); letter-spacing: .12em; text-transform: uppercase; }
+  .card .h { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+  .card .p { font-size: 22px; line-height: 1.55; color: var(--ink-2); }
+  .card .tag { font-size: 16px; font-weight: 600; color: var(--green); background: var(--green-soft); padding: 6px 12px; border-radius: 999px; display: inline-block; }
+
+  /* Token row */
+  .badges { display: flex; gap: 14px; flex-wrap: wrap; }
+  .badge { font-family: "JetBrains Mono", monospace; font-size: 18px; padding: 8px 14px; border: 1.5px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink-2); font-weight: 500; }
+  .badge.green { background: var(--green); color: #fff; border-color: var(--green); }
+  .badge.coral { background: var(--coral); color: #fff; border-color: var(--coral); }
+  .badge.cream { background: var(--cream-2); border-color: var(--line); }
+
+  /* Code/flow block */
+  pre.flow {
+    margin: 0; background: #14201A; color: #E6EDDF; padding: 30px 36px; border-radius: 18px;
+    font-family: "JetBrains Mono", monospace; font-size: 19px; line-height: 1.7;
+    overflow: hidden; box-shadow: var(--shadow);
+  }
+  pre.flow .c { color: #6B7B70; }
+  pre.flow .k { color: #FCB07E; }
+  pre.flow .g { color: #A4D9B4; }
+  pre.flow .b { color: #8EC1E8; }
+  pre.flow .r { color: #E8744C; }
+  pre.flow .w { color: #FFFFFF; font-weight: 600; }
+
+  /* Architecture diagram (slide 4) */
+  .arch { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 26px; height: 100%; }
+  .arch-col { display: flex; flex-direction: column; gap: 18px; }
+  .arch-card { background: #fff; border: 1.5px solid var(--line-2); border-radius: 18px; padding: 22px 26px; box-shadow: var(--shadow); }
+  .arch-card .hd { display: flex; gap: 10px; align-items: center; }
+  .arch-card .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .arch-card .t { font-size: 22px; font-weight: 800; color: var(--ink); }
+  .arch-card .s { font-size: 17px; color: var(--sub); margin-top: 2px; }
+  .arch-card ul { margin: 14px 0 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .arch-card li { font-size: 17px; color: var(--ink-2); padding-left: 18px; position: relative; line-height: 1.45; }
+  .arch-card li::before { content: ""; position: absolute; left: 0; top: 10px; width: 7px; height: 2px; background: var(--ink-2); }
+
+  /* Numbered cards */
+  .numlist { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .numlist .item { background: #fff; border: 1.5px solid var(--line-2); border-radius: 18px; padding: 28px 30px; }
+  .num { font-family: "JetBrains Mono", monospace; font-size: 16px; color: var(--coral); font-weight: 700; letter-spacing: .1em; }
+  .numlist .item .h { font-size: 26px; font-weight: 800; margin-top: 8px; letter-spacing: -0.015em; }
+  .numlist .item .p { font-size: 18px; line-height: 1.55; color: var(--ink-2); margin-top: 8px; }
+
+  /* Feature table-grid */
+  .grid2 { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: stretch; }
+  .grid2.flip { grid-template-columns: 1fr 1.1fr; }
+
+  /* Stats row */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .stat { background: #fff; border: 1.5px solid var(--line-2); border-radius: 18px; padding: 28px; }
+  .stat .v { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; color: var(--green); }
+  .stat .l { font-size: 18px; color: var(--sub); font-weight: 600; margin-top: 8px; }
+
+  /* AI model cards */
+  .model-card { background: #fff; border: 1.5px solid var(--line-2); border-radius: 20px; padding: 30px 34px; display: flex; flex-direction: column; gap: 12px; box-shadow: var(--shadow); }
+  .model-card .pill { font-family: "JetBrains Mono", monospace; font-size: 15px; color: var(--green); background: var(--green-soft); padding: 5px 10px; border-radius: 6px; align-self: flex-start; font-weight: 600; }
+  .model-card .h { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+  .model-card .p { font-size: 18px; line-height: 1.55; color: var(--ink-2); }
+  .model-card .meta { font-size: 16px; color: var(--sub); font-family: "JetBrains Mono", monospace; }
+
+  /* Auth theme */
+  .auth-circle { display: flex; align-items: center; justify-content: center; height: 100%; position: relative; }
+  .auth-hub { width: 240px; height: 240px; border-radius: 50%; background: var(--coral); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; font-size: 32px; letter-spacing: -0.02em; box-shadow: 0 30px 60px -20px rgba(232,116,76,.5); }
+  .auth-hub .sub { font-size: 18px; font-weight: 500; opacity: .9; margin-top: 6px; }
+
+  /* Two col split slide */
+  .split { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; height: 100%; }
+
+  /* Background shapes */
+  .bg-deco { position: absolute; pointer-events: none; }
+  .bg-deco.corner-tr { right: -120px; top: -120px; width: 360px; height: 360px; border-radius: 50%; background: var(--coral-soft); }
+  .bg-deco.dot-bl { left: 80px; bottom: 80px; width: 12px; height: 12px; border-radius: 50%; background: var(--coral); }
+
+  /* Cover slide */
+  .slide.cover { background: var(--green); color: #fff; padding: 120px; }
+  .slide.cover .chrome { color: rgba(255,255,255,.6); }
+  .slide.cover .chrome .brand { color: #fff; }
+  .slide.cover .foot { color: rgba(255,255,255,.6); }
+  .slide.cover h1 { font-size: 196px; font-weight: 800; letter-spacing: -0.04em; line-height: .94; color: #fff; margin: 0; }
+  .slide.cover .sub { font-size: 36px; color: rgba(255,255,255,.82); font-weight: 400; max-width: 1200px; line-height: 1.4; }
+  .slide.cover .tagline { font-size: 22px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); font-weight: 700; }
+  .slide.cover .meta { display: flex; gap: 40px; font-size: 22px; color: rgba(255,255,255,.7); }
+  .slide.cover .meta span { display: flex; align-items: center; gap: 10px; }
+  .slide.cover .glyph { position: absolute; right: 80px; bottom: 80px; width: 520px; height: 520px; }
+
+  /* Team grid */
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .person { background: #fff; border: 1.5px solid var(--line-2); border-radius: 16px; padding: 24px 26px; display: flex; flex-direction: column; gap: 8px; }
+  .person .name { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+  .person .role { font-size: 15px; font-weight: 700; color: var(--coral); letter-spacing: .08em; text-transform: uppercase; }
+  .person .desc { font-size: 16px; color: var(--ink-2); line-height: 1.55; }
+  .person.pm { background: var(--green); color: #fff; border-color: var(--green); }
+  .person.pm .desc { color: rgba(255,255,255,.85); }
+  .person.pm .role { color: var(--amber); }
+
+  /* horizontal rule */
+  hr.thin { border: none; border-top: 1.5px solid var(--line); margin: 0; }
+  .rule { width: 80px; height: 4px; background: var(--coral); border-radius: 2px; }
+
+  /* table */
+  table.t { width: 100%; border-collapse: collapse; font-size: 20px; }
+  table.t th { text-align: left; font-size: 16px; font-weight: 700; color: var(--sub); letter-spacing: .1em; text-transform: uppercase; padding: 12px 16px; border-bottom: 2px solid var(--ink); }
+  table.t td { padding: 18px 16px; border-bottom: 1.5px solid var(--line-2); color: var(--ink-2); vertical-align: top; line-height: 1.5; }
+  table.t td .strong { color: var(--ink); font-weight: 700; }
+  table.t.dense { font-size: 17px; }
+  table.t.dense th { padding: 8px 12px; font-size: 14px; }
+  table.t.dense td { padding: 10px 12px; line-height: 1.4; }
+  table.t.dense .badge { font-size: 14px; padding: 5px 9px; }
+
+  /* Section big number */
+  .sect-num { font-family: "JetBrains Mono", monospace; font-size: 28px; color: var(--amber); font-weight: 700; letter-spacing: .12em; }
+
+  /* Compact slides — tighter spacing for dense layouts */
+  section.slide.compact { padding: 72px 100px; }
+  section.slide.compact .chrome { top: 40px; left: 100px; right: 100px; }
+  section.slide.compact .foot { bottom: 40px; left: 100px; right: 100px; }
+  section.slide.compact .head { margin-top: 0; gap: 10px; }
+  section.slide.compact .body { margin-top: 28px; gap: 22px; }
+  section.slide.compact h2.title { font-size: 60px; }
+  section.slide.compact .lead { font-size: 24px; }
+
+  /* Tight code block */
+  pre.flow.tight { padding: 22px 28px; font-size: 16px; line-height: 1.6; }
+  pre.flow.tightest { padding: 18px 24px; font-size: 15px; line-height: 1.55; }
+
+  /* Compact card — tighter inner padding */
+  .card.compact-card { padding: 24px 28px; gap: 8px; }
+  .card.compact-card .h { font-size: 28px; }
+  .card.compact-card .p { font-size: 19px; }
+
+  /* Extra-tight head used on slides that still overflow by a few px */
+  section.slide.compact.xtight .body { margin-top: 18px; }
+  section.slide.compact.xtight .head { gap: 6px; }
+  section.slide.compact.xtight h2.title { font-size: 52px; }
+
+  /* Theme list */
+  .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .principle { background: #fff; border: 1.5px solid var(--line-2); border-radius: 16px; padding: 24px 28px; display: flex; gap: 22px; align-items: flex-start; }
+  .principle .n { font-family: "JetBrains Mono", monospace; font-size: 36px; font-weight: 800; color: var(--coral); line-height: 1; min-width: 56px; }
+  .principle .t { font-size: 24px; font-weight: 800; letter-spacing: -0.015em; }
+  .principle .d { font-size: 18px; color: var(--ink-2); line-height: 1.5; margin-top: 6px; }
+
+  /* code inline */
+  code.inl { font-family: "JetBrains Mono", monospace; font-size: .92em; background: var(--cream-2); border: 1px solid var(--line); padding: 1px 7px; border-radius: 5px; color: var(--ink); }
+
+  /* utility */
+  .row { display: flex; gap: 24px; }
+  .row.gap-l { gap: 36px; }
+  .col { display: flex; flex-direction: column; }
+  .flex-1 { flex: 1; }
+  .mt-s { margin-top: 12px; }
+  .mt { margin-top: 24px; }
+  .mt-l { margin-top: 40px; }
+  .mb { margin-bottom: 20px; }
+  .nowrap { white-space: nowrap; }
+
+  /* Diagonal accent */
+  .accent-shape { position: absolute; right: -60px; top: 240px; width: 280px; height: 280px; transform: rotate(45deg); background: var(--coral-soft); border-radius: 60px; pointer-events: none; }
+
+  /* Closing slide */
+  .slide.closing { background: var(--ink); color: #fff; padding: 120px; }
+  .slide.closing .chrome, .slide.closing .foot { color: rgba(255,255,255,.45); }
+  .slide.closing .chrome .brand { color: #fff; }
+  .slide.closing h2.title { color: #fff; }
+  .slide.closing .lead { color: rgba(255,255,255,.78); }
+  .slide.closing .eyebrow { color: var(--coral); }
+</style>
+</head>
+<body>
+
+<deck-stage>
+
+<!-- ============ 01 COVER ============ -->
+<section class="slide cover" data-screen-label="01 Cover">
+  <div class="chrome">
+    <div class="brand">오늘의 냉장고 · TODAY'S FRIDGE</div>
+    <div>2026 · FINAL PROJECT</div>
+  </div>
+
+  <div style="margin-top: 120px; display: flex; flex-direction: column; gap: 56px;">
+    <div class="tagline">SMART RECIPE PLATFORM</div>
+    <h1>오늘의<br/>냉장고.</h1>
+    <div class="sub">개인화 추천과 AI 기술을 결합한 스마트 레시피 플랫폼.<br/>냉장고 → 식단 → 건강 → 장보기, 음식 라이프사이클의 모든 것.</div>
+  </div>
+
+  <div class="foot">
+    <div class="meta">
+      <span>🌐 todayfridge.com</span>
+      <span>👥 7 Members</span>
+      <span>🤖 6 AI Models</span>
+    </div>
+    <div>v1.0 · 발표용</div>
+  </div>
+
+  <!-- glyph: fridge icon -->
+  <svg class="glyph" viewBox="0 0 200 200" fill="none">
+    <rect x="40" y="20" width="120" height="160" rx="14" stroke="#E4B43A" stroke-width="3" />
+    <line x1="40" y1="78" x2="160" y2="78" stroke="#E4B43A" stroke-width="3" />
+    <circle cx="148" cy="50" r="4" fill="#E4B43A" />
+    <circle cx="148" cy="120" r="4" fill="#E4B43A" />
+    <rect x="60" y="36" width="36" height="6" rx="3" fill="#E8744C" />
+    <rect x="60" y="100" width="60" height="6" rx="3" fill="#E8744C" opacity=".7" />
+    <rect x="60" y="116" width="40" height="6" rx="3" fill="#E8744C" opacity=".4" />
+    <rect x="60" y="146" width="50" height="6" rx="3" fill="#E8744C" opacity=".55" />
+  </svg>
+</section>
+
+<!-- ============ 02 PROBLEM/SOLUTION ============ -->
+<section class="slide" data-screen-label="02 Overview">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>01 / 프로젝트 개요</div></div>
+  <div class="bg-deco corner-tr"></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">01</span><div class="eyebrow">PROBLEM × SOLUTION</div></div>
+    <h2 class="title">냉장고는 가득한데,<br/>오늘 뭐 먹을지는 늘 어렵다.</h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="card" style="background: var(--coral-soft); border-color: var(--coral);">
+        <div class="label" style="color: var(--coral);">PROBLEM</div>
+        <div class="h">반복되는 식자재 낭비와 식단 고민</div>
+        <ul style="margin: 0; padding-left: 22px; font-size: 22px; color: var(--ink-2); line-height: 1.7;">
+          <li>유통기한이 임박한 재료를 자꾸 잊는다</li>
+          <li>레시피 검색은 많은데, <strong>지금 내 냉장고</strong>로는 만들 수 없다</li>
+          <li>알러지·저염·고단백 같은 <strong>개인 조건</strong>은 반영되지 않는다</li>
+          <li>부족한 재료를 사려면 또 따로 검색해야 한다</li>
+        </ul>
+      </div>
+      <div class="card" style="background: var(--green); color: #fff; border-color: var(--green);">
+        <div class="label" style="color: var(--amber);">SOLUTION</div>
+        <div class="h" style="color: #fff;">"냉장고를 알고 있는" 한 개의 플랫폼</div>
+        <ul style="margin: 0; padding-left: 22px; font-size: 22px; color: rgba(255,255,255,.92); line-height: 1.7;">
+          <li>📸 사진 1장으로 냉장고 재료 자동 등록 (YOLO + OCR)</li>
+          <li>🍳 보유 재료 + 의미 유사도 + 사용자 조건 = <strong>하이브리드 추천</strong></li>
+          <li>💬 "왜 이 레시피?"를 LLM이 한국어로 설명</li>
+          <li>🛒 부족한 재료는 쿠팡/네이버/11번가 최저가로 즉시 연결</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>02 / 23</div></div>
+</section>
+
+<!-- ============ 03 TEAM ============ -->
+<section class="slide" data-screen-label="03 Team">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>02 / 팀 & 역할</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">02</span><div class="eyebrow">TEAM × ROLES</div></div>
+    <h2 class="title">7명의 멤버,<br/>7개의 영역.</h2>
+  </div>
+
+  <div class="body">
+    <div class="team-grid">
+      <div class="person pm">
+        <div class="role">PM</div>
+        <div class="name">신재용</div>
+        <div class="desc">OCR 텍스트 인식, 레시피 크롤링 및 수집, 1차 식재료 이미지 인식</div>
+      </div>
+      <div class="person">
+        <div class="role">AI · BACKEND</div>
+        <div class="name">한수정</div>
+        <div class="desc">추천 시스템 설계, 개인화 추천, 챗봇</div>
+      </div>
+      <div class="person">
+        <div class="role">FULLSTACK</div>
+        <div class="name">김정호</div>
+        <div class="desc">레시피 상세 페이지, 영양 분석 리포트, 식단 관리</div>
+      </div>
+      <div class="person">
+        <div class="role">FULLSTACK</div>
+        <div class="name">정경안</div>
+        <div class="desc">커뮤니티 기능, 좋아요 및 신고 기능</div>
+      </div>
+      <div class="person">
+        <div class="role">AI · BACKEND</div>
+        <div class="name">장민재</div>
+        <div class="desc">식재료 CRUD, 2차 식재료 이미지 인식, 유통기한·카테고리 처리</div>
+      </div>
+      <div class="person">
+        <div class="role">FRONTEND</div>
+        <div class="name">임동주</div>
+        <div class="desc">마이페이지, 알림 기능, 홈화면 대시보드</div>
+      </div>
+      <div class="person" style="background: var(--coral); color: #fff; border-color: var(--coral); grid-column: span 2;">
+        <div class="role" style="color: var(--kakao);">FOCUS THEME — 인증 & 쇼핑 연동</div>
+        <div class="name" style="color: #fff;">민예린</div>
+        <div class="desc" style="color: rgba(255,255,255,.92);">쇼핑 링크 연동(쿠팡·네이버·11번가), JWT 로그인 및 인증, 카카오 소셜 로그인 — <strong>본 발표 후반부 특별 테마</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>03 / 23</div></div>
+</section>
+
+<!-- ============ 04 ARCHITECTURE ============ -->
+<section class="slide" data-screen-label="04 Architecture">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>03 / 시스템 아키텍처</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">03</span><div class="eyebrow">SYSTEM ARCHITECTURE</div></div>
+    <h2 class="title">3-Tier × 마이크로서비스</h2>
+    <p class="lead">메인 BE(Spring Boot)는 도메인 로직, 무거운 AI 추론은 FastAPI로 분리.<br/>Redis가 인증·캐시·세션을 한곳에 모은다.</p>
+  </div>
+
+  <div class="body">
+    <div class="arch">
+      <div class="arch-col">
+        <div class="arch-card" style="background: var(--coral); color: #fff; border-color: var(--coral);">
+          <div class="hd"><span class="dot" style="background: #fff;"></span><div><div class="t" style="color: #fff;">Frontend</div><div class="s" style="color: rgba(255,255,255,.8);">사용자 인터페이스</div></div></div>
+          <ul style="color: rgba(255,255,255,.95);">
+            <li>Next.js 16.2 (App Router)</li>
+            <li>React 18 + Tailwind CSS v3</li>
+            <li>AuthContext · axios 인터셉터</li>
+            <li>Vitest · React Testing Library</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <div class="hd"><span class="dot" style="background: var(--blue);"></span><div><div class="t">PHP 정적</div><div class="s">이미지 업로드 라우터</div></div></div>
+          <ul>
+            <li>upload_fridge_image.php</li>
+            <li>upload_commu_image.php</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arch-col">
+        <div class="arch-card" style="background: var(--green); color: #fff; border-color: var(--green);">
+          <div class="hd"><span class="dot" style="background: var(--amber);"></span><div><div class="t" style="color: #fff;">Main Backend</div><div class="s" style="color: rgba(255,255,255,.8);">도메인 로직 · 인증</div></div></div>
+          <ul style="color: rgba(255,255,255,.95);">
+            <li>Spring Boot 3 · JDK 17</li>
+            <li>Spring Security · JJWT</li>
+            <li>JPA · QueryDSL · pgvector</li>
+            <li>도메인 패키지: auth · ingredient · recipe · recommendation · shopping · meal · post · chatbot · bookmark · embedding · vision · file · user · dashboard · llm · substitution</li>
+          </ul>
+        </div>
+        <div class="arch-card" style="background: #fff; border-color: var(--coral); border-width: 2px;">
+          <div class="hd"><span class="dot" style="background: var(--red);"></span><div><div class="t" style="color: var(--red);">Redis</div><div class="s">중앙 캐시 & 세션</div></div></div>
+          <ul>
+            <li>JWT Refresh 세션 · 블랙리스트</li>
+            <li>Email Verify Token (TTL 24h)</li>
+            <li>쇼핑 가격 캐시 (TTL 1h)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arch-col">
+        <div class="arch-card" style="background: var(--ink); color: #fff; border-color: var(--ink);">
+          <div class="hd"><span class="dot" style="background: var(--amber);"></span><div><div class="t" style="color: #fff;">AI / ML Server</div><div class="s" style="color: rgba(255,255,255,.7);">비전 · NLP · LLM</div></div></div>
+          <ul style="color: rgba(255,255,255,.92);">
+            <li>FastAPI · Python 3.10</li>
+            <li>Ultralytics YOLO · PaddleOCR</li>
+            <li>SentenceTransformer (MiniLM-L6)</li>
+            <li>Ollama gemma2 (로컬)</li>
+            <li>Google Gemini 3.1 flash-lite (Fallback)</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <div class="hd"><span class="dot" style="background: var(--blue);"></span><div><div class="t">PostgreSQL</div><div class="s">+ pgvector</div></div></div>
+          <ul>
+            <li>도메인 데이터 전체</li>
+            <li>recipe_embedding (384d) 벡터 컬럼</li>
+            <li>ingredient_master · 정규화 매핑</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>04 / 23</div></div>
+</section>
+
+<!-- ============ 05 FEATURES MATRIX ============ -->
+<section class="slide" data-screen-label="05 Features">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>04 / 주요 기능 매트릭스</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">04</span><div class="eyebrow">FEATURE MATRIX</div></div>
+    <h2 class="title">7개 도메인,<br/>하나의 식생활 OS.</h2>
+  </div>
+
+  <div class="body">
+    <table class="t">
+      <thead>
+        <tr><th style="width: 60px;">#</th><th style="width: 140px;">도메인</th><th>핵심 기능</th><th>활용 기술</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="strong">01</span></td><td><span class="strong">🧊 냉장고</span></td>
+          <td>사진 한 장으로 식재료 자동 등록 · 카테고리 분류 · 유통기한 추정 · CRUD</td>
+          <td><span class="badge cream">YOLO-cls</span> <span class="badge cream">PaddleOCR</span></td></tr>
+        <tr><td><span class="strong">02</span></td><td><span class="strong">🍳 레시피</span></td>
+          <td>보유 재료 매칭률 + 의미 유사도 + 조건 태그 종합 추천 · "왜?"를 LLM이 설명</td>
+          <td><span class="badge cream">Hybrid Rank</span> <span class="badge cream">MiniLM-L6</span> <span class="badge cream">Ollama gemma2</span></td></tr>
+        <tr><td><span class="strong">03</span></td><td><span class="strong">🥗 식단/건강</span></td>
+          <td>매끼 기록 · BMI/영양소 분석 · LLM 일/주/월 건강 리포트</td>
+          <td><span class="badge cream">Gemini Flash</span> <span class="badge cream">JSON Mode</span></td></tr>
+        <tr><td><span class="strong">04</span></td><td><span class="strong">💬 커뮤니티</span></td>
+          <td>레시피 후기 게시판 · 좋아요/팔로우/신고 · 신고 누적 자동 비공개</td>
+          <td><span class="badge cream">JPA</span> <span class="badge cream">QueryDSL</span></td></tr>
+        <tr><td><span class="strong">05</span></td><td><span class="strong">🤖 챗봇</span></td>
+          <td>"내일 점심 추천해줘" → 의도 파싱 → 도메인 서비스 라우팅</td>
+          <td><span class="badge cream">Intent Parser</span> <span class="badge cream">LLM Router</span></td></tr>
+        <tr><td><span class="strong">06</span></td><td><span class="strong">🛒 쇼핑 연동</span></td>
+          <td>부족 재료 키워드로 쿠팡/네이버/11번가 실시간 최저가 · Redis 1h 캐시</td>
+          <td><span class="badge cream">Naver OpenAPI</span> <span class="badge cream">Coupang</span> <span class="badge cream">11ST</span></td></tr>
+        <tr><td><span class="strong">07</span></td><td><span class="strong">🔐 인증</span></td>
+          <td>JWT(Access/Refresh) + Redis 블랙리스트 · 이메일 인증 · 카카오 OAuth</td>
+          <td><span class="badge cream">JJWT</span> <span class="badge cream">Redis</span> <span class="badge cream">Kakao OAuth 2.0</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>05 / 23</div></div>
+</section>
+
+<!-- ============ 06 FRIDGE FEATURE ============ -->
+<section class="slide" data-screen-label="06 Fridge Feature">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>05 / 기능 상세 · 냉장고</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">05</span><div class="eyebrow">FEATURE · 01</div></div>
+    <h2 class="title">🧊 냉장고 — 사진 1장으로 끝.</h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="col" style="gap: 24px;">
+        <div class="card">
+          <div class="label">USER FLOW</div>
+          <div class="h">3단계 자동 등록</div>
+          <ol style="margin: 0; padding-left: 24px; font-size: 22px; color: var(--ink-2); line-height: 1.7;">
+            <li><span class="strong">📷 사진 업로드</span> — 갤러리/카메라</li>
+            <li><span class="strong">🧠 AI 분석</span> — YOLO 라우팅 → OCR/생재료 분류</li>
+            <li><span class="strong">✏️ 사용자 확인</span> — 카테고리, 유통기한 미세 수정 후 저장</li>
+          </ol>
+        </div>
+        <div class="card">
+          <div class="label">BACKEND</div>
+          <div class="h">FreshnessCalculator + StorageTypePolicy</div>
+          <div class="p">유통기한, 보관 형태(냉장/냉동/실온)에 따라 신선도 상태(<code class="inl">FreshnessStatus</code>)를 자동 산출 — 임박 항목을 대시보드/추천 가중치에 반영.</div>
+        </div>
+      </div>
+
+      <div class="col" style="gap: 24px;">
+        <div class="card" style="background: var(--green); color: #fff; border-color: var(--green);">
+          <div class="label" style="color: var(--amber);">AI PIPELINE</div>
+          <div class="h" style="color: #fff;">3단 분기 라우팅</div>
+          <pre class="flow" style="background: rgba(0,0,0,.35);">
+<span class="c"># /api/v1/ingredient/classify</span>
+<span class="k">image</span> ─▶ <span class="g">YOLO-cls (best.pt)</span>
+       │
+       ├─ <span class="b">raw_ingredient</span>  ─▶ rawIngredientClassifier
+       ├─ <span class="b">packaged_food</span>   ─▶ PaddleOCR (라벨 텍스트)
+       └─ <span class="b">other</span>           ─▶ 사용자 수동 입력
+                       │
+                       ▼
+              <span class="r">ingredient_master_id</span> 정규화
+                       │
+                       ▼
+                    DB <span class="w">저장</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>06 / 23</div></div>
+</section>
+
+<!-- ============ 07 RECIPE RECOMMEND ============ -->
+<section class="slide" data-screen-label="07 Recipe Recommendation">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>06 / 기능 상세 · 레시피 추천</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">06</span><div class="eyebrow">FEATURE · 02</div></div>
+    <h2 class="title">🍳 레시피 — 하이브리드 추천 + LLM 설명</h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="card">
+        <div class="label">SCORING</div>
+        <div class="h">매칭률 · 의미 유사도 · 조건 태그</div>
+        <table class="t" style="margin-top: 8px;">
+          <tbody>
+            <tr><td style="border: none; padding: 10px 0;"><span class="badge cream">매칭률</span></td><td style="border: none; padding: 10px 0;">보유 재료 ∩ 레시피 재료 / 레시피 재료 수</td></tr>
+            <tr><td style="border: none; padding: 10px 0;"><span class="badge cream">시맨틱</span></td><td style="border: none; padding: 10px 0;">키워드 → MiniLM-L6 → pgvector 코사인 유사도</td></tr>
+            <tr><td style="border: none; padding: 10px 0;"><span class="badge cream">태그</span></td><td style="border: none; padding: 10px 0;">사용자 조건(알러지/저염/고단백) × 레시피 태그</td></tr>
+            <tr><td style="border: none; padding: 10px 0;"><span class="badge cream">알러지</span></td><td style="border: none; padding: 10px 0;"><strong>하드 필터</strong> — 매칭되면 결과에서 제외</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="background: var(--ink); color: #fff; border-color: var(--ink);">
+        <div class="label" style="color: var(--amber);">LLM EXPLANATION</div>
+        <div class="h" style="color: #fff;">상위 3개에만 호출 — 비용 최적화</div>
+        <div class="p" style="color: rgba(255,255,255,.9); font-size: 19px;">
+          <code class="inl" style="background: rgba(255,255,255,.1); color: var(--amber); border-color: rgba(255,255,255,.2);">RecommendationService#attachLlmExplanationToTopN</code>
+        </div>
+        <div style="background: var(--cream); color: var(--ink); border-radius: 14px; padding: 22px 26px; margin-top: 8px; border-left: 6px solid var(--coral);">
+          <div style="font-size: 16px; color: var(--sub); font-weight: 600; letter-spacing: .08em; text-transform: uppercase;">EXAMPLE OUTPUT</div>
+          <div style="font-size: 24px; line-height: 1.55; margin-top: 6px; color: var(--ink);">"냉장고에 있는 <strong>두부와 양파</strong>를 그대로 쓸 수 있고,<br/>저염 조건에도 잘 맞아요. 20분이면 완성됩니다."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="numlist" style="margin-top: 8px;">
+      <div class="item">
+        <div class="num">01 · INPUT</div>
+        <div class="h">사용자 컨텍스트 수집</div>
+        <div class="p">보유 식재료 + 검색 키워드 + UserCondition(알러지/취향) → <code class="inl">RecommendationQuery</code></div>
+      </div>
+      <div class="item">
+        <div class="num">02 · SCORE</div>
+        <div class="h">HybridRankingService</div>
+        <div class="p">매칭/임베딩/태그 가중 합산 → 정렬 → <code class="inl">RecipeRecommendationRow[]</code></div>
+      </div>
+      <div class="item">
+        <div class="num">03 · EXPLAIN</div>
+        <div class="h">Top-3만 LLM 호출</div>
+        <div class="p">Ollama gemma2 우선 시도 → 실패 시 Gemini Flash Lite 폴백</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>07 / 23</div></div>
+</section>
+
+<!-- ============ 08 HEALTH REPORT ============ -->
+<section class="slide compact" data-screen-label="08 Health Report">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>07 / 기능 상세 · 식단 · 건강 리포트</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">07</span><div class="eyebrow">FEATURE · 03</div></div>
+    <h2 class="title">🥗 식단 기록 → 건강 리포트</h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="card">
+        <div class="label">RECORD</div>
+        <div class="h">매끼 식사 기록</div>
+        <div class="p">레시피를 "조리 완료" 표시하면 <code class="inl">Meal</code> 엔티티로 자동 기록. 사용자가 직접 입력도 가능. <code class="inl">DayNutrition</code>에 일별 영양소 누적.</div>
+        <div class="badges mt-s">
+          <span class="badge">Meal</span><span class="badge">DayNutrition</span><span class="badge">HealthReport</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="label">ANALYZE</div>
+        <div class="h">기간별 영양 분석</div>
+        <div class="p"><code class="inl">MealServiceDaily</code> / <code class="inl">MealServicePeriod</code> — 일/주/월 단위 단백질·탄수화물·지방·나트륨·식이섬유 추적. 사용자의 BMI·키·몸무게 기반 권장량과 비교.</div>
+      </div>
+
+      <div class="card" style="background: var(--green); color: #fff; border-color: var(--green);">
+        <div class="label" style="color: var(--amber);">REPORT (LLM)</div>
+        <div class="h" style="color: #fff;">Gemini JSON 모드 자연어 리포트</div>
+        <div class="p" style="color: rgba(255,255,255,.92);">
+          <code class="inl" style="background: rgba(255,255,255,.12); color: var(--amber); border-color: rgba(255,255,255,.2);">routes/health_report.py</code> + <code class="inl" style="background: rgba(255,255,255,.12); color: var(--amber); border-color: rgba(255,255,255,.2);">HealthReportService</code><br/>
+          영양 패턴 → JSON 강제 출력 (한국어 코멘트 + 권장 식단 + 경고 항목).
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v">5+</div><div class="l">분석 영양소</div></div>
+      <div class="stat"><div class="v">D/W/M</div><div class="l">기간 단위</div></div>
+      <div class="stat"><div class="v">BMI</div><div class="l">개인 권장량 기준</div></div>
+      <div class="stat"><div class="v">JSON</div><div class="l">구조화 출력</div></div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>08 / 23</div></div>
+</section>
+
+<!-- ============ 09 COMMUNITY/CHATBOT ============ -->
+<section class="slide" data-screen-label="09 Community Chatbot">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>08 / 커뮤니티 · 챗봇</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">08</span><div class="eyebrow">FEATURE · 04 + 05</div></div>
+    <h2 class="title">💬 커뮤니티 + 🤖 챗봇</h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="card">
+        <div class="label">COMMUNITY</div>
+        <div class="h">레시피 후기 · 사용자 활동</div>
+        <ul style="margin: 0; padding-left: 22px; font-size: 21px; color: var(--ink-2); line-height: 1.7;">
+          <li>📝 게시글 등록/수정 — 이미지 다중 업로드(PHP upload endpoint)</li>
+          <li>❤️ 좋아요 토글, 사용자 팔로우</li>
+          <li>🚨 신고 누적 임계치 초과 시 <strong>자동 비공개</strong></li>
+          <li>📑 페이징 · 정렬 (최신/인기)</li>
+        </ul>
+        <div class="badges mt-s">
+          <span class="badge">PostController</span>
+          <span class="badge">PostLikeService</span>
+          <span class="badge">PostFollowService</span>
+          <span class="badge">PostReportService</span>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--coral); color: #fff; border-color: var(--coral);">
+        <div class="label" style="color: var(--kakao);">CHATBOT</div>
+        <div class="h" style="color: #fff;">의도 파싱 → 도메인 라우팅</div>
+        <div class="p" style="color: rgba(255,255,255,.92);">"내일 점심 뭐 먹을까?" → <code class="inl" style="background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3);">IntentParserService</code> → 추천/검색/식단 도메인 호출 → 통합 답변.</div>
+        <pre class="flow" style="background: rgba(0,0,0,.3); margin-top: 8px; font-size: 17px;">
+<span class="c">// chatbot/service/ChatbotOrchestratorService.java</span>
+user_msg ─▶ <span class="g">IntentParser</span> ─┬─ <span class="b">RECOMMEND</span> ─▶ RecommendationService
+                          ├─ <span class="b">SEARCH</span>    ─▶ RecipeService
+                          ├─ <span class="b">FRIDGE</span>    ─▶ FridgeIngredientService
+                          └─ <span class="b">CHAT</span>      ─▶ LLM 직접 답변</pre>
+        <div class="p" style="color: rgba(255,255,255,.85); font-size: 18px;">FloatingChatbot.jsx — 모든 페이지 우하단 플로팅 위젯</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>09 / 23</div></div>
+</section>
+
+<!-- ============ 10 SECTION DIVIDER — AI ============ -->
+<section class="slide section" data-screen-label="10 AI Section">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>09 / AI · ML 깊이 분석</div></div>
+
+  <div class="head" style="margin-top: 80px;">
+    <div class="sect-num">PART 02 / 03</div>
+    <h1 class="title" style="font-size: 156px; margin-top: 12px;">AI 기능,<br/>모델 단위로.</h1>
+    <p class="lead" style="font-size: 36px; margin-top: 28px;">
+      <code class="inl" style="background: rgba(255,255,255,.1); color: var(--amber); border-color: rgba(255,255,255,.2);">model/</code> 폴더 전체 분석.<br/>
+      6개의 모델이 어떤 기능에 어떻게 연결되는지.
+    </p>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>10 / 23</div></div>
+</section>
+
+<!-- ============ 11 AI · YOLO ROUTING ============ -->
+<section class="slide" data-screen-label="11 AI YOLO Router">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>10 / AI · YOLO 라우팅 분류기</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">10</span><div class="eyebrow">AI · MODEL 01</div></div>
+    <h2 class="title">YOLO-cls<br/><span style="color: var(--coral); font-weight: 600;">이미지 라우팅 분류기</span></h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="col" style="gap: 20px;">
+        <div class="model-card">
+          <span class="pill">model/app/models/img2class/</span>
+          <div class="h">3-class 분기 분류 (best.pt)</div>
+          <div class="p">Ultralytics YOLOv8 classification으로 업로드 이미지를 <code class="inl">raw_ingredient</code>, <code class="inl">packaged_food</code>, <code class="inl">other</code> 중 어느 파이프라인으로 보낼지 1차 판정.</div>
+        </div>
+        <div class="model-card" style="background: var(--green-soft); border-color: var(--green-2);">
+          <span class="pill">CONNECTS TO</span>
+          <div class="h">기능: 냉장고 식재료 등록</div>
+          <div class="p">사용자가 사진을 올리면 <strong>이 모델이 첫 번째</strong>로 호출되어, 결과에 따라 OCR / 생재료 분류기 / 수동 입력 화면 중 하나로 자동 분기.</div>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--ink); color: #fff;">
+        <div class="label" style="color: var(--amber);">DATA</div>
+        <div class="h" style="color: #fff;">학습 자산 & 파이프라인</div>
+        <ul style="margin: 0; padding-left: 22px; color: rgba(255,255,255,.9); font-size: 19px; line-height: 1.7;">
+          <li><code class="inl" style="background: rgba(255,255,255,.1); color: var(--amber); border-color: rgba(255,255,255,.2);">data_sources/GroceryStoreDataset</code> — 공개 데이터</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.1); color: var(--amber); border-color: rgba(255,255,255,.2);">mapping_grocery_dataset.json</code> — 폴더 → 클래스 정규화</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.1); color: var(--amber); border-color: rgba(255,255,255,.2);">tools/prepare_yolo_cls_dataset.py</code> — 데이터셋 준비</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.1); color: var(--amber); border-color: rgba(255,255,255,.2);">tools/train_route_classifier.py</code> — 학습 스크립트</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.1); color: var(--amber); border-color: rgba(255,255,255,.2);">mlflow.db</code> — 실험 추적</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.1); color: var(--amber); border-color: rgba(255,255,255,.2);">test_ingredientRouteClassifier.py</code> — 단위 테스트</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>11 / 23</div></div>
+</section>
+
+<!-- ============ 12 AI · PADDLEOCR ============ -->
+<section class="slide" data-screen-label="12 AI PaddleOCR">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>11 / AI · OCR</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">11</span><div class="eyebrow">AI · MODEL 02</div></div>
+    <h2 class="title">PaddleOCR<br/><span style="color: var(--coral); font-weight: 600;">포장 식품 텍스트 인식</span></h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2 flip">
+      <div class="card" style="background: var(--cream-2);">
+        <div class="label">PROBLEM</div>
+        <div class="h">"라면 한 봉지의 라벨에서 진짜 상품명만 뽑기"</div>
+        <div class="p">포장 식품 사진에는 영양정보, 인증마크, 가격 라벨, 광고 문구가 뒤섞여 있어 단순 OCR로는 노이즈가 너무 많음.</div>
+      </div>
+      <div class="card" style="background: var(--green); color: #fff; border-color: var(--green);">
+        <div class="label" style="color: var(--amber);">SOLUTION · packagedFoodOcr.py</div>
+        <div class="h" style="color: #fff;">PaddleOCR + 정규식 노이즈 필터</div>
+        <ul style="margin: 0; padding-left: 20px; color: rgba(255,255,255,.92); font-size: 19px; line-height: 1.65;">
+          <li>한국어 + 영문 detection / recognition</li>
+          <li><strong>제거:</strong> 영양정보(g, kcal, %), 인증마크, 가격, 바코드 텍스트</li>
+          <li><strong>유지:</strong> 길이 2~20자 한글 중심 상품명 후보</li>
+          <li>상위 N개 후보 중 신뢰도 + 길이 가중치로 선정</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="numlist">
+      <div class="item">
+        <div class="num">CONNECTS TO</div>
+        <div class="h">🥛 라면 · 우유 · 소스 자동 등록</div>
+        <div class="p">YOLO 라우터가 <code class="inl">packaged_food</code> 판정 시 이 모델로 전달.</div>
+      </div>
+      <div class="item">
+        <div class="num">TEST COVERAGE</div>
+        <div class="h">unit + integration</div>
+        <div class="p"><code class="inl">__tests__/test_packaged_food_ocr_unit.py</code> + Vision API 통합 테스트</div>
+      </div>
+      <div class="item">
+        <div class="num">DOC</div>
+        <div class="h">README_packaged_food_ocr_v3.md</div>
+        <div class="p">필터 규칙 · 후처리 정책 · 한계점 문서화</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>12 / 23</div></div>
+</section>
+
+<!-- ============ 13 AI · RAW + EMBEDDING ============ -->
+<section class="slide" data-screen-label="13 AI Raw Ingredient + Embedding">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>12 / AI · 생재료 분류기 + 임베딩</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">12</span><div class="eyebrow">AI · MODEL 03 + 04</div></div>
+    <h2 class="title">생재료 분류기 +<br/>시맨틱 임베딩</h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="model-card">
+        <span class="pill">model 03 · ingredient/rawIngredientClassifier.py</span>
+        <div class="h">🥕 Raw Ingredient Classifier</div>
+        <div class="p">YOLO 기반 다중 클래스 분류기 — 사과, 양파, 대파 등 <strong>구체 품목까지</strong> 식별.</div>
+        <hr class="thin" style="margin: 4px 0;" />
+        <div class="meta">📂 weights/raw_ingredient_best.pt</div>
+        <div class="meta">📊 한국 공개 데이터셋 + Fruits360 + 자체 수집</div>
+        <div class="meta">🔗 data/model_label_to_master.json — DB ingredient_master와 정규화 매핑</div>
+        <div class="p" style="font-size: 17px; color: var(--sub);">tools/ — 데이터 수집, 라벨 매핑, 신뢰도 갭 검증, 한국어 별칭 처리까지 자동화된 15개 스크립트 보유</div>
+      </div>
+
+      <div class="model-card" style="background: var(--ink); color: #fff;">
+        <span class="pill" style="background: rgba(228,180,58,.2); color: var(--amber);">model 04 · services/embedding_service.py</span>
+        <div class="h" style="color: #fff;">🔍 SentenceTransformer 시맨틱 검색</div>
+        <div class="p" style="color: rgba(255,255,255,.9);"><code class="inl" style="background: rgba(255,255,255,.1); color: var(--amber); border-color: rgba(255,255,255,.2);">sentence-transformers/all-MiniLM-L6-v2</code> · 384차원 임베딩.<br/>레시피명 + 재료 + 태그를 벡터화 → PostgreSQL <strong>pgvector</strong>에 저장.</div>
+        <hr class="thin" style="margin: 4px 0; border-color: rgba(255,255,255,.15);" />
+        <div class="meta" style="color: rgba(255,255,255,.65);">🚀 "매콤 국물" → 코사인 유사도 상위 N개</div>
+        <div class="meta" style="color: rgba(255,255,255,.65);">⚙️ Java RecipeEmbeddingSearchService에서 호출</div>
+        <div class="meta" style="color: rgba(255,255,255,.65);">📦 RecipeEmbeddingBulkService로 배치 인덱싱</div>
+        <div class="p" style="color: rgba(255,255,255,.85); font-size: 18px;"><strong>핵심 기능 연결:</strong> 레시피 추천의 "시맨틱" 점수 컴포넌트.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>13 / 23</div></div>
+</section>
+
+<!-- ============ 14 AI · LLM ============ -->
+<section class="slide compact" data-screen-label="14 AI LLM">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>13 / AI · LLM (Ollama + Gemini)</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">13</span><div class="eyebrow">AI · MODEL 05 (LLM CORE)</div></div>
+    <h2 class="title">로컬 우선,<br/>클라우드 폴백.</h2>
+    <p class="lead">비용 0 / 데이터 외부 유출 0을 기본값으로. 실패 시에만 클라우드.</p>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="card" style="background: var(--green); color: #fff; border-color: var(--green);">
+        <div class="label" style="color: var(--amber);">PRIMARY · LOCAL</div>
+        <div class="h" style="color: #fff;">🦙 Ollama · <code class="inl" style="background: rgba(255,255,255,.12); color: var(--amber); border-color: rgba(255,255,255,.2);">gemma2</code></div>
+        <ul style="margin: 0; padding-left: 22px; color: rgba(255,255,255,.92); font-size: 20px; line-height: 1.65;">
+          <li>로컬 실행 → 비용 0, 데이터 외부 유출 0</li>
+          <li>한국어 응답 품질 우수</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.12); color: var(--amber); border-color: rgba(255,255,255,.2);">services/ollama_service.py</code></li>
+        </ul>
+      </div>
+      <div class="card" style="background: #fff; border-color: var(--coral); border-width: 2.5px;">
+        <div class="label" style="color: var(--coral);">FALLBACK · CLOUD</div>
+        <div class="h">🔥 Google Gemini <code class="inl">3.1 flash-lite</code></div>
+        <ul style="margin: 0; padding-left: 22px; color: var(--ink-2); font-size: 20px; line-height: 1.65;">
+          <li>Ollama 타임아웃/오류 시 자동 폴백</li>
+          <li>JSON 모드 — 건강 리포트의 구조화 출력</li>
+          <li><code class="inl">services/gemini_service.py</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="background: var(--cream-2); border-color: var(--line);">
+      <div class="label">CONNECTS TO — LLM이 동력이 되는 6가지 기능</div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 8px;">
+        <div><div class="strong" style="color: var(--green); font-size: 22px; font-weight: 800;">① 레시피 추천 사유</div><div style="font-size: 18px; color: var(--ink-2); margin-top: 4px;">"왜 이 레시피인가" — 상위 3개에만 호출 (비용 최적화)</div></div>
+        <div><div class="strong" style="color: var(--green); font-size: 22px; font-weight: 800;">② 대체재 추천 사유</div><div style="font-size: 18px; color: var(--ink-2); margin-top: 4px;">"두부 → 계란"으로 대체 가능한 이유 설명</div></div>
+        <div><div class="strong" style="color: var(--green); font-size: 22px; font-weight: 800;">③ 쇼핑 추천 사유</div><div style="font-size: 18px; color: var(--ink-2); margin-top: 4px;">"가성비 좋고 빠른 배송" 같은 자연어 코멘트</div></div>
+        <div><div class="strong" style="color: var(--green); font-size: 22px; font-weight: 800;">④ 식사 추천 (Meal)</div><div style="font-size: 18px; color: var(--ink-2); margin-top: 4px;">영양 부족분 분석 → 다음 끼니 큐레이션</div></div>
+        <div><div class="strong" style="color: var(--green); font-size: 22px; font-weight: 800;">⑤ 건강 리포트</div><div style="font-size: 18px; color: var(--ink-2); margin-top: 4px;">JSON 모드 — 일/주/월 영양 패턴 구조화</div></div>
+        <div><div class="strong" style="color: var(--green); font-size: 22px; font-weight: 800;">⑥ 레시피 태그 분류</div><div style="font-size: 18px; color: var(--ink-2); margin-top: 4px;">양념/조리법/특징 태그를 LLM이 자동 부여</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>14 / 23</div></div>
+</section>
+
+<!-- ============ 15 AI ROUTES OVERVIEW ============ -->
+<section class="slide compact" data-screen-label="15 AI Routes Map">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>14 / AI · 라우트 ↔ 기능 매핑</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">14</span><div class="eyebrow">AI MODELS × FEATURE MAP</div></div>
+    <h2 class="title">FastAPI 라우트 9개<br/>↔ Spring Boot 도메인.</h2>
+  </div>
+
+  <div class="body">
+    <table class="t dense">
+      <thead>
+        <tr><th style="width: 38%;">FastAPI Route (model/app/api/routes/)</th><th style="width: 32%;">사용 모델</th><th>호출자 (Spring Boot 도메인)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="inl">ingredient.py</code><br/><span style="font-size: 17px; color: var(--sub);">식재료 이미지 분류 (라우팅 + 생재료)</span></td>
+            <td><span class="badge cream">YOLO route</span> <span class="badge cream">Raw YOLO</span></td>
+            <td><code class="inl">ingredient.service.FridgeIngredientService</code></td></tr>
+        <tr><td><code class="inl">internal/visionInternalApi.py</code><br/><span style="font-size: 17px; color: var(--sub);">OCR 통합 비전 엔드포인트</span></td>
+            <td><span class="badge cream">PaddleOCR</span> <span class="badge cream">YOLO route</span></td>
+            <td><code class="inl">vision.service.VisionRecognitionPersistenceService</code></td></tr>
+        <tr><td><code class="inl">embedding.py</code><br/><span style="font-size: 17px; color: var(--sub);">텍스트 임베딩 / 시맨틱 검색</span></td>
+            <td><span class="badge cream">MiniLM-L6</span></td>
+            <td><code class="inl">embedding.service.RecipeEmbeddingSearchService</code></td></tr>
+        <tr><td><code class="inl">recommendation_llm.py</code><br/><span style="font-size: 17px; color: var(--sub);">추천 사유 자연어 생성</span></td>
+            <td><span class="badge cream">Ollama gemma2</span> <span class="badge cream">Gemini</span></td>
+            <td><code class="inl">recommendation.service.RecommendationService</code></td></tr>
+        <tr><td><code class="inl">substitution_llm.py</code><br/><span style="font-size: 17px; color: var(--sub);">대체재 추천 사유</span></td>
+            <td><span class="badge cream">Ollama</span> <span class="badge cream">Gemini</span></td>
+            <td><code class="inl">substitution.service.SubstitutionService</code></td></tr>
+        <tr><td><code class="inl">shopping_explain.py</code><br/><span style="font-size: 17px; color: var(--sub);">쇼핑 추천 코멘트</span></td>
+            <td><span class="badge cream">Ollama</span></td>
+            <td><code class="inl">shopping.external.ai.ShoppingExplainClient</code></td></tr>
+        <tr><td><code class="inl">meal_recommendation.py</code><br/><span style="font-size: 17px; color: var(--sub);">다음 식사 추천</span></td>
+            <td><span class="badge cream">Gemini</span></td>
+            <td><code class="inl">meal.service.MealService</code></td></tr>
+        <tr><td><code class="inl">health_report.py</code><br/><span style="font-size: 17px; color: var(--sub);">건강 리포트 JSON 생성</span></td>
+            <td><span class="badge cream">Gemini JSON</span></td>
+            <td><code class="inl">meal.service.HealthReportService</code></td></tr>
+        <tr><td><code class="inl">recipe_tag.py</code><br/><span style="font-size: 17px; color: var(--sub);">레시피 태그 자동 부여</span></td>
+            <td><span class="badge cream">Ollama</span></td>
+            <td><code class="inl">recipe.service.RecipeTagBulkService</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>15 / 23</div></div>
+</section>
+
+<!-- ============ 16 SECTION DIVIDER — AUTH/SHOPPING ============ -->
+<section class="slide section" data-screen-label="16 Auth Section">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>15 / 특별 테마 · 인증 & 쇼핑</div></div>
+
+  <div class="head" style="margin-top: 60px;">
+    <div class="sect-num">PART 03 / 03 · FOCUS THEME</div>
+    <h1 class="title" style="font-size: 132px; margin-top: 12px; line-height: 1.0;">인증과 쇼핑,<br/>하나의 보안 체계로.</h1>
+    <p class="lead" style="font-size: 32px; margin-top: 32px;">
+      회원가입 · 이메일 인증 · 일반 로그인 · 카카오 로그인 · 로그아웃 · 토큰 갱신 · 쇼핑 연동.<br/>
+      <strong>7가지 흐름이 모두 Redis로 모인다.</strong>
+    </p>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>16 / 23</div></div>
+</section>
+
+<!-- ============ 17 DESIGN PRINCIPLES ============ -->
+<section class="slide" data-screen-label="17 Design Principles">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>16 / 설계 원칙 · Redis 중심</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">16</span><div class="eyebrow">DESIGN PRINCIPLES</div></div>
+    <h2 class="title">왜 Redis가<br/>중심에 있는가?</h2>
+  </div>
+
+  <div class="body">
+    <div class="split">
+      <div class="auth-circle">
+        <div style="position: relative; width: 100%; height: 100%;">
+          <!-- center -->
+          <div class="auth-hub" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+            REDIS<div class="sub">Single Source of Truth</div>
+          </div>
+          <!-- satellites -->
+          <div style="position: absolute; left: 50%; top: 4%; transform: translateX(-50%); background: #fff; border: 1.5px solid var(--line); border-radius: 16px; padding: 14px 22px; font-weight: 700; font-size: 18px; color: var(--ink); box-shadow: var(--shadow);">📨 이메일 토큰 (24h)</div>
+          <div style="position: absolute; right: 0; top: 28%; background: #fff; border: 1.5px solid var(--line); border-radius: 16px; padding: 14px 22px; font-weight: 700; font-size: 18px; color: var(--ink); box-shadow: var(--shadow);">🔑 Refresh 세션</div>
+          <div style="position: absolute; right: 4%; bottom: 24%; background: #fff; border: 1.5px solid var(--line); border-radius: 16px; padding: 14px 22px; font-weight: 700; font-size: 18px; color: var(--ink); box-shadow: var(--shadow);">⛔ JWT 블랙리스트</div>
+          <div style="position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%); background: #fff; border: 1.5px solid var(--line); border-radius: 16px; padding: 14px 22px; font-weight: 700; font-size: 18px; color: var(--ink); box-shadow: var(--shadow);">🛒 쇼핑 가격 캐시 (1h)</div>
+          <div style="position: absolute; left: 0; bottom: 28%; background: #fff; border: 1.5px solid var(--line); border-radius: 16px; padding: 14px 22px; font-weight: 700; font-size: 18px; color: var(--ink); box-shadow: var(--shadow);">🔄 토큰 로테이션</div>
+          <div style="position: absolute; left: 4%; top: 28%; background: #fff; border: 1.5px solid var(--line); border-radius: 16px; padding: 14px 22px; font-weight: 700; font-size: 18px; color: var(--ink); box-shadow: var(--shadow);">📊 MDC 요청 트레이스</div>
+        </div>
+      </div>
+
+      <div class="principles">
+        <div class="principle">
+          <div class="n">01</div>
+          <div><div class="t">HttpOnly + Secure 쿠키</div><div class="d">JWT를 JavaScript가 읽을 수 없게 차단 → XSS 토큰 탈취 방어. <code class="inl">JwtProvider#createTokenCookie</code>에서 일괄 관리.</div></div>
+        </div>
+        <div class="principle">
+          <div class="n">02</div>
+          <div><div class="t">Redis Single Source of Truth</div><div class="d">세션, 블랙리스트, 이메일 토큰, 가격 캐시 — 모든 시한부 상태가 한 곳에. TTL로 자동 정리.</div></div>
+        </div>
+        <div class="principle">
+          <div class="n">03</div>
+          <div><div class="t">DB + Redis 이중 저장 (전환기)</div><div class="d">기존 DB 토큰 컬럼과 Redis 토큰을 병행 → 무중단으로 인프라 마이그레이션.</div></div>
+        </div>
+        <div class="principle">
+          <div class="n">04</div>
+          <div><div class="t">이커머스 멀티 소싱</div><div class="d">쿠팡 · 네이버 · 11번가 — 한 곳이 실패해도 폴백. 어댑터 패턴으로 통일된 DTO.</div></div>
+        </div>
+        <div class="principle">
+          <div class="n">05</div>
+          <div><div class="t">글로벌 일관 응답</div><div class="d"><code class="inl">ApiResponse{success, code, message, data}</code> + ErrorCode enum — 인증/쇼핑/도메인 모두 동일 포맷.</div></div>
+        </div>
+        <div class="principle">
+          <div class="n">06</div>
+          <div><div class="t">axios 인터셉터 자동 갱신</div><div class="d">401 응답 → /refresh 시도 → 실패 시 <code class="inl">auth:unauthorized</code> 이벤트 → AuthContext 강제 로그아웃.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>17 / 23</div></div>
+</section>
+
+<!-- ============ 18 SIGNUP + EMAIL VERIFY ============ -->
+<section class="slide compact xtight" data-screen-label="18 Signup + Email Verify">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>17 / 회원가입 + 이메일 인증</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">17</span><div class="eyebrow">FLOW · 01 + 02</div></div>
+    <h2 class="title">회원가입 +<br/>이메일 인증 흐름</h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="card" style="background: var(--coral); color: #fff; border-color: var(--coral);">
+        <div class="label" style="color: var(--kakao);">FRONTEND · Next.js</div>
+        <div class="h" style="color: #fff;">app/signup/page.jsx</div>
+        <ul style="margin: 0; padding-left: 22px; color: rgba(255,255,255,.95); font-size: 17px; line-height: 1.65;">
+          <li>loginId 정규식 검증 + 비밀번호 강도 미터</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3);">checkLoginIdApi()</code> — 입력 중 실시간 중복 확인</li>
+          <li>이메일/닉네임 형식 클라이언트 검증</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3);">signupApi()</code> → POST <code class="inl" style="background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3);">/api/v1/auth/signup</code></li>
+          <li>성공 모달: "인증 메일을 확인해주세요"</li>
+        </ul>
+      </div>
+      <div class="card" style="background: var(--green); color: #fff; border-color: var(--green);">
+        <div class="label" style="color: var(--amber);">BACKEND · Spring Boot</div>
+        <div class="h" style="color: #fff;">AuthController#signup</div>
+        <ol style="margin: 0; padding-left: 22px; color: rgba(255,255,255,.95); font-size: 17px; line-height: 1.65;">
+          <li><code class="inl" style="background: rgba(255,255,255,.12); color: var(--amber); border-color: rgba(255,255,255,.2);">@Valid SignupRequest</code> — 입력 검증</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.12); color: var(--amber); border-color: rgba(255,255,255,.2);">UserService.signup()</code> — 중복 검사 + BCrypt 해싱 + 저장</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.12); color: var(--amber); border-color: rgba(255,255,255,.2);">RedisEmailVerifyService.createVerifyToken()</code> — UUID + Redis SET (TTL 24h)</li>
+          <li><code class="inl" style="background: rgba(255,255,255,.12); color: var(--amber); border-color: rgba(255,255,255,.2);">EmailService.sendVerificationEmail()</code> — SMTP (Gmail)</li>
+        </ol>
+      </div>
+    </div>
+
+    <pre class="flow tight">
+<span class="c">// 이메일 인증 흐름 — GET /api/v1/auth/verify-email?token=...</span>
+
+<span class="k">메일 링크 클릭</span> ──▶ AuthController.verifyEmail(token)
+                            │
+                            ├─ <span class="g">RedisEmailVerifyService.verifyToken(token)</span>
+                            │    ├─ Redis GET <span class="b">email:verify:{token}</span>
+                            │    ├─ ✅ HIT  ─▶ user.verifyEmail() + Redis DEL (<span class="r">일회용</span>)
+                            │    └─ ❌ MISS ─▶ DB 토큰 fallback (전환기 호환)
+                            │
+                            ▼
+                  <span class="w">302 Redirect ─▶ frontendBaseUrl + "?emailVerified=true"</span>
+                            │
+                            ▼
+                  LoginButton.jsx — URL 파라미터 감지 → "✅ 이메일 인증 완료" 표시</pre>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>18 / 23</div></div>
+</section>
+
+<!-- ============ 19 LOGIN + LOGOUT ============ -->
+<section class="slide compact" data-screen-label="19 Login Logout">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>18 / 로그인 + 로그아웃</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">18</span><div class="eyebrow">FLOW · 03 + 05</div></div>
+    <h2 class="title">로그인 +<br/>블랙리스트 로그아웃</h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <pre class="flow tight" style="height: 100%;">
+<span class="c">// 로그인 — POST /api/v1/auth/login</span>
+
+<span class="k">FE</span>  LoginButton.handleLogin()
+       ├─ <span class="g">loginApi(loginId, pw)</span>     ─┐
+                                          │ (HttpOnly cookie)
+<span class="k">BE</span>  AuthController.login()        ◀┘
+       ├─ AuthService.authenticate()      <span class="c">// BCrypt</span>
+       ├─ if (!emailVerified) ─▶ <span class="r">EMAIL_NOT_VERIFIED</span>
+       ├─ JwtProvider.createAccessToken(loginId)
+       ├─ JwtProvider.createRefreshToken(loginId)
+       ├─ <span class="g">authService.createSession()</span>
+       │      └─ Redis SET <span class="b">session:{loginId}</span>
+       └─ Set-Cookie <span class="w">HttpOnly · Secure · SameSite=Lax</span>
+
+<span class="k">FE</span>  AuthContext.login()
+       ├─ <span class="g">getMeApi()</span>                <span class="c">// 닉네임 조회</span>
+       ├─ sessionStorage.setItem("authUser", ...)
+       └─ router.replace("/dashboard")</pre>
+
+      <pre class="flow tight" style="height: 100%;">
+<span class="c">// 로그아웃 — POST /api/v1/auth/logout</span>
+
+<span class="k">FE</span>  LogoutButton onClick
+       ├─ <span class="g">logoutApi()</span>
+       └─ AuthContext.logout()
+
+<span class="k">BE</span>  AuthController.logout()
+       ├─ resolveTokenFromCookie("accessToken")
+       ├─ resolveTokenFromCookie("refreshToken")
+       ├─ <span class="g">getRemainingMs(accessToken)</span>   <span class="c">// 남은 TTL</span>
+       ├─ <span class="g">authService.invalidateSession()</span>
+       │      ├─ Redis SET <span class="b">blacklist:{jwt}</span>
+       │      │   ⏱ TTL = 토큰 잔여시간 (자동 정리)
+       │      └─ Redis DEL <span class="b">session:{loginId}</span>
+       └─ Set-Cookie <span class="r">Max-Age=0</span> (즉시 삭제)
+
+<span class="k">FE</span>  sessionStorage.removeItem("authUser")
+       └─ window.location.href = "/"
+
+<span class="c">// JwtAuthenticationFilter — 모든 요청에서</span>
+<span class="k">→</span>  <span class="g">if (Redis.has(blacklist:{jwt}))</span> ─▶ <span class="r">401 UNAUTHORIZED</span></pre>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>19 / 23</div></div>
+</section>
+
+<!-- ============ 20 KAKAO OAUTH ============ -->
+<section class="slide compact xtight" data-screen-label="20 Kakao OAuth">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>19 / 카카오 소셜 로그인</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">19</span><div class="eyebrow">FLOW · 04</div></div>
+    <h2 class="title">카카오 OAuth 2.0 + 자동 계정 연동</h2>
+  </div>
+
+  <div class="body">
+    <pre class="flow tightest" style="font-size: 15px;">
+<span class="c">// 카카오 로그인 — GET /api/v1/auth/kakao/login → callback → JWT</span>
+
+<span class="k">[FE]</span>  LoginButton "카카오로 로그인"
+        └─ window.location.href = `${apiBase}/v1/auth/kakao/login`
+
+<span class="k">[BE]</span>  AuthController.kakaoLogin
+        └─ <span class="g">302 ─▶ https://kauth.kakao.com/oauth/authorize?client_id=...&redirect_uri=...&scope=profile_nickname,profile_image</span>
+
+       ┌─ 사용자: 카카오 동의화면에서 "동의" 클릭 ─┐
+       └────────────────────────────────────────────┘
+                              │
+                              ▼  ?code=xxx
+<span class="k">[BE]</span>  AuthController.kakaoCallback
+        ├─ <span class="g">kakaoOAuthService.getKakaoAccessToken(code)</span>       ─▶ POST kauth.kakao.com/oauth/token
+        ├─ <span class="g">kakaoOAuthService.getKakaoUserProfile(token)</span>      ─▶ GET kapi.kakao.com/v2/user/me
+        │       └─ <span class="b">KakaoUserProfile { kakaoId, email, nickname, profileImageUrl }</span>
+        │
+        ├─ <span class="g">kakaoOAuthService.findOrCreateUser(profile)</span>
+        │       ├─ loginId="kakao_{kakaoId}" 존재     ─▶ <span class="b">기존 사용자 반환</span>
+        │       ├─ 동일 이메일 일반 계정 존재         ─▶ <span class="b">계정 연동</span>
+        │       └─ 신규: User.createFromKakao(...)
+        │             └─ 닉네임 중복 시: "_k" suffix → 카카오_{kakaoId} 폴백
+        │
+        ├─ JWT 발급 + setTokenCookies (HttpOnly)
+        └─ <span class="w">302 ─▶ frontend/dashboard?kakaoLogin=success&loginId=...&nickname=...</span>
+
+<span class="k">[FE]</span>  AuthContext useEffect
+        ├─ URL 파라미터 감지 — kakaoLogin === "success"
+        ├─ <span class="g">login(loginId, "kakao", nickname)</span>
+        ├─ sessionStorage.setItem("authUser", { ..., loginType: "kakao" })
+        └─ router.replace("/dashboard")
+
+<span class="c">// 에러 처리: 사용자 거부 / 토큰 발급 실패 → /login?error=true</span></pre>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>20 / 23</div></div>
+</section>
+
+<!-- ============ 21 SHOPPING ============ -->
+<section class="slide compact" data-screen-label="21 Shopping Integration">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>20 / 쇼핑 연동</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">20</span><div class="eyebrow">FLOW · 07</div></div>
+    <h2 class="title">쇼핑 연동 — Redis 1h 캐시 +<br/>3개 이커머스 멀티 소싱</h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="card">
+        <div class="label">ENDPOINTS</div>
+        <div class="h">4개 API · 2가지 인증 정책</div>
+        <table class="t" style="font-size: 18px;">
+          <tbody>
+            <tr><td style="padding: 10px 0; border-color: var(--line-2);"><code class="inl">GET /fridge/prices</code></td><td style="padding: 10px 0; border-color: var(--line-2); color: var(--coral); font-weight: 700;">🔐 로그인 필요</td></tr>
+            <tr><td style="padding: 10px 0; border-color: var(--line-2);"><code class="inl">GET /recipes/{id}/missing-…</code></td><td style="padding: 10px 0; border-color: var(--line-2); color: var(--coral); font-weight: 700;">🔐 로그인 필요</td></tr>
+            <tr><td style="padding: 10px 0; border-color: var(--line-2);"><code class="inl">GET /search?keyword=</code></td><td style="padding: 10px 0; border-color: var(--line-2); color: var(--green); font-weight: 700;">🌍 공개</td></tr>
+            <tr><td style="padding: 10px 0; border: none;"><code class="inl">POST /substitutes/prices</code></td><td style="padding: 10px 0; border: none; color: var(--green); font-weight: 700;">🌍 공개</td></tr>
+          </tbody>
+        </table>
+        <hr class="thin" />
+        <div class="p" style="font-size: 19px;"><strong>왜 일부는 공개?</strong> 비로그인 사용자도 가격을 탐색해보고 가입할 수 있도록 — 전환 funnel 설계.</div>
+      </div>
+
+      <pre class="flow tightest" style="font-size: 15px;">
+<span class="c">// FE → BE → External</span>
+
+<span class="k">[FE]</span> MissingIngredientsPrices.jsx
+       └─ <span class="g">shoppingApi.getMissingIngredientsPrices(recipeId)</span>
+
+<span class="k">[BE]</span> ShoppingController.getMissingIngredientsPrices
+       ├─ recipeService.getRecipe(id, userId)
+       ├─ filter: sufficiency ∈ {MISSING, NOT_ENOUGH}
+       └─ ShoppingService3.searchByKeyword(name) ─┐
+                                                   │
+       ┌─── Redis GET <span class="b">price:{keyword}</span>          │
+       │      ├─ HIT  ─▶ 반환 (1h)               ◀┘
+       │      └─ MISS ─▶ 병렬 호출
+       │                  ├─ <span class="r">NaverShoppingClient</span>
+       │                  ├─ <span class="r">CoupangShoppingClient</span>
+       │                  └─ <span class="r">ElevenStShoppingClient</span>
+       │              ──▶ 최저가 1개 선정
+       └──────▶ Redis SET <span class="b">price:{keyword}</span> TTL=1h
+
+<span class="k">[+LLM]</span> ShoppingExplainClient ─▶ FastAPI shopping_explain.py
+        └─ "가성비 좋고 빠른 배송" 자연어 코멘트
+
+<span class="w">IngredientPriceResponse{ name, price, image, link, comment }</span></pre>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>21 / 23</div></div>
+</section>
+
+<!-- ============ 22 TROUBLESHOOT / ROADMAP ============ -->
+<section class="slide" data-screen-label="22 Troubleshoot Roadmap">
+  <div class="chrome"><div class="brand">오늘의 냉장고</div><div>21 / 트러블슈팅 · 고도화 계획</div></div>
+
+  <div class="head">
+    <div class="pre"><span class="pageno">21</span><div class="eyebrow">LESSONS × ROADMAP</div></div>
+    <h2 class="title">우리가 풀어낸 문제와<br/>다음에 풀고 싶은 문제.</h2>
+  </div>
+
+  <div class="body">
+    <div class="grid2">
+      <div class="card" style="background: var(--coral-soft); border-color: var(--coral);">
+        <div class="label" style="color: var(--coral);">🔧 TROUBLESHOOTING</div>
+        <div class="h">Next.js 캐싱 ↔ Redis 세션 불일치</div>
+        <div class="p"><strong>증상:</strong> 리포트 데이터 캐싱 과정에서 세션 ID 헤더가 오염되거나 세션 연장 요청이 차단 → Redis 세션 강제 만료 → 사용자 강제 로그아웃.</div>
+        <div class="p"><strong>해결:</strong> 캐싱에 저장되던 정보를 별도 테이블로 분리 PostgreSQL DB로 이전. 세션과 무관한 도메인 데이터를 헤더와 디커플링.</div>
+        <hr class="thin" />
+        <div class="p"><strong>예정 1:</strong> 외부 쇼핑 API 레이트 리밋 → Redis 1h 캐시 + 키워드 디바운스</div>
+        <div class="p"><strong>예정 2:</strong> Ollama 응답 지연 → Gemini 자동 폴백 + Top-N 호출 최적화</div>
+      </div>
+
+      <div class="card" style="background: var(--green); color: #fff; border-color: var(--green);">
+        <div class="label" style="color: var(--amber);">🚀 ROADMAP</div>
+        <div class="h" style="color: #fff;">다음 분기 계획</div>
+        <ul style="margin: 0; padding-left: 22px; color: rgba(255,255,255,.92); font-size: 21px; line-height: 1.7;">
+          <li><strong>레시피 임베딩 자동 재인덱싱</strong> — pgvector + 백오피스 배치</li>
+          <li><strong>음성 입력 챗봇</strong> — Whisper STT + 의도 파서 통합</li>
+          <li><strong>냉장고 공유</strong> — 가족 단위 다중 사용자 권한 모델</li>
+          <li><strong>알림 푸시</strong> — 유통기한 임박 / 추천 갱신 / 커뮤니티 활동</li>
+          <li><strong>A/B 테스트</strong> — 추천 가중치(매칭/임베딩/태그) 사용자 그룹별 학습</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>22 / 23</div></div>
+</section>
+
+<!-- ============ 23 CLOSING ============ -->
+<section class="slide closing" data-screen-label="23 Closing">
+  <div class="chrome">
+    <div class="brand">오늘의 냉장고 · TODAY'S FRIDGE</div>
+    <div>END · 감사합니다</div>
+  </div>
+
+  <div style="margin-top: 200px; display: flex; flex-direction: column; gap: 48px;">
+    <div class="eyebrow">THANK YOU</div>
+    <h2 class="title" style="font-size: 156px; line-height: 1.0;">"오늘 뭐 먹지?" 의<br/>가장 똑똑한 대답.</h2>
+    <p class="lead" style="font-size: 32px;">
+      Q & A 환영합니다.<br/>
+      🌐 <strong style="color: var(--amber);">todayfridge.com</strong> · 7 members · 6 AI models · 23 도메인 패키지
+    </p>
+  </div>
+
+  <div class="foot"><div>오늘의 냉장고 · 발표 자료</div><div>23 / 23</div></div>
+</section>
+
+</deck-stage>
+
+</body>
+</html>
