@@ -1,0 +1,45 @@
+title: "AI Builder Yerin's Tech Log"
+name: "Yerin Min"
+email: "dbdlstltm94@gmail.com"
+description: "운영 문제를 아키텍처로 해결하는 백엔드/풀스택 개발자 민예린의 포트폴리오와 기술 블로그."
+url: "https://feed-mina.github.io"
+baseurl: ""
+lang: "ko"
+timezone: "Asia/Seoul"
+locale: "ko_KR"
+
+author:
+  name: "Yerin Min"
+  email: "dbdlstltm94@gmail.com"
+  url: "https://github.com/feed-mina"
+
+github_username: feed-mina
+logo: "/assets/images/profile.jpg"
+social:
+  name: "Yerin Min"
+  links:
+    - "https://github.com/feed-mina"
+    - "https://sdui-delta.vercel.app/view/MAIN_PAGE"
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+permalink: /blog/:year/:month/:day/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      author: "Yerin Min"
+      image: "/assets/images/profile.jpg"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules
+  - README.md

@@ -1,0 +1,31 @@
+---
+layout: default
+title: "Tech Blog"
+description: "SDUI, 백엔드 아키텍처, AI 협업, 프로젝트 회고를 정리하는 민예린의 기술 블로그."
+permalink: /blog/
+---
+
+<section class="wrap blog-page">
+  <div class="blog-hero">
+    <p class="kicker">Tech Blog</p>
+    <h1>설계와 운영의 기록</h1>
+    <p>프로젝트 결과만 남기지 않고, 문제를 정의하고 구조를 선택한 이유까지 남기는 기술 블로그입니다.</p>
+  </div>
+
+  <input class="blog-search" type="search" placeholder="키워드로 글 검색" aria-label="블로그 글 검색" data-blog-search>
+
+  <div class="post-list">
+    {% for post in site.posts %}
+      <a class="post-card" href="{{ post.url | relative_url }}" data-post-card data-search="{{ post.title | downcase }} {{ post.description | downcase }} {{ post.tags | join: ' ' | downcase }}">
+        <div class="post-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+          {% for tag in post.tags limit: 4 %}
+            <span>#{{ tag }}</span>
+          {% endfor %}
+        </div>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.description | default: post.excerpt | strip_html | truncate: 160 }}</p>
+      </a>
+    {% endfor %}
+  </div>
+</section>

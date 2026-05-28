@@ -1,0 +1,1643 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>민예린 | AI Architecture & Backend Portfolio</title>
+<meta name="description" content="운영의 문제를 아키텍처 설계로 해결하는 백엔드/풀스택 개발자 민예린의 포트폴리오." />
+<meta property="og:title" content="민예린 | AI Architecture & Backend Portfolio" />
+<meta property="og:description" content="SDUI · 비동기 메시지 큐 · 하이브리드 RAG — 운영의 문제를 아키텍처로 풉니다." />
+<meta property="og:image" content="assets/images/profile.jpg" />
+<meta property="og:locale" content="ko_KR" />
+<link rel="canonical" href="https://feed-mina.github.io/" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ────── tokens ────── */
+  :root[data-theme="dark"]{
+    --bg:        #0a0a0b;
+    --bg-soft:   #111114;
+    --surface:   #15151a;
+    --surface-2: #1c1c22;
+    --line:      rgba(245,241,234,0.09);
+    --line-strong: rgba(245,241,234,0.18);
+    --line-soft: rgba(245,241,234,0.05);
+    --ink:       #f5f1ea;
+    --ink-dim:   #a8a39b;
+    --ink-mute:  #6c6760;
+    --amber:     #ff8a3d;
+    --amber-soft:rgba(255,138,61,0.14);
+    --mint:      #8fd6c7;
+    --shadow:    0 24px 80px rgba(0, 0, 0, 0.38);
+    --gradient-card: linear-gradient(135deg, rgba(255,138,61,0.16), rgba(143,214,199,0.08));
+  }
+  :root[data-theme="light"]{
+    --bg:        #f7f4ed;
+    --bg-soft:   #efeae1;
+    --surface:   #ffffff;
+    --surface-2: #f3ede2;
+    --line:      rgba(36,32,28,0.10);
+    --line-strong: rgba(36,32,28,0.22);
+    --line-soft: rgba(36,32,28,0.05);
+    --ink:       #1a1814;
+    --ink-dim:   #565049;
+    --ink-mute:  #8b857c;
+    --amber:     #c9591f;
+    --amber-soft:rgba(201,89,31,0.12);
+    --mint:      #1f8a6f;
+    --shadow:    0 22px 70px rgba(70,60,40,0.16);
+    --gradient-card: linear-gradient(135deg, rgba(201,89,31,0.14), rgba(31,138,111,0.08));
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Geist", "Noto Sans KR", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x:hidden;
+    transition: background-color .4s ease, color .4s ease;
+  }
+  body.modal-open{overflow:hidden;}
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+  button{font:inherit; cursor:pointer; border:none; background:none; color:inherit;}
+
+  :root[data-theme="dark"] body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(60% 50% at 80% 0%, rgba(255,138,61,0.10), transparent 60%),
+      radial-gradient(40% 35% at 0% 90%, rgba(143,214,199,0.06), transparent 60%);
+  }
+  :root[data-theme="light"] body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(60% 50% at 80% 0%, rgba(201,89,31,0.08), transparent 60%),
+      radial-gradient(40% 35% at 0% 90%, rgba(31,138,111,0.05), transparent 60%);
+  }
+
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 32px; position:relative; z-index:2;}
+
+  /* fonts */
+  .serif{ font-family: "Instrument Serif", "Noto Serif KR", Georgia, serif;}
+  .mono{ font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;}
+
+  /* ────── nav ────── */
+  nav.top{
+    position: sticky; top:0; z-index:50;
+    backdrop-filter: blur(14px) saturate(140%);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom: 1px solid var(--line-soft);
+    transition: background-color .4s, border-color .4s;
+  }
+  nav.top .row{
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+    padding: 16px 32px; max-width: 1180px; margin: 0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family: "JetBrains Mono", monospace; font-size:13px; letter-spacing:0.02em; font-weight:600;
+  }
+  .brand .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--amber); box-shadow: 0 0 12px var(--amber);
+  }
+  .brand i{color:var(--ink-dim); font-style:normal; font-weight:400;}
+  nav ul{list-style:none; display:flex; gap:22px;}
+  nav ul a{
+    font-family: "JetBrains Mono", monospace; font-size: 12.5px; letter-spacing:0.04em;
+    color: var(--ink-dim); transition: color .2s;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  nav ul a:hover, nav ul a.active{ color: var(--ink);}
+
+  /* ── theme toggle (replaces "Get in touch") ── */
+  .theme-toggle{
+    position: relative;
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 6px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--surface);
+    transition: all .25s;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .theme-toggle:hover{ border-color: var(--amber);}
+  .theme-toggle .track{
+    display:flex; align-items:center; gap:0;
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 3px;
+    position: relative;
+    width: 64px; height: 28px;
+  }
+  .theme-toggle .opt{
+    flex:1; display:grid; place-items:center;
+    z-index:1; transition: color .25s;
+    color: var(--ink-mute);
+  }
+  .theme-toggle .opt svg{ width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8;}
+  .theme-toggle .knob{
+    position: absolute; top: 3px; left: 3px;
+    width: 26px; height: 22px;
+    background: var(--amber);
+    border-radius: 999px;
+    transition: transform .35s cubic-bezier(.6,.05,.3,1.2);
+    box-shadow: 0 2px 8px var(--amber-soft);
+  }
+  :root[data-theme="light"] .theme-toggle .knob{ transform: translateX(32px);}
+  :root[data-theme="dark"] .theme-toggle .opt[data-mode="dark"]{ color: #0a0a0b;}
+  :root[data-theme="light"] .theme-toggle .opt[data-mode="light"]{ color: #f7f4ed;}
+
+  /* ────── hero ────── */
+  header.hero{
+    padding: 96px 0 90px;
+    position: relative;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.15fr 360px; gap: 64px;
+    align-items: center;
+  }
+  .hero .eyebrow{
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    color: var(--amber); letter-spacing: 0.16em; text-transform: uppercase;
+    display:flex; align-items:center; gap:14px;
+    margin-bottom: 36px;
+  }
+  .hero .eyebrow::before{
+    content:""; width:36px; height:1px; background: var(--amber);
+  }
+  .hero h1{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .hero h1 .it{ font-style: italic; color: var(--amber);}
+  .hero h1 .small{
+    display:block;
+    font-family: "Geist", "Noto Sans KR", sans-serif;
+    font-size: clamp(17px, 1.7vw, 22px);
+    font-weight: 400;
+    font-style: normal;
+    color: var(--ink-dim);
+    letter-spacing: 0;
+    margin-top: 22px;
+    max-width: 640px;
+    line-height: 1.55;
+  }
+  .hero .lede{
+    margin-top: 36px;
+    max-width: 580px;
+    font-size: 17px;
+    color: var(--ink);
+    line-height: 1.65;
+  }
+  .hero .lede strong{ color: var(--amber); font-weight: 500;}
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top: 36px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 12px 22px; border-radius: 999px;
+    font-family: "JetBrains Mono", monospace; font-size: 13px;
+    border: 1px solid var(--line-strong);
+    transition: all .2s;
+    font-weight: 500;
+  }
+  .btn:hover{ transform: translateY(-2px); border-color: var(--amber);}
+  .btn.primary{
+    background: var(--amber); color: var(--bg); border-color: transparent;
+  }
+  .btn.primary:hover{ background: var(--ink); color: var(--bg);}
+
+  /* profile panel */
+  .profile-panel{
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px;
+    background: linear-gradient(180deg, var(--surface), var(--surface-2));
+    box-shadow: var(--shadow);
+  }
+  .profile-image{
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--bg-soft);
+  }
+  .profile-image img{ width:100%; height:100%; object-fit: cover; object-position: center 35%;}
+  .profile-meta{ padding: 18px 4px 4px;}
+  .profile-meta .ko{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .profile-meta .name{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-size: 26px;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .profile-meta .role{ color: var(--ink-dim); font-size: 13.5px;}
+  .signal-list{
+    list-style: none;
+    margin-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .signal-list li{
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+  }
+  .signal-list li:last-child{ border-bottom: none;}
+  .signal-list dt{
+    font-family: "JetBrains Mono", monospace;
+    color: var(--ink-mute);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .signal-list dd{ color: var(--ink); font-weight: 500;}
+
+  /* ────── section base ────── */
+  section{ padding: 140px 0; position: relative;}
+  section + section{ border-top: 1px solid var(--line-soft);}
+
+  .sec-head{
+    display:grid; grid-template-columns: 130px 1fr; gap:48px;
+    align-items: baseline;
+    margin-bottom: 60px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sec-head .num{
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    color: var(--amber); letter-spacing: 0.16em;
+  }
+  .sec-head h2{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+  }
+  .sec-head h2 .it{ font-style:italic; color:var(--ink-dim);}
+  .sec-head .blurb{
+    grid-column: 2;
+    color: var(--ink-dim);
+    font-size: 16px;
+    max-width: 680px;
+    margin-top: 14px;
+  }
+
+  /* ────── Why Yerin? — pillars ────── */
+  .pillars{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow:hidden;
+    background: var(--surface);
+  }
+  .pillar{
+    padding: 36px 32px;
+    border-right: 1px solid var(--line);
+    position: relative;
+    transition: background .25s;
+  }
+  .pillar:last-child{ border-right: none;}
+  .pillar:hover{ background: var(--surface-2);}
+  .pillar .idx{
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    color: var(--amber); letter-spacing: 0.16em;
+    margin-bottom: 18px;
+  }
+  .pillar h3{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .pillar p{
+    color: var(--ink-dim);
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+
+  .quote-block{
+    margin-top: 56px;
+    padding: 44px 52px;
+    border-left: 2px solid var(--amber);
+    background: linear-gradient(90deg, var(--amber-soft) 0%, transparent 60%);
+    border-radius: 0 14px 14px 0;
+  }
+  .quote-block p{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-style: italic;
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    max-width: 820px;
+  }
+  .quote-block .cite{
+    margin-top: 18px;
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    color: var(--ink-mute); letter-spacing: 0.08em;
+  }
+
+  /* ────── about ────── */
+  .about-grid{
+    display:grid; grid-template-columns: 0.85fr 1.15fr; gap: 72px; align-items: start;
+  }
+  .about-grid h3{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-weight: 400;
+    font-size: clamp(28px, 3.5vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .about-copy p{ color: var(--ink-dim); font-size: 16.5px; margin-bottom: 18px; line-height: 1.7;}
+  .about-copy p:last-of-type{ margin-bottom: 0;}
+  .principles{ display:flex; flex-wrap: wrap; gap: 8px; margin-top: 28px;}
+  .principles span{
+    font-family: "JetBrains Mono", monospace; font-size: 11.5px;
+    padding: 7px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-dim);
+    background: var(--surface);
+  }
+
+  /* ────── projects (slider) ────── */
+  .project-toolbar{
+    display:flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px;
+  }
+  .filter{
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-dim);
+    background: transparent;
+    transition: all .2s;
+  }
+  .filter:hover{ color: var(--ink); border-color: var(--line-strong);}
+  .filter.active{ color: var(--bg); border-color: var(--amber); background: var(--amber);}
+
+  .slider-shell{ position: relative;}
+  .project-slider{
+    display:grid; grid-auto-flow: column;
+    grid-auto-columns: minmax(310px, calc((100% - 36px) / 3));
+    gap: 18px;
+    overflow-x: auto; overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: none;
+    padding: 4px 4px 24px;
+  }
+  .project-slider::-webkit-scrollbar{ display: none;}
+
+  .project-card{
+    display: flex; flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+    overflow: hidden;
+    cursor: pointer;
+    scroll-snap-align: start;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    min-height: 480px;
+  }
+  .project-card:hover{
+    transform: translateY(-6px);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow);
+  }
+  .project-card[hidden]{ display: none;}
+
+  .project-media{
+    aspect-ratio: 16/10;
+    background: var(--gradient-card);
+    background-color: var(--surface-2);
+    overflow: hidden;
+    position: relative;
+  }
+  .project-media img{ width:100%; height:100%; object-fit: cover; opacity: 0.92;}
+  .project-card:nth-child(2n) .project-media{
+    background: linear-gradient(135deg, rgba(143,214,199,0.18), rgba(255,138,61,0.10));
+    background-color: var(--surface-2);
+  }
+  .project-card:nth-child(3n) .project-media{
+    background: linear-gradient(135deg, rgba(201,89,31,0.16), rgba(143,214,199,0.10));
+    background-color: var(--surface-2);
+  }
+  .project-media .badge{
+    position: absolute; top: 14px; left: 14px;
+    font-family: "JetBrains Mono", monospace; font-size: 10.5px;
+    padding: 5px 10px;
+    background: rgba(10,10,11,0.78);
+    color: var(--amber);
+    border-radius: 999px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+  }
+  :root[data-theme="light"] .project-media .badge{ background: rgba(255,255,255,0.92);}
+
+  .project-body{ display:flex; flex-direction:column; flex:1; padding: 22px 22px 20px;}
+  .project-body .kicker{
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    color: var(--amber); letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .project-body h3{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .project-body .desc{
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.6;
+    flex: 1;
+  }
+  .project-body .chips{
+    display:flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 18px;
+  }
+  .project-body .chip{
+    font-family: "JetBrains Mono", monospace; font-size: 10.5px;
+    padding: 4px 8px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--ink-dim);
+  }
+
+  .slider-control{
+    position: absolute; top: 38%; z-index: 5;
+    display:grid; place-items:center;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 22px;
+    box-shadow: var(--shadow);
+    transition: all .2s;
+  }
+  .slider-control:hover{ background: var(--amber); color: var(--bg); border-color: var(--amber);}
+  .slider-control.prev{ left: -18px;}
+  .slider-control.next{ right: -18px;}
+  .slider-dots{ display: flex; justify-content: center; gap: 8px; margin-top: 14px;}
+  .slider-dots button{
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    background: var(--line-strong);
+    transition: all .25s;
+  }
+  .slider-dots button.active{ width: 28px; background: var(--amber);}
+
+  /* ────── modal ────── */
+  .project-modal[hidden]{ display: none;}
+  .project-modal{
+    position: fixed; inset: 0; z-index: 300;
+    display: grid; place-items: center;
+    padding: 24px;
+  }
+  .modal-backdrop{
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.72);
+    backdrop-filter: blur(10px);
+  }
+  .modal-card{
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 0.85fr 1.15fr;
+    width: min(1060px, 100%);
+    max-height: min(800px, calc(100vh - 48px));
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    animation: modalIn .35s cubic-bezier(.2,.7,.3,1);
+  }
+  @keyframes modalIn{
+    from{ opacity: 0; transform: translateY(20px) scale(0.98);}
+    to{ opacity: 1; transform: translateY(0) scale(1);}
+  }
+  .modal-close{
+    position: absolute; top: 16px; right: 16px; z-index: 2;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(10,10,11,0.6);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    font-size: 22px;
+    backdrop-filter: blur(8px);
+    transition: all .2s;
+  }
+  .modal-close:hover{ background: var(--amber); color: var(--bg); transform: rotate(90deg);}
+  .modal-media{
+    background: var(--gradient-card);
+    background-color: var(--surface-2);
+    min-height: 100%;
+  }
+  .modal-media img{ width:100%; height:100%; object-fit: cover;}
+  .modal-body{
+    overflow-y: auto;
+    padding: 44px 42px 40px;
+  }
+  .modal-body .kicker{
+    font-family: "JetBrains Mono", monospace; font-size: 11.5px;
+    color: var(--amber); letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .modal-body h2{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-weight: 400;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin-bottom: 14px;
+  }
+  .modal-body .tagline{
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    color: var(--amber);
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .modal-body > .desc{
+    color: var(--ink-dim);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .modal-tabs{
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 12px;
+    padding: 4px;
+    background: var(--bg-soft);
+    border-radius: 10px;
+    border: 1px solid var(--line);
+  }
+  .modal-tabs button{
+    flex: 1; min-width: 90px;
+    padding: 9px 12px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    color: var(--ink-dim);
+    border-radius: 7px;
+    transition: all .2s;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .modal-tabs button:hover{ color: var(--ink);}
+  .modal-tabs button.active{
+    background: var(--amber); color: var(--bg);
+    font-weight: 600;
+  }
+  .modal-panel{
+    margin-top: 20px;
+    min-height: 140px;
+  }
+  .modal-panel ul{ list-style: none; display: flex; flex-direction: column; gap: 12px;}
+  .modal-panel li{
+    color: var(--ink);
+    font-size: 14.5px;
+    line-height: 1.6;
+    padding-left: 22px;
+    position: relative;
+  }
+  .modal-panel li::before{
+    content: "→";
+    position: absolute; left: 0; top: 0;
+    color: var(--amber);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+  }
+  .modal-stack{ display: flex; flex-wrap: wrap; gap: 6px; margin-top: 24px;}
+  .modal-stack span{
+    font-family: "JetBrains Mono", monospace; font-size: 10.5px;
+    padding: 5px 9px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--ink-dim);
+  }
+  .modal-actions{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px;}
+
+  /* ────── career roadmap (with id-photo) ────── */
+  .career-grid{
+    display:grid; grid-template-columns: 280px 1fr; gap: 64px;
+    align-items: start;
+  }
+  .career-side{
+    position: sticky; top: 96px;
+  }
+  .career-photo{
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .career-photo img{ width: 100%; height: 100%; object-fit: cover;}
+  .career-side .meta{
+    margin-top: 22px;
+    padding: 20px 22px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+  .career-side .meta .label{
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    color: var(--amber); letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .career-side .meta strong{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-size: 22px;
+    font-weight: 400;
+    display: block;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .career-side .meta p{ color: var(--ink-dim); font-size: 13px;}
+
+  .timeline{ position: relative; padding-left: 36px;}
+  .timeline::before{
+    content: ""; position: absolute;
+    left: 8px; top: 8px; bottom: 8px;
+    width: 1px; background: var(--line);
+  }
+  .exp{
+    position: relative;
+    padding: 28px 0;
+    display: grid; grid-template-columns: 170px 1fr;
+    gap: 36px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .exp:last-child{ border-bottom: none;}
+  .exp::before{
+    content: ""; position: absolute;
+    left: -32px; top: 38px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--ink-mute);
+    transition: all .2s;
+  }
+  .exp:hover::before{
+    border-color: var(--amber);
+    box-shadow: 0 0 16px var(--amber-soft);
+  }
+  .exp .when{
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    color: var(--ink-mute); letter-spacing: 0.04em;
+    padding-top: 4px;
+  }
+  .exp h4{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .exp h4 .org{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-mute);
+    display: block;
+    margin-top: 2px;
+  }
+  .exp .role{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--amber);
+    margin-bottom: 14px;
+    letter-spacing: 0.04em;
+  }
+  .exp ul{ list-style: none; display: flex; flex-direction: column; gap: 6px;}
+  .exp ul li{
+    color: var(--ink-dim); font-size: 14.5px;
+    padding-left: 14px; position: relative; line-height: 1.55;
+  }
+  .exp ul li::before{
+    content: "·"; position: absolute; left: 0; top: -4px;
+    color: var(--ink-mute); font-size: 22px;
+  }
+
+  /* ────── stack ────── */
+  .stack-grid{
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  }
+  .stack-col h4{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .stack-col ul{ list-style: none; display: flex; flex-direction: column; gap: 10px;}
+  .stack-col li{
+    font-size: 15px; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .stack-col li::before{
+    content: ""; width: 4px; height: 4px; border-radius: 50%;
+    background: var(--ink-mute); flex-shrink: 0;
+  }
+  .stack-col li.primary::before{ background: var(--amber); box-shadow: 0 0 8px var(--amber);}
+  .stack-col li.primary{ color: var(--ink);}
+
+  /* ────── contact ────── */
+  section.contact{
+    padding: 160px 0 80px;
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .contact .label{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--amber);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .contact h2{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-weight: 400;
+    font-size: clamp(44px, 6.5vw, 88px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    max-width: 1000px;
+    margin-left: auto; margin-right: auto;
+  }
+  .contact h2 .it{ font-style: italic; color: var(--amber);}
+  .contact h2 a{
+    background: linear-gradient(transparent 78%, var(--amber-soft) 78%);
+    transition: background .2s;
+  }
+  .contact h2 a:hover{ background: linear-gradient(transparent 78%, var(--amber) 78%);}
+  .contact .sub{ color: var(--ink-dim); font-size: 15px; margin: 0 auto 36px; max-width: 580px;}
+  .contact-links{
+    display: flex; justify-content: center; gap: 12px;
+    flex-wrap: wrap;
+  }
+  .contact-links a{
+    font-family: "JetBrains Mono", monospace; font-size: 13px;
+    padding: 14px 22px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-dim);
+    transition: all .2s;
+    background: var(--surface);
+  }
+  .contact-links a:hover{
+    border-color: var(--amber); color: var(--amber);
+    transform: translateY(-2px);
+  }
+
+  footer{
+    padding: 50px 0 40px;
+    border-top: 1px solid var(--line-soft);
+  }
+  footer .row{
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: "JetBrains Mono", monospace; font-size: 11.5px;
+    color: var(--ink-mute);
+    gap: 16px;
+  }
+  footer .signature{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-style: italic; font-size: 16px;
+    color: var(--ink-dim);
+  }
+
+  /* selection */
+  ::selection{ background: var(--amber); color: var(--bg);}
+
+  /* reveal */
+  .reveal{ opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease;}
+  .reveal.in{ opacity: 1; transform: translateY(0);}
+
+  /* ─── responsive ─── */
+  @media (max-width: 980px){
+    nav.top .row{ padding: 14px 22px;}
+    nav ul{ display: none;}
+    .wrap{ padding: 0 22px;}
+    section{ padding: 100px 0;}
+    .hero-grid{ grid-template-columns: 1fr; gap: 48px;}
+    .profile-panel{ max-width: 380px; margin: 0 auto;}
+    .sec-head{ grid-template-columns: 1fr; gap: 18px;}
+    .sec-head .blurb{ grid-column: 1;}
+    .pillars{ grid-template-columns: 1fr;}
+    .pillar{ border-right: none; border-bottom: 1px solid var(--line);}
+    .pillar:last-child{ border-bottom: none;}
+    .about-grid{ grid-template-columns: 1fr; gap: 36px;}
+    .career-grid{ grid-template-columns: 1fr; gap: 36px;}
+    .career-side{ position: static; max-width: 280px;}
+    .career-photo{ aspect-ratio: 4/5;}
+    .stack-grid{ grid-template-columns: repeat(2, 1fr);}
+    .modal-card{ grid-template-columns: 1fr; max-height: calc(100vh - 32px);}
+    .modal-media{ min-height: 180px; aspect-ratio: 16/9;}
+    .modal-body{ padding: 28px 24px;}
+    .exp{ grid-template-columns: 1fr; gap: 8px;}
+    .slider-control.prev{ left: -8px;}
+    .slider-control.next{ right: -8px;}
+    .project-slider{ grid-auto-columns: minmax(280px, 88%);}
+    .quote-block{ padding: 28px 24px;}
+    footer .row{ flex-direction: column; gap: 12px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────────── NAV ─────────────── -->
+<nav class="top">
+  <div class="row">
+    <a href="#top" class="brand">
+      <span class="dot"></span>
+      Yerin.Min <i> AI Software Engineer</i>
+    </a>
+    <ul>
+      <li><a href="#about">01 · About</a></li>
+      <li><a href="#projects">02 · Projects</a></li>
+      <li><a href="#career">03 · Career</a></li>
+      <li><a href="#stack">04 · Stack</a></li>
+      <li><a href="#contact">05 · Contact</a></li>
+    </ul>
+
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="테마 전환">
+      <span class="track">
+        <span class="knob"></span>
+        <span class="opt" data-mode="dark">
+          <!-- moon -->
+          <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="opt" data-mode="light">
+          <!-- sun -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke-linecap="round"/></svg>
+        </span>
+      </span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─────────────── HERO ─────────────── -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy reveal">
+        <div class="eyebrow">Portfolio · 2026 · Seoul, KR</div>
+        <h1>
+          Hello, I'm <span class="it">Yerin.</span><br/>
+          AI Builder &amp; <span class="it">Architect.</span>
+          <span class="small">비효율을 자동화하고, 무거운 AI 모델을 가볍게 서빙합니다. 비즈니스 기획(PM)과 레거시 운영(SM) 경험을 바탕으로, 시스템이 사용자에게 어떤 가치를 줘야 하는지 폭넓게 이해하는 백엔드 엔지니어입니다.</span>
+        </h1>
+        <p class="lede">
+          대규모 트래픽을 통제해 본 엔터프라이즈 운영 경험과, <strong>SDUI · 비동기 메시지 큐 · 하이브리드 RAG</strong>를 직접 설계해 본 깊이를 함께 가졌습니다.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#projects">대표 프로젝트 보기 →</a>
+          <a class="btn" href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener">이력서 PDF ↗</a>
+        </div>
+      </div>
+
+      <aside class="profile-panel reveal" aria-label="프로필 요약">
+        <div class="profile-image">
+          <img src="assets/images/profile.jpg" alt="민예린 프로필 사진" />
+        </div>
+        <div class="profile-meta">
+          <div class="ko">Yerin Min · 민예린</div>
+          <div class="name">Backend / Fullstack Developer</div>
+          <div class="role">Spring Boot · FastAPI · Next.js · AI</div>
+        </div>
+        <dl class="signal-list">
+          <li><dt>Core</dt><dd>Server-Driven UI</dd></li>
+          <li><dt>Focus</dt><dd>Ops · Security · Cache</dd></li>
+          <li><dt>Base</dt><dd>Seoul, KR</dd></li>
+          <li><dt>Status</dt><dd><span style="color:var(--mint);">●</span> Open to work</dd></li>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<!-- ─────────────── ABOUT (Why Yerin? + 소개) ─────────────── -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="num">01 / About</div>
+      <div>
+        <h2>Why <span class="it">Yerin?</span></h2>
+        <p class="blurb">"운영의 문제에서 핑계를 찾기 전에 아키텍처 설계로 해결해 내는 백엔드 개척자." — 단순 화면 단의 비효율 개선을 넘어, 시스템 전체의 흐름을 통제합니다.</p>
+      </div>
+    </div>
+
+    <div class="pillars reveal">
+      <div class="pillar">
+        <div class="idx">01</div>
+        <h3>AI 파이프라인 아키텍처 설계</h3>
+        <p>비동기 메시지 큐(FastAPI · Celery · Redis)와 모델별 하이브리드 라우팅 로직을 결합해, 무거운 AI 모델의 GPU 처리 비용과 응답 시간을 획기적으로 단축합니다.</p>
+      </div>
+      <div class="pillar">
+        <div class="idx">02</div>
+        <h3>비즈니스 로직과 AI의 완벽한 통합</h3>
+        <p>단순 API 호출이 아닌 'Redis → DB → 외부 API' 3단계 Fallback, OAuth2 인증 제어, 트랜잭션 관리로 데이터 무결성과 고가용성이 보장된 엔드투엔드 서비스를 구축합니다.</p>
+      </div>
+      <div class="pillar">
+        <div class="idx">03</div>
+        <h3>대용량 트래픽 통제 &amp; 인프라 운영</h3>
+        <p>EBS 10만 명 트래픽 통계 스케줄링과 포스코DX 메일 보안(ISMS-P) 운영 경험을 바탕으로, 최신 AI 서비스를 Docker · 클라우드에 안전하게 배포·확장합니다.</p>
+      </div>
+    </div>
+
+    <div class="quote-block reveal">
+      <p>"레거시 코드는 적이 아닙니다. 개선해야 할 통계일 뿐입니다. 단순 구현보다 서버의 안정성·캐싱·보안 인가를 더 사랑합니다."</p>
+      <div class="cite">— DEVELOPMENT PHILOSOPHY</div>
+    </div>
+
+    <!-- 비즈니스 로직과 AI를 연결하는 개발자 -->
+    <div class="about-grid reveal" style="margin-top: 110px;">
+      <h3>비즈니스 로직과<br/>AI를 연결하는 개발자</h3>
+      <div class="about-copy">
+        <p>마케팅 데이터 분석에서 시작해 시스템을 설계하고 제어하는 백엔드 엔지니어링으로 확장했습니다. EBS 트래픽 운영, 포스코 DX 메일 보안 운영, B2B 웹 솔루션 개발 경험을 거치며 <em>"사용자가 보는 화면"</em>과 <em>"서버가 책임지는 안정성"</em> 사이의 균형을 배웠습니다.</p>
+        <p>최근에는 SDUI 엔진을 통해 화면 구조를 데이터베이스 메타데이터로 추상화하고, Redis 캐싱과 권한별 렌더링으로 배포 없이 UI를 바꾸는 구조를 구현했습니다. AI 도구는 단순 자동화가 아니라, 설계자가 더 넓은 문제를 볼 수 있게 해주는 협업 파트너로 사용합니다.</p>
+        <div class="principles">
+          <span>Architecture first</span>
+          <span>Operational stability</span>
+          <span>AI delegation</span>
+          <span>Readable systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── PROJECTS ─────────────── -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="num">02 / Work</div>
+      <div>
+        <h2>Featured <span class="it">Projects.</span></h2>
+        <p class="blurb">카드로 훑고, 모달에서 설계 의도까지 깊게 봅니다. 각 카드는 README와 이력서를 바탕으로 문제 · 역할 · 기술 선택 · 결과를 압축했습니다.</p>
+      </div>
+    </div>
+
+    <div class="project-toolbar reveal" aria-label="프로젝트 필터">
+      <button type="button" class="filter active" data-filter="all">All</button>
+      <button type="button" class="filter" data-filter="architecture">Architecture</button>
+      <button type="button" class="filter" data-filter="ai">AI</button>
+      <button type="button" class="filter" data-filter="web">Web</button>
+      <button type="button" class="filter" data-filter="learning">Learning</button>
+    </div>
+
+    <div class="slider-shell reveal">
+      <button class="slider-control prev" type="button" aria-label="이전 프로젝트" data-slider-prev>‹</button>
+      <div class="project-slider" data-project-slider aria-live="polite"></div>
+      <button class="slider-control next" type="button" aria-label="다음 프로젝트" data-slider-next>›</button>
+    </div>
+    <div class="slider-dots" data-slider-dots aria-label="프로젝트 위치"></div>
+  </div>
+</section>
+
+<!-- ─────────────── CAREER ROADMAP (with id photo) ─────────────── -->
+<section id="career">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="num">03 / Career</div>
+      <div>
+        <h2>Experience <span class="it">Roadmap.</span></h2>
+        <p class="blurb">엔터프라이즈 SM 운영 → 자체 아키텍처 설계 · AI 서비스 개발로 확장해 온 4년의 흐름입니다.</p>
+      </div>
+    </div>
+
+    <div class="career-grid">
+      <aside class="career-side reveal">
+        <div class="career-photo">
+          <img src="assets/images/id-photo.jpg" alt="민예린 증명사진" />
+        </div>
+        <div class="meta">
+          <div class="label">Profile</div>
+          <strong>민예린</strong>
+          <p>1994 · Seoul · 4년 SM/Dev 경력 · 책임감 있는 백엔드 엔지니어</p>
+        </div>
+        <a class="btn primary" href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener" style="display:flex; justify-content:center; margin-top: 14px;">전체 이력서 PDF ↗</a>
+      </aside>
+
+      <div class="timeline reveal">
+
+        <article class="exp">
+          <div class="when">2025.08 — 2026.01</div>
+          <div>
+            <h4>에이아이피플스 <span class="org">— 포스코DX SM 파견</span></h4>
+            <div class="role">운영부서 사원 · Mail Security Operations</div>
+            <ul>
+              <li>전사 스팸메일 차단 필터 시스템 운영 · 오탐지율 최적화</li>
+              <li>DMARC · SPF · DKIM 메일 인증 프로토콜 트래픽 모니터링</li>
+              <li>ISMS-P 보안 정책 기반 운영 리포트 통계 엔지니어링</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="exp">
+          <div class="when">2025.03 — 2025.05</div>
+          <div>
+            <h4>휴먼IT교육센터 <span class="org">— AI 서비스 개발 심화</span></h4>
+            <div class="role">교육 · Self-Study</div>
+            <ul>
+              <li>LangChain · LangGraph 활용 하이브리드 RAG(Neo4j + Chroma) 파이프라인 구축</li>
+              <li>Spring Boot ↔ FastAPI 연동 실무 및 K8s 컨테이너 배포 학습</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="exp">
+          <div class="when">2024.05 — 2025.02</div>
+          <div>
+            <h4>유인시스 &amp; 상록에스 <span class="org">— EBS SM 파견</span></h4>
+            <div class="role">계약직 사원 · Traffic &amp; Security Ops</div>
+            <ul>
+              <li>EBS 10만 명 접속 트래픽 통계 스케줄링(Crontab) 관제</li>
+              <li>ISMS-P 개인정보 보호 심사 검증 및 대응 문서화 완료</li>
+              <li>개인추천 서비스 역공학 소스/구조 심도 검토</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="exp">
+          <div class="when">2023.06 — 2024.02</div>
+          <div>
+            <h4>솔앤드 주식회사 <span class="org">— 웹솔루션 B2B</span></h4>
+            <div class="role">웹 개발 사원 · Fullstack</div>
+            <ul>
+              <li>Vue.js + Spring Boot 기반 순천향대 LMS · 공자학당 앱 구축</li>
+              <li>JPA <code style="font-family:'JetBrains Mono';font-size:0.92em;color:var(--amber);">@Transactional</code> 제어로 데이터 무결성 확보</li>
+              <li>KT 멤버십 API · 등급별 권한 관리(Spring Auth) 도입</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="exp">
+          <div class="when">2023.01 — 2023.04</div>
+          <div>
+            <h4>무브인터렉티브 <span class="org">— ASP.NET 역공학 분석</span></h4>
+            <div class="role">분석 · C# / Legacy</div>
+            <ul>
+              <li>Doxygen · DB Dictionary 구조 도식화 리딩</li>
+              <li>C# 기반 결제 모듈 DB 참조 관계(FK) 분석</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── STACK ─────────────── -->
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="num">04 / Tech</div>
+      <div>
+        <h2>Tech <span class="it">Stack.</span></h2>
+        <p class="blurb">주황색 점이 찍힌 항목은 실서비스 운영 경험이 있는 핵심 스택입니다.</p>
+      </div>
+    </div>
+
+    <div class="stack-grid reveal">
+      <div class="stack-col">
+        <h4>Backend &amp; Lang</h4>
+        <ul>
+          <li class="primary">Java / Spring Boot 3</li>
+          <li class="primary">Python / FastAPI</li>
+          <li>Node.js / Express</li>
+          <li>C# / .NET</li>
+          <li>TypeScript</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h4>AI &amp; ML</h4>
+        <ul>
+          <li class="primary">LangChain · LangGraph</li>
+          <li class="primary">OpenAI GPT-4o · Gemini</li>
+          <li class="primary">RAG (Neo4j + Chroma)</li>
+          <li>PyTorch · TensorFlow</li>
+          <li>Celery · 비동기 큐</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h4>Data &amp; Infra</h4>
+        <ul>
+          <li class="primary">MySQL · PostgreSQL</li>
+          <li class="primary">Redis (TTL 캐싱)</li>
+          <li class="primary">Docker · Compose</li>
+          <li>Kubernetes</li>
+          <li>AWS · GCP</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h4>Frontend &amp; Tools</h4>
+        <ul>
+          <li class="primary">Next.js · React 19</li>
+          <li>Vue.js</li>
+          <li>JPA · Flyway</li>
+          <li>JWT · OAuth 2.0</li>
+          <li>Claude Code (AI 협업)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── CONTACT ─────────────── -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="label">— Let's build something —</div>
+    <h2>
+      "Talk is cheap.<br/>
+      <span class="it">Show me</span> the <a href="/cdn-cgi/l/email-protection#ed898f89819e99819980d4d9ad8a808c8481c38e8280">architecture.</a>"
+    </h2>
+    <p class="sub">백엔드, AI 협업, SDUI, 운영 자동화에 관한 이야기를 좋아합니다.</p>
+
+    <div class="contact-links">
+      <a href="/cdn-cgi/l/email-protection#026660666e71766e766f3b3642656f636b6e2c616d6f">✉  <span class="__cf_email__" data-cfemail="cfabadaba3bcbba3bba2f6fb8fa8a2aea6a3e1aca0a2">[email&#160;protected]</span></a>
+      <a href="https://github.com/feed-mina" target="_blank" rel="noopener">⌥  GitHub @feed-mina</a>
+      <a href="https://sdui-delta.vercel.app/view/MAIN_PAGE" target="_blank" rel="noopener">↗  SDUI Live</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <div class="signature">© 2026 Yerin Min — Built with intent.</div>
+    <div>"운영의 문제에서 핑계를 찾기 전에 아키텍처로 해결합니다."</div>
+  </div>
+</footer>
+
+<!-- ─────────────── MODAL ─────────────── -->
+<div class="project-modal" data-modal hidden>
+  <div class="modal-backdrop" data-modal-close></div>
+  <article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" type="button" aria-label="모달 닫기" data-modal-close>×</button>
+    <div class="modal-media" data-modal-media></div>
+    <div class="modal-body">
+      <div class="kicker" data-modal-kicker></div>
+      <h2 id="modal-title" data-modal-title></h2>
+      <div class="tagline" data-modal-tagline></div>
+      <p class="desc" data-modal-description></p>
+      <div class="modal-tabs" role="tablist" aria-label="프로젝트 상세">
+        <button type="button" class="active" data-tab="design">설계 의도</button>
+        <button type="button" data-tab="problem">Problem</button>
+        <button type="button" data-tab="role">Role</button>
+        <button type="button" data-tab="impact">Impact</button>
+      </div>
+      <div class="modal-panel" data-modal-panel></div>
+      <div class="modal-stack" data-modal-stack></div>
+      <div class="modal-actions" data-modal-actions></div>
+    </div>
+  </article>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ─────────────── PROJECTS DATA ─────────────── */
+const projects = [
+  {
+    id: "sdui",
+    title: "SDUI Metadata Engine",
+    category: "architecture web",
+    kicker: "Architecture · 2026",
+    tagline: '// "DB 한 줄로 화면이 바뀐다 — 클라이언트 배포 제로의 실시간 UI 아키텍처"',
+    description: "UI의 구조(Component·Layout·Action)와 비즈니스 로직을 ui_metadata 테이블로 추상화해, 단순 화면 변경 시 클라이언트 배포 없이 서버 설정만으로 런타임 업데이트가 가능한 메타데이터 렌더링 엔진.",
+    image: "https://raw.githubusercontent.com/feed-mina/SDUI/main/assets/docs/demo-role-switch.gif",
+    stack: ["Next.js 15", "React 19", "TypeScript", "Spring Boot 3", "PostgreSQL", "Redis", "OpenAI GPT-4o", "JWT", "OAuth2", "PWA"],
+    design: [
+      "반복되는 프론트엔드 수정과 배포 대기 시간을 줄이기 위해 UI 구조·컴포넌트 타입·액션·권한 정보를 ui_metadata로 추상화",
+      "Next.js 공통 페이지와 DynamicEngine으로 메타데이터 트리를 재귀 렌더링하는 구조 설계",
+      "Spring Boot에서 flat DB rows를 트리 구조로 변환하고 Redis 캐시 계층을 두어 조회 비용 절감"
+    ],
+    problem: [
+      "단순 문구·버튼 변경에도 코드 수정, PR, 빌드, 배포가 반복되는 구조였습니다",
+      "화면별·권한별 UI 차이가 커질수록 프론트엔드 조건 분기와 유지보수 비용이 폭증했습니다"
+    ],
+    role: [
+      "ui_metadata 기반 렌더링 구조를 설계하고 DynamicEngine과 서버 API의 책임 경계를 잡았습니다",
+      "Spring Security + JWT + Kakao OAuth2로 GUEST·USER·PREMIUM·ADMIN 권한별 UI/AI 채팅 렌더링 제어",
+      "GPT-4o 기반 영어/일본어/한국어 AI 채팅 + 음성 입력, AI 면접 코칭, 카카오톡 자동 알림 등 SDUI 위에 실서비스 레이어링"
+    ],
+    impact: [
+      "DB row 수정만으로 화면의 80%가 변경되는 실시간 UI 아키텍처(DynamicEngine) 구축",
+      "Redis TTL 1hr 캐싱 전략으로 Cache Hit 95%+ 달성, RDBMS 부하 최소화",
+      "권한별 UI 전환과 AI 기능을 같은 엔진 위에 얹어 컴포넌트 재사용률 극대화"
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/feed-mina/SDUI", primary: true },
+      { label: "Live Demo", url: "https://sdui-delta.vercel.app/view/MAIN_PAGE" }
+    ]
+  },
+  {
+    id: "k-ride",
+    title: "K-Ride 2.0",
+    category: "ai architecture",
+    kicker: "AI Video Pipeline · 2026",
+    tagline: "// 무거운 영상 생성 모델을 비동기로 통제하고, GPU 비용을 라우팅으로 절감",
+    description: "사용자의 여행 데이터를 입력받아 VLM/LLM이 시나리오를 추출하고, 동적·정적 씬을 하이브리드로 합성해 1~2초 내에 영상을 생성하는 백엔드 파이프라인.",
+    image: "",
+    stack: ["FastAPI", "Celery", "Redis", "PyTorch", "CogVideoX 1.5", "BLIP-2", "Qwen 2.5", "FFmpeg", "Docker"],
+    design: [
+      "무거운 딥러닝 영상 생성 작업이 단일 동기 호출로 묶여 발생하는 GPU 병목을 해결하기 위해 비동기 메시지 큐 구조 채택",
+      "동적 씬(CogVideoX 1.5)과 정적 씬(3D Inpainting)을 자동 분류·라우팅해 GPU 사용량 최소화",
+      "VLM(BLIP-2) · LLM(Qwen 2.5)으로 시나리오 추출 → FFmpeg 미디어 합성으로 끝나는 엔드투엔드 파이프라인 설계"
+    ],
+    problem: [
+      "단일 동기 호출 구조에서 AI 영상 생성 시 서버 전체 응답 지연 발생",
+      "모든 씬을 무거운 영상 생성 모델로 처리하면 GPU 비용이 폭증"
+    ],
+    role: [
+      "FastAPI·Celery·Redis 기반 비동기 메시지 큐 아키텍처 설계 및 구현",
+      "씬 유형 판별 로직과 모델 라우터 작성, FFmpeg 합성 파이프라인 최적화"
+    ],
+    impact: [
+      "딥러닝 영상 생성 작업의 병목 현상 해결 및 응답 시간 1~2초 내 최적화",
+      "동적/정적 씬 하이브리드 라우팅으로 GPU 비용 대폭 절감"
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/feed-mina", primary: true }
+    ]
+  },
+  {
+    id: "today-fridge",
+    title: "오늘의 냉장고",
+    category: "ai web",
+    kicker: "AI Recipe Platform · 2026",
+    tagline: "// 외부 API 장애에도 죽지 않는 3단계 Fallback 설계",
+    description: "냉장고 식재료를 인식·관리하고 LLM이 레시피를 추천하는 MSA 기반 서비스. 백엔드·보안·인증 전담으로 시스템 가용성과 협업 환경을 함께 설계했습니다.",
+    image: "https://raw.githubusercontent.com/feed-mina/today_fridge_teamwork/main/img/image.png",
+    stack: ["Spring Boot", "JPA", "JWT", "Redis", "MySQL", "Gemini API", "MSA", "Docker"],
+    design: [
+      "외부 쇼핑 API와 LLM에 강하게 의존하는 구조라 장애 시 서비스가 죽지 않도록 3단계 Fallback 설계",
+      "Redis 캐시 → 백업 DB → 외부 API 순으로 우아하게 강등되는 응답 흐름",
+      "MSA 환경에서 PR/사전 검증(diff) 문화를 도입해 협업 안정성 확보"
+    ],
+    problem: [
+      "사용자의 냉장고 식재료·식단 기록이 실제 구매 행동과 분리되어 있었음",
+      "외부 API 장애 시 추천 시스템 전체가 정지하는 단일 장애점 존재"
+    ],
+    role: [
+      "백엔드·보안·인증 전담 (7인 팀 중 백엔드 리드)",
+      "쇼핑 링크 연동, JWT Refresh 토큰 생명주기 관리, 소셜 로그인 구현",
+      "Git PR/사전 검증 문화 도입으로 MSA 협업 환경 정착"
+    ],
+    impact: [
+      "Redis → 백업 DB → 외부 API 3단계 Fallback으로 시스템 가용성 극대화",
+      "LLM(Gemini) 응답 오류 대비 Fallback 로직으로 추천 시스템 무중단 운영",
+      "레시피 추천에서 부족한 재료 구매까지 이어지는 사용자 여정 완성"
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/feed-mina/today_fridge_teamwork", primary: true },
+      { label: "Service", url: "https://today-fridge-frontend-deploy.vercel.app/" }
+    ]
+  },
+  {
+    id: "mimo",
+    title: "MIMO Virtual Makeup",
+    category: "ai web",
+    kicker: "Computer Vision · 2022",
+    tagline: '// "앱에서도 립스틱을 실제처럼 발라볼 수 없을까?"',
+    description: "코로나 이후 급성장한 색조 화장품 시장을 겨냥, AI Face Segmentation으로 사용자가 직접 색조를 적용해보는 웹 시뮬레이션. 첫 팀 프로젝트로 UX/UI 설계와 프론트엔드 개발 100% 담당.",
+    image: "https://raw.githubusercontent.com/feed-mina/MIMO/main/assets/mimo-ui-main.png",
+    stack: ["React", "Spring Boot", "Node.js", "TensorFlow", "OpenCV", "U-Net", "MySQL", "Firebase"],
+    design: [
+      "온라인 화장품 구매에서 실제 발색을 확인하기 어려운 문제를 AI Face Segmentation으로 해결",
+      "웹캠 촬영 → OpenCV 전처리 → 얼굴 파츠 마스킹 → 색상 덧입히기로 이어지는 직관적 파이프라인",
+      "U-Net 기반 모델 정확도와 사용자 경험의 균형을 맞추기 위한 UI 동선 설계"
+    ],
+    problem: [
+      "온라인 구매 시 실제 발색을 확인할 수 없는 색조 화장품 시장의 본질적 불편",
+      "얼굴 영역 분리와 자연스러운 컬러 적용을 웹 서비스 흐름으로 녹여야 했음"
+    ],
+    role: [
+      "첫 팀 프로젝트에서 UX/UI 설계와 프론트엔드 개발 100% 담당",
+      "OAuth2 구글 로그인·장바구니·리뷰 시스템 풀스택 협업 구현",
+      "U-Net 모델 적용 흐름과 결과를 README로 정리"
+    ],
+    impact: [
+      "U-Net 기반 Face Segmentation 모델 — Accuracy 91.15% · mIoU 88.0%",
+      "기획·UI·API 통신·AI 모델 적용을 한 프로젝트에서 경험한 첫 풀스택 산물",
+      "초기 HTML/CSS 레이아웃을 React 컴포넌트로 전환하며 협업 가능한 구조 정착"
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/feed-mina/MIMO", primary: true },
+      { label: "Presentation PDF", url: "https://github.com/feed-mina/MIMO/raw/update-readme/2022_MIMO_PPT_final.pdf" }
+    ]
+  },
+  {
+    id: "imagenet",
+    title: "TABA ImageNet Classification",
+    category: "ai learning",
+    kicker: "🏆 Awarded · 2022.12",
+    tagline: '// "근거 있는 결과 도출의 감각을 갖게 된 첫 프로젝트"',
+    description: "단국대 · 한국클라우드컴퓨팅연구조합 TABA 1기 최종 프로젝트. ImageNet 50,000장(1,000 클래스) 기반으로 ResNet · VGGNet · GoogLeNet 등 6개 모델을 직접 구현·비교하며 발표 평가 최우수상 수상.",
+    image: "https://raw.githubusercontent.com/feed-mina/TABA1-_CCCR_-/main/result/imagenet2_testresult.png",
+    stack: ["Python", "PyTorch", "TensorFlow", "Keras", "Flask", "Jupyter", "Azure", "AWS"],
+    design: [
+      "다양한 CNN 모델의 성능 차이를 데이터와 실험으로 설명하기 위한 통합 비교 프레임워크",
+      "ImageNet 50,000장·1,000 클래스를 다룰 수 있는 학습 파이프라인 설계",
+      "Sigmoid·ReLU·Tanh 활성화 함수 비교와 시각화까지 포함하는 분석 흐름"
+    ],
+    problem: [
+      "다양한 CNN 모델의 성능 차이를 실험으로 객관적으로 설명할 필요",
+      "ImageNet 대용량 데이터셋의 구조를 이해하고 실험 가능한 형태로 다뤄야 했음"
+    ],
+    role: [
+      "AlexNet · VGGNet · GoogLeNet Inception Module · MobileNetV2(TF Hub 전이학습) 직접 구현",
+      "전처리, 데이터 증강, 모델 학습 결과 비교, 발표 자료 정리",
+      "Sigmoid · ReLU · Tanh 활성화 함수 비교 실험 및 시각화 리포트 작성"
+    ],
+    impact: [
+      "커스텀 CNN 아키텍처 설계로 최종 정확도 0.8808 달성",
+      "발표 평가 최우수상 수상 — 분석력과 결과 도출 능력 공식 인정",
+      "모델 학습 → 시각화 → 발표까지 이어지는 AI 프로젝트 사이클 완주"
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/feed-mina/TABA1-_CCCR_-", primary: true },
+      { label: "Presentation PDF", url: "https://github.com/feed-mina/TABA1-_CCCR_-/raw/master/TABA_Presentation.pdf" }
+    ]
+  },
+  {
+    id: "til",
+    title: "TABA TIL & Learning",
+    category: "learning",
+    kicker: "Learning Archive",
+    tagline: "// 성장의 연속성을 보여주는 학습 아카이브",
+    description: "TABA 1기 수업 내용과 클라우드/AI 학습 기록을 정리한 저장소. 프로젝트 결과뿐 아니라 학습 과정과 지속성을 보여주는 보조 자산.",
+    image: "",
+    stack: ["TIL", "Cloud", "AI", "Documentation", "GitHub"],
+    design: [
+      "프로젝트 결과만으로는 보여주기 어려운 학습 과정과 지속성을 기록으로 남기기",
+      "교육 과정의 개념을 재활용 가능한 지식 자산으로 정리하는 구조"
+    ],
+    problem: [
+      "결과물 위주의 포트폴리오로는 학습의 깊이와 빈도를 입증하기 어려움",
+      "단발적 학습이 흩어진 메모로 끝나는 일반적 문제"
+    ],
+    role: [
+      "TABA 1기 수업 내용과 실습 흐름을 GitHub 저장소에 체계적으로 정리",
+      "프로젝트 중심 포트폴리오를 보완하는 학습 아카이브 구조 설계"
+    ],
+    impact: [
+      "기술 전환 과정과 꾸준한 기록 습관을 보여주는 근거 자산",
+      "블로그 글의 원천 자료로 재활용 가능한 지식 베이스로 확장"
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/feed-mina/TABA_1-_TIL_yerin-main", primary: true }
+    ]
+  }
+];
+
+/* ─────────────── render projects ─────────────── */
+const slider = document.querySelector("[data-project-slider]");
+const dotsEl = document.querySelector("[data-slider-dots]");
+const modal = document.querySelector("[data-modal]");
+let activeProject = projects[0];
+let activeTab = "design";
+
+const TAB_LABELS = {
+  design: "설계 의도",
+  problem: "Problem",
+  role: "Role",
+  impact: "Impact"
+};
+
+function createCard(p){
+  const card = document.createElement("article");
+  card.className = "project-card";
+  card.dataset.category = p.category;
+  card.tabIndex = 0;
+  card.setAttribute("role", "button");
+  card.setAttribute("aria-label", `${p.title} 상세 보기`);
+
+  const media = document.createElement("div");
+  media.className = "project-media";
+  if(p.image){
+    const img = document.createElement("img");
+    img.src = p.image;
+    img.alt = `${p.title} 대표 이미지`;
+    img.loading = "lazy";
+    img.onerror = ()=>{ img.remove();};
+    media.appendChild(img);
+  }
+  if(p.kicker.includes("🏆") || p.kicker.includes("Awarded")){
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.textContent = "★ Awarded";
+    media.appendChild(badge);
+  }
+
+  const body = document.createElement("div");
+  body.className = "project-body";
+  body.innerHTML = `
+    <div class="kicker">${p.kicker}</div>
+    <h3>${p.title}</h3>
+    <p class="desc">${p.description}</p>
+    <div class="chips">
+      ${p.stack.slice(0,4).map(s=>`<span class="chip">${s}</span>`).join("")}
+    </div>
+  `;
+
+  card.append(media, body);
+  card.addEventListener("click", ()=> openModal(p));
+  card.addEventListener("keydown", e=>{
+    if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openModal(p);}
+  });
+  return card;
+}
+
+function renderProjects(){
+  slider.innerHTML = "";
+  projects.forEach(p => slider.appendChild(createCard(p)));
+  renderDots();
+}
+
+function renderDots(){
+  dotsEl.innerHTML = "";
+  const cards = [...slider.querySelectorAll(".project-card:not([hidden])")];
+  cards.forEach((card, i)=>{
+    const dot = document.createElement("button");
+    dot.type = "button";
+    if(i === 0) dot.classList.add("active");
+    dot.addEventListener("click", ()=>{
+      card.scrollIntoView({ behavior:"smooth", inline:"start", block:"nearest"});
+    });
+    dotsEl.appendChild(dot);
+  });
+}
+
+function updateDots(){
+  const cards = [...slider.querySelectorAll(".project-card:not([hidden])")];
+  const sliderRect = slider.getBoundingClientRect();
+  let closest = { i: 0, d: Infinity};
+  cards.forEach((c, i)=>{
+    const d = Math.abs(c.getBoundingClientRect().left - sliderRect.left);
+    if(d < closest.d) closest = { i, d};
+  });
+  [...dotsEl.children].forEach((dot, i)=>{
+    dot.classList.toggle("active", i === closest.i);
+  });
+}
+
+/* ── modal ── */
+function openModal(p){
+  activeProject = p;
+  activeTab = "design";
+  modal.querySelector("[data-modal-kicker]").textContent = p.kicker;
+  modal.querySelector("[data-modal-title]").textContent = p.title;
+  modal.querySelector("[data-modal-tagline]").textContent = p.tagline || "";
+  modal.querySelector("[data-modal-description]").textContent = p.description;
+  modal.querySelector("[data-modal-stack]").innerHTML = p.stack.map(s=>`<span>${s}</span>`).join("");
+  modal.querySelector("[data-modal-actions]").innerHTML = p.links.map(l =>
+    `<a class="btn ${l.primary ? "primary" : ""}" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`
+  ).join("");
+
+  const media = modal.querySelector("[data-modal-media]");
+  media.innerHTML = p.image ? `<img src="${p.image}" alt="${p.title} 대표 이미지" onerror="this.remove()">` : "";
+
+  modal.querySelectorAll("[data-tab]").forEach(t=>{
+    t.classList.toggle("active", t.dataset.tab === activeTab);
+  });
+  renderModalPanel();
+  modal.hidden = false;
+  document.body.classList.add("modal-open");
+}
+
+function renderModalPanel(){
+  const panel = modal.querySelector("[data-modal-panel]");
+  const items = activeProject[activeTab] || [];
+  panel.innerHTML = `<ul>${items.map(i=>`<li>${i}</li>`).join("")}</ul>`;
+}
+
+function closeModal(){
+  modal.hidden = true;
+  document.body.classList.remove("modal-open");
+}
+
+/* ── filters ── */
+function setupFilters(){
+  document.querySelectorAll("[data-filter]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const f = btn.dataset.filter;
+      document.querySelectorAll("[data-filter]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      slider.querySelectorAll(".project-card").forEach(c=>{
+        const show = f === "all" || c.dataset.category.includes(f);
+        c.hidden = !show;
+      });
+      slider.scrollTo({ left: 0, behavior: "smooth"});
+      renderDots(); updateDots();
+    });
+  });
+}
+
+function setupSliderControls(){
+  document.querySelector("[data-slider-prev]").addEventListener("click", ()=>{
+    slider.scrollBy({ left: -340, behavior: "smooth"});
+  });
+  document.querySelector("[data-slider-next]").addEventListener("click", ()=>{
+    slider.scrollBy({ left: 340, behavior: "smooth"});
+  });
+  slider.addEventListener("scroll", ()=> requestAnimationFrame(updateDots));
+}
+
+function setupModal(){
+  document.querySelectorAll("[data-modal-close]").forEach(el => el.addEventListener("click", closeModal));
+  modal.querySelectorAll("[data-tab]").forEach(tab=>{
+    tab.addEventListener("click", ()=>{
+      activeTab = tab.dataset.tab;
+      modal.querySelectorAll("[data-tab]").forEach(t => t.classList.toggle("active", t === tab));
+      renderModalPanel();
+    });
+  });
+  document.addEventListener("keydown", e=>{
+    if(e.key === "Escape" && !modal.hidden) closeModal();
+  });
+}
+
+/* ── theme ── */
+function setupTheme(){
+  const root = document.documentElement;
+  const toggle = document.querySelector("[data-theme-toggle]");
+  const saved = localStorage.getItem("theme");
+  if(saved) root.dataset.theme = saved;
+  toggle.addEventListener("click", ()=>{
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    localStorage.setItem("theme", next);
+  });
+}
+
+/* ── reveal ── */
+function setupReveal(){
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12});
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+}
+
+/* ── nav spy ── */
+function setupNavSpy(){
+  const links = [...document.querySelectorAll('nav ul a')];
+  const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    });
+  }, { rootMargin: '-42% 0px -52% 0px'});
+  sections.forEach(s => io.observe(s));
+}
+
+renderProjects();
+setupSliderControls();
+setupFilters();
+setupModal();
+setupTheme();
+setupReveal();
+setupNavSpy();
+</script>
+
+</body>
+</html>

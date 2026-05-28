@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'ko' }}" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% seo %}
+  {% feed_meta %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+</head>
+<body>
+  <div class="scroll-meter" aria-hidden="true"><span></span></div>
+  <header class="site-header">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="민예린 포트폴리오 홈">
+      <span class="brand-mark">YM</span>
+      <span>AI Builder Yerin</span>
+    </a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <a href="{{ '/' | relative_url }}#about">About</a>
+      <a href="{{ '/' | relative_url }}#showcase">Projects</a>
+      <a href="{{ '/' | relative_url }}#resume">Resume</a>
+      <a href="{{ '/blog/' | relative_url }}">Blog</a>
+      <a href="{{ '/' | relative_url }}#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="테마 전환" data-theme-toggle>
+      <span>Dark</span>
+    </button>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>2026 Yerin Min</span>
+      <a href="{{ '/' | relative_url }}">Portfolio</a>
+    </div>
+  </footer>
+  <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
+</body>
+</html>
