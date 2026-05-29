@@ -931,7 +931,7 @@
 
       <aside class="profile-panel reveal" aria-label="프로필 요약">
         <div class="profile-image">
-          <img src="assets/images/profile.jpg" alt="민예린 프로필 사진" />
+          <img src="assets/images/profile.jpg" alt="백엔드 개발자 민예린 프로필 사진" />
         </div>
         <div class="profile-meta">
           <div class="ko">Yerin Min · 민예린</div>
@@ -948,6 +948,7 @@
     </div>
   </div>
 </header>
+<main>
 
 <!-- ─────────────── ABOUT (Why Yerin? + 소개) ─────────────── -->
 <section id="about">
@@ -1042,7 +1043,7 @@
     <div class="career-grid">
       <aside class="career-side reveal">
         <div class="career-photo">
-          <img src="assets/images/id-photo.jpg" alt="민예린 증명사진" />
+          <img src="assets/images/id-photo.jpg" alt="백엔드 개발자 민예린 증명사진" />
         </div>
         <div class="meta">
           <div class="label">Profile</div>
@@ -1194,6 +1195,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="wrap row">
@@ -1230,44 +1232,11 @@
 /* ─────────────── PROJECTS DATA ─────────────── */
 const projects = [
   {
-    id: "sdui",
-    title: "SDUI Metadata Engine",
-    category: "architecture web",
-    kicker: "Architecture · 2026",
-    tagline: '// "DB 한 줄로 화면이 바뀐다 — 클라이언트 배포 제로의 실시간 UI 아키텍처"',
-    description: "UI의 구조(Component·Layout·Action)와 비즈니스 로직을 ui_metadata 테이블로 추상화해, 단순 화면 변경 시 클라이언트 배포 없이 서버 설정만으로 런타임 업데이트가 가능한 메타데이터 렌더링 엔진.",
-    image: "https://raw.githubusercontent.com/feed-mina/SDUI/main/assets/docs/demo-role-switch.gif",
-    stack: ["Next.js 15", "React 19", "TypeScript", "Spring Boot 3", "PostgreSQL", "Redis", "OpenAI GPT-4o", "JWT", "OAuth2", "PWA"],
-    design: [
-      "반복되는 프론트엔드 수정과 배포 대기 시간을 줄이기 위해 UI 구조·컴포넌트 타입·액션·권한 정보를 ui_metadata로 추상화",
-      "Next.js 공통 페이지와 DynamicEngine으로 메타데이터 트리를 재귀 렌더링하는 구조 설계",
-      "Spring Boot에서 flat DB rows를 트리 구조로 변환하고 Redis 캐시 계층을 두어 조회 비용 절감"
-    ],
-    problem: [
-      "단순 문구·버튼 변경에도 코드 수정, PR, 빌드, 배포가 반복되는 구조였습니다",
-      "화면별·권한별 UI 차이가 커질수록 프론트엔드 조건 분기와 유지보수 비용이 폭증했습니다"
-    ],
-    role: [
-      "ui_metadata 기반 렌더링 구조를 설계하고 DynamicEngine과 서버 API의 책임 경계를 잡았습니다",
-      "Spring Security + JWT + Kakao OAuth2로 GUEST·USER·PREMIUM·ADMIN 권한별 UI/AI 채팅 렌더링 제어",
-      "GPT-4o 기반 영어/일본어/한국어 AI 채팅 + 음성 입력, AI 면접 코칭, 카카오톡 자동 알림 등 SDUI 위에 실서비스 레이어링"
-    ],
-    impact: [
-      "DB row 수정만으로 화면의 80%가 변경되는 실시간 UI 아키텍처(DynamicEngine) 구축",
-      "Redis TTL 1hr 캐싱 전략으로 Cache Hit 95%+ 달성, RDBMS 부하 최소화",
-      "권한별 UI 전환과 AI 기능을 같은 엔진 위에 얹어 컴포넌트 재사용률 극대화"
-    ],
-    links: [
-      { label: "GitHub", url: "https://github.com/feed-mina/SDUI", primary: true },
-      { label: "Live Demo", url: "https://sdui-delta.vercel.app/view/MAIN_PAGE" }
-    ]
-  },
-  {
-    id: "k-ride",
-    title: "K-Ride 2.0",
+    id: "KMovement",
+    title: "KMovement 2.0",
     category: "ai architecture",
     kicker: "AI Video Pipeline · 2026",
-    tagline: "// 무거운 영상 생성 모델을 비동기로 통제하고, GPU 비용을 라우팅으로 절감",
+    tagline: "무거운 영상 생성 모델을 비동기로 통제하고, GPU 비용을 라우팅으로 절감",
     description: "사용자의 여행 데이터를 입력받아 VLM/LLM이 시나리오를 추출하고, 동적·정적 씬을 하이브리드로 합성해 1~2초 내에 영상을 생성하는 백엔드 파이프라인.",
     image: "",
     video: "KMovement/assets/video/meta_animation.mp4",
@@ -1332,36 +1301,36 @@ const projects = [
     ]
   },
   {
-    id: "mimo",
-    title: "MIMO Virtual Makeup",
-    category: "ai web",
-    kicker: "Computer Vision · 2022",
-    tagline: '// "앱에서도 립스틱을 실제처럼 발라볼 수 없을까?"',
-    description: "코로나 이후 급성장한 색조 화장품 시장을 겨냥, AI Face Segmentation으로 사용자가 직접 색조를 적용해보는 웹 시뮬레이션. 첫 팀 프로젝트로 UX/UI 설계와 프론트엔드 개발 100% 담당.",
-    iframe: "https://docs.google.com/viewer?url=https://raw.githubusercontent.com/feed-mina/MIMO/update-readme/2022_MIMO_PPT_final.pdf&embedded=true",
-    stack: ["React", "Spring Boot", "Node.js", "TensorFlow", "OpenCV", "U-Net", "MySQL", "Firebase"],
+    id: "sdui",
+    title: "SDUI Metadata Engine",
+    category: "architecture web",
+    kicker: "Architecture · 2026",
+    tagline: '// "DB 한 줄로 화면이 바뀐다 — 클라이언트 배포 제로의 실시간 UI 아키텍처"',
+    description: "UI의 구조(Component·Layout·Action)와 비즈니스 로직을 ui_metadata 테이블로 추상화해, 단순 화면 변경 시 클라이언트 배포 없이 서버 설정만으로 런타임 업데이트가 가능한 메타데이터 렌더링 엔진.",
+    image: "https://raw.githubusercontent.com/feed-mina/SDUI/main/assets/docs/demo-role-switch.gif",
+    stack: ["Next.js 15", "React 19", "TypeScript", "Spring Boot 3", "PostgreSQL", "Redis", "OpenAI GPT-4o", "JWT", "OAuth2", "PWA"],
     design: [
-      "온라인 화장품 구매에서 실제 발색을 확인하기 어려운 문제를 AI Face Segmentation으로 해결",
-      "웹캠 촬영 → OpenCV 전처리 → 얼굴 파츠 마스킹 → 색상 덧입히기로 이어지는 직관적 파이프라인",
-      "U-Net 기반 모델 정확도와 사용자 경험의 균형을 맞추기 위한 UI 동선 설계"
+      "반복되는 프론트엔드 수정과 배포 대기 시간을 줄이기 위해 UI 구조·컴포넌트 타입·액션·권한 정보를 ui_metadata로 추상화",
+      "DOM이 트리 구조라는 점을 이용해 걱 요소들을 DynamicEngine으로 메타데이터 재귀 렌더링하는 구조 설계",
+      "Spring Boot에서 flat DB rows를 트리 구조로 변환하고 Redis 캐시 계층을 사용해 렌더링 비용 절감"
     ],
     problem: [
-      "온라인 구매 시 실제 발색을 확인할 수 없는 색조 화장품 시장의 본질적 불편",
-      "얼굴 영역 분리와 자연스러운 컬러 적용을 웹 서비스 흐름으로 녹여야 했음"
+      "하드코딩 페이지에 단순 문구·버튼 변경에도 코드 수정, PR, 빌드, 배포가 반복되는 구조를 바꾸고싶었습니다",
+      "화면별·권한별 UI 차이가 커질수록 프론트엔드 조건 분기와 유지보수를 고려하게 되었습니다"
     ],
     role: [
-      "첫 팀 프로젝트에서 UX/UI 설계와 프론트엔드 개발 100% 담당",
-      "OAuth2 구글 로그인·장바구니·리뷰 시스템 풀스택 협업 구현",
-      "U-Net 모델 적용 흐름과 결과를 README로 정리"
+      "ui_metadata 기반 렌더링 구조를 설계하고 DynamicEngine과 서버 API의 책임 경계를 잡았습니다",
+      "Spring Security + JWT + Kakao OAuth2로 GUEST·USER·PREMIUM·ADMIN 권한별 UI (RBAC 구현)",
+      "일생활에 필요한 GPT-4o 기반 AI 채팅: 영어/일본어/한국어 AI 채팅 + 음성 입력, AI 면접 코칭, 구글캘린더/카카오톡 자동 알림 , 배치를 통헌 필요한 자료들을 슬랙으로 알림 등 SDUI 위에 실서비스 레이어링"
     ],
     impact: [
-      "U-Net 기반 Face Segmentation 모델 — Accuracy 91.15% · mIoU 88.0%",
-      "기획·UI·API 통신·AI 모델 적용을 한 프로젝트에서 경험한 첫 풀스택 산물",
-      "초기 HTML/CSS 레이아웃을 React 컴포넌트로 전환하며 협업 가능한 구조 정착"
+      "DB row 수정만으로 화면의 80%가 변경되는 실시간 UI 아키텍처(DynamicEngine) 구축",
+      "Redis TTL 1hr 캐싱 전략으로 Cache Hit 95%+ 달성, RDBMS 부하 최소화",
+      "권한별 UI 전환과 AI 기능을 같은 엔진 위에 얹어 컴포넌트 재사용률 극대화"
     ],
     links: [
-      { label: "GitHub (README)", url: "https://github.com/feed-mina/MIMO#readme", primary: true },
-      { label: "Presentation PDF", url: "https://docs.google.com/viewer?url=https://raw.githubusercontent.com/feed-mina/MIMO/update-readme/2022_MIMO_PPT_final.pdf&embedded=true" }
+      { label: "GitHub", url: "https://github.com/feed-mina/SDUI", primary: true },
+      { label: "Live Demo", url: "https://sdui-delta.vercel.app/view/MAIN_PAGE" }
     ]
   },
   {
@@ -1395,6 +1364,40 @@ const projects = [
     links: [
       { label: "GitHub (README)", url: "https://github.com/feed-mina/TABA1-_CCCR_-#readme", primary: true },
       { label: "Presentation PDF", url: "https://docs.google.com/viewer?url=https://raw.githubusercontent.com/feed-mina/TABA1-_CCCR_-/master/TABA_Presentation.pdf&embedded=true" }
+    ]
+  },
+  {
+    id: "mimo",
+    title: "MIMO Virtual Makeup",
+    category: "ai web",
+    kicker: "Computer Vision · 2022",
+    tagline: '// "앱에서도 립스틱을 실제처럼 발라볼 수 없을까?"',
+    description: "코로나 이후 급성장한 색조 화장품 시장을 겨냥, AI Face Segmentation으로 사용자가 직접 색조를 적용해보는 웹 시뮬레이션. 첫 팀 프로젝트로 UX/UI 설계와 프론트엔드 개발 100% 담당.",
+    images: ["assets/images/mimo-ui-main.png", "assets/images/mimo-ui-shot.png"],
+    iframe: "https://docs.google.com/viewer?url=https://raw.githubusercontent.com/feed-mina/MIMO/update-readme/2022_MIMO_PPT_final.pdf&embedded=true",
+    stack: ["React", "Spring Boot", "Node.js", "TensorFlow", "OpenCV", "U-Net", "MySQL", "Firebase"],
+    design: [
+      "온라인 화장품 구매에서 실제 발색을 확인하기 어려운 문제를 AI Face Segmentation으로 해결",
+      "웹캠 촬영 → OpenCV 전처리 → 얼굴 파츠 마스킹 → 색상 덧입히기로 이어지는 직관적 파이프라인",
+      "U-Net 기반 모델 정확도와 사용자 경험의 균형을 맞추기 위한 UI 동선 설계"
+    ],
+    problem: [
+      "온라인 구매 시 실제 발색을 확인할 수 없는 색조 화장품 시장의 본질적 불편",
+      "얼굴 영역 분리와 자연스러운 컬러 적용을 웹 서비스 흐름으로 녹여야 했음"
+    ],
+    role: [
+      "첫 팀 프로젝트에서 UX/UI 설계와 프론트엔드 개발 100% 담당",
+      "OAuth2 구글 로그인·장바구니·리뷰 시스템 풀스택 협업 구현",
+      "U-Net 모델 적용 흐름과 결과를 README로 정리"
+    ],
+    impact: [
+      "U-Net 기반 Face Segmentation 모델 — Accuracy 91.15% · mIoU 88.0%",
+      "기획·UI·API 통신·AI 모델 적용을 한 프로젝트에서 경험한 첫 풀스택 산물",
+      "초기 HTML/CSS 레이아웃을 React 컴포넌트로 전환하며 협업 가능한 구조 정착"
+    ],
+    links: [
+      { label: "GitHub (README)", url: "https://github.com/feed-mina/MIMO#readme", primary: true },
+      { label: "Presentation PDF", url: "https://docs.google.com/viewer?url=https://raw.githubusercontent.com/feed-mina/MIMO/update-readme/2022_MIMO_PPT_final.pdf&embedded=true" }
     ]
   },
   {
@@ -1457,7 +1460,36 @@ function createCard(p){
 
   const media = document.createElement("div");
   media.className = "project-media";
-  if(p.video){
+  if(p.images){
+    const container = document.createElement("div");
+    container.className = "crossfade-container";
+    container.style.position = "relative";
+    container.style.width = "100%";
+    container.style.height = "100%";
+    p.images.forEach((src, idx) => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.style.position = "absolute";
+      img.style.top = "0";
+      img.style.left = "0";
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.objectFit = "cover";
+      img.style.transition = "opacity 1.5s ease-in-out";
+      img.style.opacity = idx === 0 ? "1" : "0";
+      container.appendChild(img);
+    });
+    if(p.images.length > 1){
+      let currentIdx = 0;
+      const imgs = container.querySelectorAll("img");
+      setInterval(() => {
+        imgs[currentIdx].style.opacity = "0";
+        currentIdx = (currentIdx + 1) % imgs.length;
+        imgs[currentIdx].style.opacity = "1";
+      }, 3000);
+    }
+    media.appendChild(container);
+  } else if(p.video){
     const vid = document.createElement("video");
     vid.src = p.video;
     vid.autoplay = true;
@@ -1474,12 +1506,33 @@ function createCard(p){
     iframe.style.pointerEvents = "none";
     media.appendChild(iframe);
   } else if(p.image){
-    const img = document.createElement("img");
-    img.src = p.image;
-    img.alt = `${p.title} 대표 이미지`;
-    img.loading = "lazy";
-    img.onerror = ()=>{ img.remove();};
-    media.appendChild(img);
+    if (p.id === 'til') {
+      const container = document.createElement("div");
+      container.style.width = "100%";
+      container.style.height = "100%";
+      container.style.overflow = "hidden";
+      container.style.display = "flex";
+      container.style.justifyContent = "flex-end";
+      container.style.alignItems = "center";
+      
+      const img = document.createElement("img");
+      img.src = p.image;
+      img.alt = p.title + " 프로젝트 포트폴리오 썸네일 이미지";
+      img.loading = "lazy";
+      img.style.height = "100%";
+      img.style.width = "auto";
+      img.style.maxWidth = "none";
+      
+      container.appendChild(img);
+      media.appendChild(container);
+    } else {
+      const img = document.createElement("img");
+      img.src = p.image;
+      img.alt = `${p.title} 프로젝트 포트폴리오 썸네일 이미지`;
+      img.loading = "lazy";
+      img.onerror = ()=>{ img.remove();};
+      media.appendChild(img);
+    }
   }
   if(p.kicker.includes("🏆") || p.kicker.includes("Awarded")){
     const badge = document.createElement("span");
@@ -1554,7 +1607,7 @@ function openModal(p){
   ).join("");
 
   const media = modal.querySelector("[data-modal-media]");
-  media.innerHTML = p.video ? `<video src="${p.video}" autoplay loop muted playsinline></video>` : (p.iframe ? `<iframe src="${p.iframe}" style="width:100%; height:100%; border:none;"></iframe>` : (p.image ? `<img src="${p.image}" alt="${p.title} 대표 이미지" onerror="this.remove()">` : ""));
+  media.innerHTML = p.video ? `<video src="${p.video}" autoplay loop muted playsinline></video>` : (p.iframe ? `<iframe src="${p.iframe}" style="width:100%; height:100%; border:none;"></iframe>` : (p.images ? `<img src="${p.images[0]}" alt="${p.title} 프로젝트 썸네일" onerror="this.remove()">` : (p.image ? `<img src="${p.image}" alt="${p.title} 프로젝트 썸네일" onerror="this.remove()">` : "")));
 
   modal.querySelectorAll("[data-tab]").forEach(t=>{
     t.classList.toggle("active", t.dataset.tab === activeTab);
