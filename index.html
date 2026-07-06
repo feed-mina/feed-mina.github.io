@@ -1265,6 +1265,39 @@ const projects = [
     ]
   },
   {
+    id: "planning-harness",
+    title: "Planning Harness",
+    category: "ai architecture web",
+    kicker: "AI Planning Loop · 2026",
+    tagline: "// 기획 산출물 생성부터 GitHub Issue/PR 핸드오프까지 이어지는 승인 게이트 기반 AI 기획 루프",
+    description: "기획자가 명령어 한 줄로 상세기획 산출물을 만들고, 승인된 기획을 개발 repo 이슈/PR까지 넘기는 규칙·가드레일 기반 Claude Code 플러그인.",
+    image: "https://ghchart.rshah.org/219138/feed-mina",
+    stack: ["Claude Code", "GitHub CLI", "Shell", "Python", "Markdown", "Mermaid", "GitHub Projects", "GitHub Actions"],
+    design: [
+      "일회성 프롬프트가 아니라 로컬에 고정된 8개 스킬과 가드레일로 AI 기획 흐름을 표준화",
+      "spec.md를 SSOT로 두고 요구사항 분해, 시퀀스 다이어그램, 사용자 플로우, 테스트 케이스를 단계별 산출물로 생성",
+      "위험한 GitHub 반영 작업은 dry-run과 사람 승인 게이트를 거치도록 설계"
+    ],
+    problem: [
+      "기획 산출물이 프롬프트마다 달라지고, 개발 이슈로 넘기는 과정에서 맥락이 자주 손실됨",
+      "AI가 요구사항 분해나 GitHub 반영을 임의로 진행하면 위험하므로 승인 흐름이 필요했음"
+    ],
+    role: [
+      "Claude Code 플러그인 구조와 8개 슬래시 커맨드 설계",
+      "GitHub Issues, Projects, PR 핸드오프까지 이어지는 기획-개발 연결 흐름 구성",
+      "README, PLUGIN.md, 템플릿, 승인 규칙 문서화"
+    ],
+    impact: [
+      "기획 문서 생성부터 개발 repo 이슈/PR 핸드오프까지 하나의 반복 가능한 루프로 정리",
+      "승인 전 외부 작업을 막는 가드레일로 AI 자동화의 안정성 확보",
+      "다른 프로젝트에도 설치 가능한 Claude Code 플러그인 형태로 패키징"
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/feed-mina/planning-harness", primary: true },
+      { label: "Feature Demo", url: "https://harness-meeting-app.kibayerin.workers.dev/feature/" }
+    ]
+  },
+  {
     id: "today-fridge",
     title: "오늘의 냉장고",
     category: "ai web",
@@ -1331,39 +1364,6 @@ const projects = [
     links: [
       { label: "GitHub", url: "https://github.com/feed-mina/SDUI", primary: true },
       { label: "Live Demo", url: "https://sdui-delta.vercel.app/view/MAIN_PAGE" }
-    ]
-  },
-  {
-    id: "planning-harness",
-    title: "Planning Harness",
-    category: "ai architecture web",
-    kicker: "AI Planning Loop · 2026",
-    tagline: "// 기획 산출물 생성부터 GitHub Issue/PR 핸드오프까지 이어지는 승인 게이트 기반 AI 기획 루프",
-    description: "기획자가 명령어 한 줄로 상세기획 산출물을 만들고, 승인된 기획을 개발 repo 이슈/PR까지 넘기는 규칙·가드레일 기반 Claude Code 플러그인.",
-    image: "https://ghchart.rshah.org/219138/feed-mina",
-    stack: ["Claude Code", "GitHub CLI", "Shell", "Python", "Markdown", "Mermaid", "GitHub Projects", "GitHub Actions"],
-    design: [
-      "일회성 프롬프트가 아니라 로컬에 고정된 8개 스킬과 가드레일로 AI 기획 흐름을 표준화",
-      "spec.md를 SSOT로 두고 요구사항 분해, 시퀀스 다이어그램, 사용자 플로우, 테스트 케이스를 단계별 산출물로 생성",
-      "위험한 GitHub 반영 작업은 dry-run과 사람 승인 게이트를 거치도록 설계"
-    ],
-    problem: [
-      "기획 산출물이 프롬프트마다 달라지고, 개발 이슈로 넘기는 과정에서 맥락이 자주 손실됨",
-      "AI가 요구사항 분해나 GitHub 반영을 임의로 진행하면 위험하므로 승인 흐름이 필요했음"
-    ],
-    role: [
-      "Claude Code 플러그인 구조와 8개 슬래시 커맨드 설계",
-      "GitHub Issues, Projects, PR 핸드오프까지 이어지는 기획-개발 연결 흐름 구성",
-      "README, PLUGIN.md, 템플릿, 승인 규칙 문서화"
-    ],
-    impact: [
-      "기획 문서 생성부터 개발 repo 이슈/PR 핸드오프까지 하나의 반복 가능한 루프로 정리",
-      "승인 전 외부 작업을 막는 가드레일로 AI 자동화의 안정성 확보",
-      "다른 프로젝트에도 설치 가능한 Claude Code 플러그인 형태로 패키징"
-    ],
-    links: [
-      { label: "GitHub", url: "https://github.com/feed-mina/planning-harness", primary: true },
-      { label: "Pages", url: "https://feed-mina.github.io/planning-harness/" }
     ]
   },
   {
