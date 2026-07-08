@@ -10,6 +10,13 @@
 <meta property="og:image" content="assets/images/profile.jpg" />
 <meta property="og:locale" content="ko_KR" />
 <link rel="canonical" href="https://feed-mina.github.io/" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#0a0a0b" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -106,6 +113,10 @@
   .brand .dot{
     width:7px; height:7px; border-radius:50%;
     background: var(--amber); box-shadow: 0 0 12px var(--amber);
+  }
+  .brand .brand-mark{
+    width:26px; height:26px; display:block; border-radius:7px;
+    box-shadow: 0 0 14px rgba(255,138,61,0.25);
   }
   .brand i{color:var(--ink-dim); font-style:normal; font-weight:400;}
   nav ul{list-style:none; display:flex; gap:22px;}
@@ -882,7 +893,7 @@
 <nav class="top">
   <div class="row">
     <a href="#top" class="brand">
-      <span class="dot"></span>
+      <img src="/assets/images/logo-mark.svg" class="brand-mark" alt="Yerin.Min 로고" width="26" height="26" />
       Yerin.Min <i> AI Software Engineer</i>
     </a>
     <ul>
@@ -1271,7 +1282,7 @@ const projects = [
     kicker: "AI Planning Loop · 2026",
     tagline: "// 기획 산출물 생성부터 GitHub Issue/PR 핸드오프까지 이어지는 승인 게이트 기반 AI 기획 루프",
     description: "기획자가 명령어 한 줄로 상세기획 산출물을 만들고, 승인된 기획을 개발 repo 이슈/PR까지 넘기는 규칙·가드레일 기반 Claude Code 플러그인.",
-    image: "https://ghchart.rshah.org/219138/feed-mina",
+    image: "assets/images/planning-harness-analysis.png",
     stack: ["Claude Code", "GitHub CLI", "Shell", "Python", "Markdown", "Mermaid", "GitHub Projects", "GitHub Actions"],
     design: [
       "일회성 프롬프트가 아니라 로컬에 고정된 8개 스킬과 가드레일로 AI 기획 흐름을 표준화",
@@ -1294,7 +1305,9 @@ const projects = [
     ],
     links: [
       { label: "GitHub", url: "https://github.com/feed-mina/planning-harness", primary: true },
-      { label: "Feature Demo", url: "https://harness-meeting-app.kibayerin.workers.dev/feature/" }
+      { label: "Live Demo", url: "https://harness-meeting-app.kibayerin.workers.dev" },
+      { label: "사용자 가이드 (PPT)", url: "assets/docs/planning-harness-user-guide.pptx" },
+      { label: "개발자 문서 (PPT)", url: "assets/docs/planning-harness-developer-guide.pptx" }
     ]
   },
   {

@@ -1,0 +1,14 @@
+{
+  "name": "Yerin.Min — AI Software Engineer",
+  "short_name": "Yerin.Min",
+  "description": "운영의 문제를 아키텍처 설계로 해결하는 백엔드/풀스택 개발자 민예린의 포트폴리오.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0b",
+  "theme_color": "#0a0a0b",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
