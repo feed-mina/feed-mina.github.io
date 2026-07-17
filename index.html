@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>민예린 | AI Architecture & Backend Portfolio</title>
-<meta name="description" content="운영의 문제를 아키텍처 설계로 해결하는 백엔드/풀스택 개발자 민예린의 포트폴리오." />
+<meta name="description" content="화면과 기획을 데이터로 다루는 SDUI 제품 라인(엔진·편집기·기획 루프)과 GraphRAG 기반 AI 서비스를 직접 만들어 운영합니다. 모두 지금 열어볼 수 있는 라이브 데모가 있습니다 — 민예린 포트폴리오." />
 <meta property="og:title" content="민예린 | AI Architecture & Backend Portfolio" />
-<meta property="og:description" content="SDUI · 비동기 메시지 큐 · 하이브리드 RAG — 운영의 문제를 아키텍처로 풉니다." />
+<meta property="og:description" content="One engine, three products — 배포 없이 화면을 바꾸는 SDUI 엔진, 코딩 없는 화면 편집기, 승인 게이트 기반 AI 기획 루프. 전부 라이브로 열어볼 수 있습니다." />
 <meta property="og:image" content="assets/images/profile.jpg" />
 <meta property="og:locale" content="ko_KR" />
 <link rel="canonical" href="https://feed-mina.github.io/" />
@@ -761,6 +761,88 @@
     color: var(--ink-mute); font-size: 22px;
   }
 
+  /* ────── platform ────── */
+  .platform-thesis{
+    display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center;
+    padding: 28px 32px; margin-bottom: 40px;
+    border: 1px solid var(--line); border-radius: 18px;
+    background: var(--gradient-card);
+  }
+  .platform-thesis p{
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(20px, 2.4vw, 30px); line-height: 1.45; color: var(--ink);
+  }
+  .platform-thesis p .it{ font-style: italic; color: var(--amber);}
+  .platform-thesis .thesis-meta{
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute);
+    text-align: right; line-height: 2;
+  }
+  .platform-flow{
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .pstep{
+    position: relative;
+    display: flex; flex-direction: column; gap: 12px;
+    padding: 26px 24px 24px;
+    border: 1px solid var(--line); border-radius: 16px;
+    background: var(--surface);
+    transition: border-color .3s ease, transform .3s ease;
+  }
+  .pstep:hover{ border-color: var(--amber); transform: translateY(-4px);}
+  .pstep:not(:last-child)::after{
+    content: "→";
+    position: absolute; right: -16px; top: 50%; transform: translateY(-50%);
+    color: var(--ink-mute); font-size: 16px; z-index: 2;
+  }
+  .pstep-media{
+    position: relative;
+    margin: -26px -24px 4px; /* bleed to card edges */
+    border-radius: 16px 16px 0 0; overflow: hidden;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+    aspect-ratio: 900 / 309;
+  }
+  .pstep-media img, .pstep-media video{
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    display: block;
+  }
+  .pstep-media .media-tag{
+    position: absolute; left: 10px; bottom: 10px;
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 8px; border-radius: 6px;
+    background: rgba(0,0,0,0.62); color: #fff;
+    backdrop-filter: blur(4px);
+  }
+  .pstep-head{ display: flex; align-items: center; gap: 10px;}
+  .pstep-num{
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    color: var(--amber); letter-spacing: 0.12em;
+  }
+  .pstep-role{
+    font-size: 11px; padding: 3px 9px; border-radius: 999px;
+    background: var(--amber-soft); color: var(--amber);
+    letter-spacing: 0.08em;
+  }
+  .pstep h3{ font-size: 19px; font-weight: 600; letter-spacing: -0.01em;}
+  .pstep-claim{
+    font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.55;
+  }
+  .pstep-body{ font-size: 13.5px; color: var(--ink-dim); line-height: 1.75; flex: 1;}
+  .pstep-links{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px;}
+  .plink{
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    padding: 7px 12px; border-radius: 8px;
+    border: 1px solid var(--amber); background: var(--amber); color: var(--bg);
+    text-decoration: none; transition: opacity .2s ease;
+  }
+  .plink:hover{ opacity: .82;}
+  .plink.ghost{
+    background: transparent; color: var(--ink-dim); border-color: var(--line-strong);
+  }
+  .plink.ghost:hover{ color: var(--ink); border-color: var(--ink-mute); opacity: 1;}
+
   /* ────── stack ────── */
   .stack-grid{
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
@@ -875,6 +957,12 @@
     .career-side{ position: static; max-width: 280px;}
     .career-photo{ aspect-ratio: 4/5;}
     .stack-grid{ grid-template-columns: repeat(2, 1fr);}
+    .platform-thesis{ grid-template-columns: 1fr; gap: 18px; padding: 24px;}
+    .platform-thesis .thesis-meta{ text-align: left;}
+    .platform-flow{ grid-template-columns: 1fr; gap: 16px;}
+    .pstep:not(:last-child)::after{
+      right: 50%; top: auto; bottom: -14px; transform: translateX(50%) rotate(90deg);
+    }
     .modal-card{ grid-template-columns: 1fr; max-height: calc(100vh - 32px);}
     .modal-media{ min-height: 180px; aspect-ratio: 16/9;}
     .modal-body{ padding: 28px 24px;}
@@ -898,10 +986,11 @@
     </a>
     <ul>
       <li><a href="#about">01 · About</a></li>
-      <li><a href="#projects">02 · Projects</a></li>
-      <li><a href="#career">03 · Career</a></li>
-      <li><a href="#stack">04 · Stack</a></li>
-      <li><a href="#contact">05 · Contact</a></li>
+      <li><a href="#platform">02 · Platform</a></li>
+      <li><a href="#projects">03 · Projects</a></li>
+      <li><a href="#career">04 · Career</a></li>
+      <li><a href="#stack">05 · Stack</a></li>
+      <li><a href="#contact">06 · Contact</a></li>
     </ul>
 
     <button class="theme-toggle" type="button" data-theme-toggle aria-label="테마 전환">
@@ -935,7 +1024,7 @@
           대규모 트래픽을 통제해 본 엔터프라이즈 운영 경험과, <strong>SDUI · 비동기 메시지 큐 · 하이브리드 RAG</strong>를 직접 설계해 본 깊이를 함께 가졌습니다.
         </p>
         <div class="hero-actions">
-          <a class="btn primary" href="#projects">대표 프로젝트 보기 →</a>
+          <a class="btn primary" href="#platform">지금 열어볼 수 있는 제품 4개 →</a>
           <a class="btn" href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener">이력서 PDF ↗</a>
         </div>
       </div>
@@ -986,7 +1075,7 @@
       <div class="pillar">
         <div class="idx">03</div>
         <h3>대용량 트래픽 통제 &amp; 인프라 운영</h3>
-        <p>EBS 10만 명 트래픽 통계 스케줄링과 포스코DX 메일 보안(ISMS-P) 운영 경험을 바탕으로, 최신 AI 서비스를 Docker · 클라우드에 안전하게 배포·확장합니다.</p>
+        <p>EBS 영어 트래픽 통계 스케줄링과 포스코DX 메일 보안(ISMS-P) 운영 경험을 바탕으로, 최신 AI 서비스를 Docker · 클라우드에 안전하게 배포·확장합니다.</p>
       </div>
     </div>
 
@@ -1013,10 +1102,85 @@
 </section>
 
 <!-- ─────────────── PROJECTS ─────────────── -->
+<!-- ─────────────── PLATFORM (SDUI product line) ─────────────── -->
+<section id="platform">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="num">02 / Platform</div>
+      <div>
+        <h2>One Engine, <span class="it">Three Products.</span></h2>
+        <p class="blurb">따로 만든 사이드 프로젝트 세 개가 아닙니다. 같은 메타데이터 계약 위에 <strong>엔진 · 편집기 · 기획 루프</strong>를 차례로 얹어 만든 하나의 제품 라인이고, 세 개 모두 지금 바로 열어볼 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="platform-thesis reveal">
+      <p>화면과 기획을 코드가 아니라 <span class="it">데이터</span>로 다루면,<br/>바꾸는 데 개발자를 기다릴 필요가 없습니다.</p>
+      <div class="thesis-meta">
+        Live · 3 products<br/>
+        Metadata contract<br/>
+        Deploy-free UI
+      </div>
+    </div>
+
+    <div class="platform-flow reveal">
+      <article class="pstep">
+        <div class="pstep-media">
+          <img src="assets/images/sdui-db-to-ui.gif" loading="lazy" decoding="async" width="720" height="247"
+               alt="psql에서 ui_metadata 테이블의 label_text를 UPDATE 하자 브라우저의 버튼 문구가 즉시 바뀌는 데모" />
+          <span class="media-tag">DB 수정 → 화면 반영 · 약 1초</span>
+        </div>
+        <div class="pstep-head">
+          <span class="pstep-num">01</span>
+          <span class="pstep-role">엔진</span>
+        </div>
+        <h3>SDUI Metadata Engine</h3>
+        <p class="pstep-claim">문구 하나 바꾸려고 배포하지 않습니다.</p>
+        <p class="pstep-body">화면의 구조·권한·동작을 <code>ui_metadata</code> 테이블로 추상화했습니다. DB row만 수정하면 화면의 80%가 실시간으로 바뀌고, 권한별(GUEST·USER·PREMIUM·ADMIN) 화면도 같은 엔진이 처리합니다. Redis TTL 캐싱으로 Cache Hit 95%+.</p>
+        <div class="pstep-links">
+          <a class="plink" href="https://sdui-delta.vercel.app/view/MAIN_PAGE" target="_blank" rel="noopener">라이브 데모 ↗</a>
+          <a class="plink ghost" href="https://github.com/feed-mina/SDUI" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+      <article class="pstep">
+        <div class="pstep-media">
+          <video src="assets/images/sdui-studio-edit.mp4" autoplay loop muted playsinline preload="metadata"
+                 width="900" height="312"
+                 aria-label="스튜디오에서 제목 문구를 고치자 오른쪽 미리보기가 즉시 따라 바뀌는 화면"></video>
+          <span class="media-tag">문구 편집 → 미리보기 즉시 반영</span>
+        </div>
+        <div class="pstep-head">
+          <span class="pstep-num">02</span>
+          <span class="pstep-role">편집기</span>
+        </div>
+        <h3>Template Kit Studio</h3>
+        <p class="pstep-claim">이제 개발자가 아니어도 화면을 만듭니다.</p>
+        <p class="pstep-body">엔진을 제품으로 바꾼 단계입니다. 브라우저에서 컴포넌트를 고르고 문구·디자인을 바꾸면 실시간으로 미리보기가 뜹니다. 서로 다른 프로젝트의 화면 메타데이터를 공통 manifest로 변환하고, 검증기가 호환성을 미리 알려준 뒤 정적 페이지로 게시합니다.</p>
+        <div class="pstep-links">
+          <a class="plink" href="https://sdui-template-kit-productization.pages.dev/studio/" target="_blank" rel="noopener">스튜디오 열기 ↗</a>
+        </div>
+      </article>
+
+      <article class="pstep">
+        <div class="pstep-head">
+          <span class="pstep-num">03</span>
+          <span class="pstep-role">기획 루프</span>
+        </div>
+        <h3>Planning Harness</h3>
+        <p class="pstep-claim">회의록이 GitHub 이슈까지 끊기지 않고 갑니다.</p>
+        <p class="pstep-body">화면을 만드는 앞단, 즉 기획을 자동화합니다. 회의록·분석·Kanban을 다루는 웹앱과, 기획 산출물을 만들어 개발 repo 이슈/PR로 넘기는 8개 스킬. AI가 임의로 반영하지 못하도록 위험한 작업은 전부 <strong>사람 승인 게이트</strong>를 거칩니다.</p>
+        <div class="pstep-links">
+          <a class="plink" href="https://harness-meeting-app.kibayerin.workers.dev/" target="_blank" rel="noopener">라이브 데모 ↗</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section id="projects">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="num">02 / Work</div>
+      <div class="num">03 / Work</div>
       <div>
         <h2>Featured <span class="it">Projects.</span></h2>
         <p class="blurb">카드로 훑고, 모달에서 설계 의도까지 깊게 봅니다. 각 카드는 README와 이력서를 바탕으로 문제 · 역할 · 기술 선택 · 결과를 압축했습니다.</p>
@@ -1044,7 +1208,7 @@
 <section id="career">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="num">03 / Career</div>
+      <div class="num">04 / Career</div>
       <div>
         <h2>Experience <span class="it">Roadmap.</span></h2>
         <p class="blurb">엔터프라이즈 SM 운영 → 자체 아키텍처 설계 · AI 서비스 개발로 확장해 온 4년의 흐름입니다.</p>
@@ -1096,7 +1260,7 @@
             <h4>유인시스 &amp; 상록에스 <span class="org">— EBS SM 파견</span></h4>
             <div class="role">계약직 사원 · Traffic &amp; Security Ops</div>
             <ul>
-              <li>EBS 10만 명 접속 트래픽 통계 스케줄링(Crontab) 관제</li>
+              <li>EBS 영어 접속 트래픽 통계 스케줄링(Crontab) 관제</li>
               <li>ISMS-P 개인정보 보호 심사 검증 및 대응 문서화 완료</li>
               <li>개인추천 서비스 역공학 소스/구조 심도 검토</li>
             </ul>
@@ -1137,7 +1301,7 @@
 <section id="stack">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="num">04 / Tech</div>
+      <div class="num">05 / Tech</div>
       <div>
         <h2>Tech <span class="it">Stack.</span></h2>
         <p class="blurb">주황색 점이 찍힌 항목은 실서비스 운영 경험이 있는 핵심 스택입니다.</p>
@@ -1202,7 +1366,8 @@
     <div class="contact-links">
       <a href="mailto:myelin24@naver.com">✉  myelin24@naver.com</a>
       <a href="https://github.com/feed-mina" target="_blank" rel="noopener">⌥  GitHub @feed-mina</a>
-      <a href="http://yerin.duckdns.org" target="_blank" rel="noopener">↗ KMovement + SDUI Live</a>
+      <a href="https://yerin.duckdns.org/" target="_blank" rel="noopener">↗ KMovement 3.0 Live</a>
+      <a href="https://sdui-template-kit-productization.pages.dev/studio/" target="_blank" rel="noopener">↗ SDUI Studio Live</a>
     </div>
   </div>
 </section>
@@ -1244,33 +1409,42 @@
 const projects = [
   {
     id: "KMovement",
-    title: "KMovement 2.0",
-    category: "ai architecture",
-    kicker: "AI Video Pipeline · 2026",
-    tagline: "무거운 영상 생성 모델을 비동기로 통제하고, GPU 비용을 라우팅으로 절감",
-    description: "사용자의 여행 데이터를 입력받아 VLM/LLM이 시나리오를 추출하고, 동적·정적 씬을 하이브리드로 합성해 1~2초 내에 영상을 생성하는 백엔드 파이프라인.",
+    title: "KMovement 3.0",
+    category: "ai architecture web",
+    kicker: "AI Travel Assistant · Live · 2026",
+    tagline: "// 지식 그래프로 추천하고, 무거운 생성 AI를 비동기로 통제해 여행 영상까지 만듭니다",
+    description: "K-Culture 여행객을 위한 AI 맞춤 일정 추천 서비스. Neo4j 지식 그래프로 아티스트–촬영지 관계를 추론해 일정을 짜고, 그 일정을 TTS·BGM이 얹힌 영상 가이드로 만들어 줍니다. AWS·GCP·RunPod 하이브리드로 실제 운영 중입니다.",
     image: "",
     video: "KMovement/assets/video/meta_animation.mp4",
-    stack: ["FastAPI", "Celery", "Redis", "PyTorch", "CogVideoX 1.5", "BLIP-2", "Qwen 2.5", "FFmpeg", "Docker"],
+    stack: ["FastAPI", "Neo4j GraphRAG", "ChromaDB", "PostGIS", "Celery", "Redis", "Groq LLM", "CogVideoX-5b", "GPT-SoVITS", "MusicGen", "MLflow", "Docker"],
     design: [
-      "무거운 딥러닝 영상 생성 작업이 단일 동기 호출로 묶여 발생하는 GPU 병목을 해결하기 위해 비동기 메시지 큐 구조 채택",
-      "동적 씬(CogVideoX 1.5)과 정적 씬(3D Inpainting)을 자동 분류·라우팅해 GPU 사용량 최소화",
-      "VLM(BLIP-2) · LLM(Qwen 2.5)으로 시나리오 추출 → FFmpeg 미디어 합성으로 끝나는 엔드투엔드 파이프라인 설계"
+      "빠른 응답과 무거운 AI 추론을 동시에 소화하기 위해 추천 시스템과 미디어 생성 파이프라인을 투트랙으로 분리",
+      "단순 거리 기반 추천의 한계를 넘기 위해 Neo4j 지식 그래프로 아티스트–촬영지 관계(FILMING_AT)를 추론하는 GraphRAG 채택",
+      "다국어 임베딩(multilingual-e5-small) + ChromaDB 벡터 검색으로 글로벌 사용자 질의에 환각 없는 장소 데이터 제공",
+      "BLIP-2로 이미지를 분석해 무거운 영상 생성(CogVideoX-5b) / 가벼운 3D 패닝 / 뼈대 애니메이션 중 최적 모델로 자동 라우팅 — OOM과 GPU 비용 동시 최적화",
+      "Celery·Redis 비동기 큐 위에서 미디어 생성을 백그라운드 처리해 API 응답 지연 차단"
     ],
     problem: [
-      "단일 동기 호출 구조에서 AI 영상 생성 시 서버 전체 응답 지연 발생",
-      "모든 씬을 무거운 영상 생성 모델로 처리하면 GPU 비용이 폭증"
+      "K-Culture 여행객은 '어디를 갈지'가 아니라 '내가 좋아하는 아티스트와 무슨 관계가 있는 곳인지'를 알고 싶어했지만, 기존 추천은 거리 기반에 머물러 있었음",
+      "무거운 딥러닝 영상·음성 생성을 동기 호출로 묶으면 서버 전체가 지연되고 GPU 비용이 폭증",
+      "다국어 질의에서 LLM이 존재하지 않는 장소를 지어내는 환각 문제"
     ],
     role: [
-      "FastAPI·Celery·Redis 기반 비동기 메시지 큐 아키텍처 설계 및 구현",
-      "씬 유형 판별 로직과 모델 라우터 작성, FFmpeg 합성 파이프라인 최적화"
+      "GraphRAG(Neo4j) · 다국어 RAG(ChromaDB) · PostGIS 공간 쿼리로 이어지는 추천 파이프라인 설계 및 구현",
+      "Celery·Redis 비동기 큐 아키텍처와 BLIP-2 기반 모델 라우터 작성, FFmpeg 미디어 믹싱 최적화",
+      "AWS EC2(프론트) · GCP(백엔드) · RunPod GPU(추론) 하이브리드 배포와 Nginx/Let's Encrypt 도메인 운영",
+      "MLflow(Dagshub)로 RAG 성능·프롬프트·생성 시간을 실험 단위로 기록·추적"
     ],
     impact: [
-      "딥러닝 영상 생성 작업의 병목 현상 해결 및 응답 시간 1~2초 내 최적화",
-      "동적/정적 씬 하이브리드 라우팅으로 GPU 비용 대폭 절감"
+      "yerin.duckdns.org에서 실제 서비스 운영 중 — 일정 추천부터 영상 가이드 생성까지 엔드투엔드 동작",
+      "지능형 라우팅으로 무거운 영상 모델 호출을 최소화해 GPU 메모리(OOM)와 비용 절감",
+      "MLflow 실험 18건 이상으로 RAG·생성 성능을 수치로 검증 — 감이 아니라 기록으로 개선",
+      "GraphRAG 도입으로 단순 검색이 닿지 못하는 '관계 기반' 장소 추천 실현"
     ],
     links: [
-      { label: "GitHub", url: "https://github.com/feed-mina", primary: true },
+      { label: "라이브 서비스", url: "https://yerin.duckdns.org/", primary: true },
+      { label: "GitHub", url: "https://github.com/feed-mina/KMovement" },
+      { label: "MLflow 실험 기록", url: "https://dagshub.com/myelin24m/Kride.mlflow/#/experiments/18" },
       { label: "View Deck", url: "KMovement/deck.html" },
       { label: "View Report", url: "KMovement/report.html" }
     ]
@@ -1304,10 +1478,45 @@ const projects = [
       "다른 프로젝트에도 설치 가능한 Claude Code 플러그인 형태로 패키징"
     ],
     links: [
-      { label: "GitHub", url: "https://github.com/feed-mina/planning-harness", primary: true },
-      { label: "Live Demo", url: "https://harness-meeting-app.kibayerin.workers.dev" },
+      { label: "Live Demo", url: "https://harness-meeting-app.kibayerin.workers.dev", primary: true },
+      { label: "화면 편집기 (Studio)", url: "https://sdui-template-kit-productization.pages.dev/studio/" },
       { label: "사용자 가이드 (PPT)", url: "assets/docs/planning-harness-user-guide.pptx" },
       { label: "개발자 문서 (PPT)", url: "assets/docs/planning-harness-developer-guide.pptx" }
+    ]
+  },
+  {
+    id: "sdui-studio",
+    title: "SDUI Template Kit Studio",
+    category: "architecture web",
+    kicker: "화면 편집기 · Live · 2026",
+    tagline: '// "엔진을 제품으로 — 개발자가 아니어도 화면을 만들고 게시합니다"',
+    description: "SDUI 엔진을 비개발자가 쓸 수 있는 제품으로 만든 단계. 브라우저에서 컴포넌트를 고르고 문구·디자인을 바꾸면 실시간 미리보기가 뜨고, 검증을 통과한 화면은 정적 페이지로 게시됩니다.",
+    image: "assets/images/sdui-template-catalog.png",
+    stack: ["Cloudflare Workers", "Cloudflare Pages", "D1", "Queues", "JSON Schema", "Tauri", "OpenAI Responses API", "JavaScript"],
+    design: [
+      "KMovement(screen_id)와 planning-harness(page_key)의 서로 다른 화면 메타데이터를 공통 SDUI Manifest v1으로 변환하는 계층 설계",
+      "CLI · Studio Web · Desktop(Tauri) · 게시된 정적 페이지가 모두 같은 검증기와 플러그인 계약(actions·hydrators·widgets)을 공유하도록 통일",
+      "가져오기 전에 Dry-run 호환성 리포트를 먼저 보여줘, 깨지는 템플릿을 사용자가 미리 알 수 있게 함",
+      "레거시 window.sduiPages를 브릿지로 흡수해 기존 화면을 버리지 않고 마이그레이션"
+    ],
+    problem: [
+      "SDUI 엔진은 강력했지만 결국 메타데이터를 직접 다룰 줄 아는 개발자만 쓸 수 있었음 — 정작 화면을 바꾸고 싶은 사람은 기획자·운영자",
+      "프로젝트마다 화면 메타데이터 형식이 달라 템플릿을 서로 재사용할 수 없었음",
+      "검증 없이 템플릿을 가져오면 런타임에서야 깨진 것을 발견하는 구조"
+    ],
+    role: [
+      "공통 Manifest 규격과 플러그인 API 계약, JSON Schema 검증기 설계",
+      "Studio Web 편집기(템플릿 카탈로그 · 로컬 manifest 열기 · 실시간 미리보기 · 명령 패널) 구현",
+      "Cloudflare Workers/Pages · D1 · Queues 기반 프로젝트·게시·AI·권한 API 구성",
+      "로드맵과 의사결정을 GitHub Issue로 공개 관리 (roadmap #1, decision log #17)"
+    ],
+    impact: [
+      "코딩 없이 화면을 만들고 게시하는 흐름을 브라우저에서 완결 — 지금 바로 열어볼 수 있는 라이브 스튜디오",
+      "서로 다른 두 프로젝트의 화면을 하나의 manifest 규격으로 통합해 템플릿 재사용 가능",
+      "Dry-run 호환성 리포트로 가져오기 실패를 런타임이 아닌 편집 시점에 발견"
+    ],
+    links: [
+      { label: "스튜디오 열기", url: "https://sdui-template-kit-productization.pages.dev/studio/", primary: true }
     ]
   },
   {
@@ -1353,7 +1562,7 @@ const projects = [
     kicker: "Architecture · 2026",
     tagline: '// "DB 한 줄로 화면이 바뀐다 — 클라이언트 배포 제로의 실시간 UI 아키텍처"',
     description: "UI의 구조(Component·Layout·Action)와 비즈니스 로직을 ui_metadata 테이블로 추상화해, 단순 화면 변경 시 클라이언트 배포 없이 서버 설정만으로 런타임 업데이트가 가능한 메타데이터 렌더링 엔진.",
-    image: "https://raw.githubusercontent.com/feed-mina/SDUI/main/assets/docs/demo-role-switch.gif",
+    image: "assets/images/sdui-role-switch.gif",
     stack: ["Next.js 15", "React 19", "TypeScript", "Spring Boot 3", "PostgreSQL", "Redis", "OpenAI GPT-4o", "JWT", "OAuth2", "PWA"],
     design: [
       "반복되는 프론트엔드 수정과 배포 대기 시간을 줄이기 위해 UI 구조·컴포넌트 타입·액션·권한 정보를 ui_metadata로 추상화",
