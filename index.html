@@ -795,6 +795,26 @@
     position: absolute; right: -16px; top: 50%; transform: translateY(-50%);
     color: var(--ink-mute); font-size: 16px; z-index: 2;
   }
+  .pstep-media{
+    position: relative;
+    margin: -26px -24px 4px; /* bleed to card edges */
+    border-radius: 16px 16px 0 0; overflow: hidden;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+    aspect-ratio: 900 / 309;
+  }
+  .pstep-media img{
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    display: block;
+  }
+  .pstep-media .media-tag{
+    position: absolute; left: 10px; bottom: 10px;
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 8px; border-radius: 6px;
+    background: rgba(0,0,0,0.62); color: #fff;
+    backdrop-filter: blur(4px);
+  }
   .pstep-head{ display: flex; align-items: center; gap: 10px;}
   .pstep-num{
     font-family: "JetBrains Mono", monospace; font-size: 11px;
@@ -1104,6 +1124,11 @@
 
     <div class="platform-flow reveal">
       <article class="pstep">
+        <div class="pstep-media">
+          <img src="assets/images/sdui-db-to-ui.gif" loading="lazy" decoding="async" width="720" height="247"
+               alt="psql에서 ui_metadata 테이블의 label_text를 UPDATE 하자 브라우저의 버튼 문구가 즉시 바뀌는 데모" />
+          <span class="media-tag">DB 수정 → 화면 반영 · 약 1초</span>
+        </div>
         <div class="pstep-head">
           <span class="pstep-num">01</span>
           <span class="pstep-role">엔진</span>
