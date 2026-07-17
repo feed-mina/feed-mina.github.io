@@ -803,7 +803,7 @@
     border-bottom: 1px solid var(--line);
     aspect-ratio: 900 / 309;
   }
-  .pstep-media img{
+  .pstep-media img, .pstep-media video{
     width: 100%; height: 100%; object-fit: cover; object-position: center top;
     display: block;
   }
@@ -1143,6 +1143,12 @@
       </article>
 
       <article class="pstep">
+        <div class="pstep-media">
+          <video src="assets/images/sdui-studio-edit.mp4" autoplay loop muted playsinline preload="metadata"
+                 width="900" height="312"
+                 aria-label="스튜디오에서 제목 문구를 고치자 오른쪽 미리보기가 즉시 따라 바뀌는 화면"></video>
+          <span class="media-tag">문구 편집 → 미리보기 즉시 반영</span>
+        </div>
         <div class="pstep-head">
           <span class="pstep-num">02</span>
           <span class="pstep-role">편집기</span>
@@ -1485,7 +1491,7 @@ const projects = [
     kicker: "화면 편집기 · Live · 2026",
     tagline: '// "엔진을 제품으로 — 개발자가 아니어도 화면을 만들고 게시합니다"',
     description: "SDUI 엔진을 비개발자가 쓸 수 있는 제품으로 만든 단계. 브라우저에서 컴포넌트를 고르고 문구·디자인을 바꾸면 실시간 미리보기가 뜨고, 검증을 통과한 화면은 정적 페이지로 게시됩니다.",
-    image: "assets/images/sdui-studio-shell.png",
+    image: "assets/images/sdui-template-catalog.png",
     stack: ["Cloudflare Workers", "Cloudflare Pages", "D1", "Queues", "JSON Schema", "Tauri", "OpenAI Responses API", "JavaScript"],
     design: [
       "KMovement(screen_id)와 planning-harness(page_key)의 서로 다른 화면 메타데이터를 공통 SDUI Manifest v1으로 변환하는 계층 설계",
