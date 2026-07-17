@@ -1152,7 +1152,6 @@
         <p class="pstep-body">엔진을 제품으로 바꾼 단계입니다. 브라우저에서 컴포넌트를 고르고 문구·디자인을 바꾸면 실시간으로 미리보기가 뜹니다. 서로 다른 프로젝트의 화면 메타데이터를 공통 manifest로 변환하고, 검증기가 호환성을 미리 알려준 뒤 정적 페이지로 게시합니다.</p>
         <div class="pstep-links">
           <a class="plink" href="https://sdui-template-kit-productization.pages.dev/studio/" target="_blank" rel="noopener">스튜디오 열기 ↗</a>
-          <a class="plink ghost" href="https://github.com/feed-mina/sdui-template-kit-productization" target="_blank" rel="noopener">GitHub</a>
         </div>
       </article>
 
@@ -1166,7 +1165,6 @@
         <p class="pstep-body">화면을 만드는 앞단, 즉 기획을 자동화합니다. 회의록·분석·Kanban을 다루는 웹앱과, 기획 산출물을 만들어 개발 repo 이슈/PR로 넘기는 8개 스킬. AI가 임의로 반영하지 못하도록 위험한 작업은 전부 <strong>사람 승인 게이트</strong>를 거칩니다.</p>
         <div class="pstep-links">
           <a class="plink" href="https://harness-meeting-app.kibayerin.workers.dev/" target="_blank" rel="noopener">라이브 데모 ↗</a>
-          <a class="plink ghost" href="https://github.com/feed-mina/planning-harness" target="_blank" rel="noopener">GitHub</a>
         </div>
       </article>
     </div>
@@ -1474,8 +1472,7 @@ const projects = [
       "다른 프로젝트에도 설치 가능한 Claude Code 플러그인 형태로 패키징"
     ],
     links: [
-      { label: "GitHub", url: "https://github.com/feed-mina/planning-harness", primary: true },
-      { label: "Live Demo", url: "https://harness-meeting-app.kibayerin.workers.dev" },
+      { label: "Live Demo", url: "https://harness-meeting-app.kibayerin.workers.dev", primary: true },
       { label: "화면 편집기 (Studio)", url: "https://sdui-template-kit-productization.pages.dev/studio/" },
       { label: "사용자 가이드 (PPT)", url: "assets/docs/planning-harness-user-guide.pptx" },
       { label: "개발자 문서 (PPT)", url: "assets/docs/planning-harness-developer-guide.pptx" }
@@ -1488,7 +1485,7 @@ const projects = [
     kicker: "화면 편집기 · Live · 2026",
     tagline: '// "엔진을 제품으로 — 개발자가 아니어도 화면을 만들고 게시합니다"',
     description: "SDUI 엔진을 비개발자가 쓸 수 있는 제품으로 만든 단계. 브라우저에서 컴포넌트를 고르고 문구·디자인을 바꾸면 실시간 미리보기가 뜨고, 검증을 통과한 화면은 정적 페이지로 게시됩니다.",
-    image: "https://raw.githubusercontent.com/feed-mina/sdui-template-kit-productization/main/docs/assets/studio-web-shell.png",
+    image: "assets/images/sdui-studio-shell.png",
     stack: ["Cloudflare Workers", "Cloudflare Pages", "D1", "Queues", "JSON Schema", "Tauri", "OpenAI Responses API", "JavaScript"],
     design: [
       "KMovement(screen_id)와 planning-harness(page_key)의 서로 다른 화면 메타데이터를 공통 SDUI Manifest v1으로 변환하는 계층 설계",
@@ -1513,9 +1510,7 @@ const projects = [
       "Dry-run 호환성 리포트로 가져오기 실패를 런타임이 아닌 편집 시점에 발견"
     ],
     links: [
-      { label: "스튜디오 열기", url: "https://sdui-template-kit-productization.pages.dev/studio/", primary: true },
-      { label: "GitHub", url: "https://github.com/feed-mina/sdui-template-kit-productization" },
-      { label: "로드맵 이슈", url: "https://github.com/feed-mina/sdui-template-kit-productization/issues/1" }
+      { label: "스튜디오 열기", url: "https://sdui-template-kit-productization.pages.dev/studio/", primary: true }
     ]
   },
   {
@@ -1561,7 +1556,7 @@ const projects = [
     kicker: "Architecture · 2026",
     tagline: '// "DB 한 줄로 화면이 바뀐다 — 클라이언트 배포 제로의 실시간 UI 아키텍처"',
     description: "UI의 구조(Component·Layout·Action)와 비즈니스 로직을 ui_metadata 테이블로 추상화해, 단순 화면 변경 시 클라이언트 배포 없이 서버 설정만으로 런타임 업데이트가 가능한 메타데이터 렌더링 엔진.",
-    image: "https://raw.githubusercontent.com/feed-mina/SDUI/main/assets/docs/demo-role-switch.gif",
+    image: "assets/images/sdui-role-switch.gif",
     stack: ["Next.js 15", "React 19", "TypeScript", "Spring Boot 3", "PostgreSQL", "Redis", "OpenAI GPT-4o", "JWT", "OAuth2", "PWA"],
     design: [
       "반복되는 프론트엔드 수정과 배포 대기 시간을 줄이기 위해 UI 구조·컴포넌트 타입·액션·권한 정보를 ui_metadata로 추상화",
