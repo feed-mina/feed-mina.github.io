@@ -1089,7 +1089,7 @@
       <h3>비즈니스 로직과<br/>AI를 연결하는 개발자</h3>
       <div class="about-copy">
         <p>마케팅 데이터 분석에서 시작해 시스템을 설계하고 제어하는 백엔드 엔지니어링으로 확장했습니다. EBS 트래픽 운영, 포스코 DX 메일 보안 운영, B2B 웹 솔루션 개발 경험을 거치며 <em>"사용자가 보는 화면"</em>과 <em>"서버가 책임지는 안정성"</em> 사이의 균형을 배웠습니다.</p>
-        <p>최근에는 SDUI 엔진을 통해 화면 구조를 데이터베이스 메타데이터로 추상화하고, Redis 캐싱과 권한별 렌더링으로 배포 없이 UI를 바꾸는 구조를 구현했습니다. AI 도구는 단순 자동화가 아니라, 설계자가 더 넓은 문제를 볼 수 있게 해주는 협업 파트너로 사용합니다.</p>
+        <p>최근에는 SDUI 엔진을 통해 화면 구조를 데이터베이스 메타데이터로 추상화하고, 요청별 PostgreSQL 조회와 권한별 렌더링으로 배포 없이 UI를 바꾸는 구조를 구현했습니다. AI 도구는 단순 자동화가 아니라, 설계자가 더 넓은 문제를 볼 수 있게 해주는 협업 파트너로 사용합니다.</p>
         <div class="principles">
           <span>Architecture first</span>
           <span>Operational stability</span>
@@ -1135,7 +1135,7 @@
         </div>
         <h3>SDUI Metadata Engine</h3>
         <p class="pstep-claim">문구 하나 바꾸려고 배포하지 않습니다.</p>
-        <p class="pstep-body">화면의 구조·권한·동작을 <code>ui_metadata</code> 테이블로 추상화했습니다. DB row만 수정하면 화면의 80%가 실시간으로 바뀌고, 권한별(GUEST·USER·PREMIUM·ADMIN) 화면도 같은 엔진이 처리합니다. Redis TTL 캐싱으로 Cache Hit 95%+.</p>
+        <p class="pstep-body">화면의 구조·권한·동작을 <code>ui_metadata</code> 테이블로 추상화했습니다. DB row를 수정하면 다음 UI 트리 요청에 반영되고, 권한별(GUEST·USER·PREMIUM·ADMIN) 화면도 같은 엔진이 처리합니다. 현재 API는 요청마다 PostgreSQL을 직접 조회하며, Redis TTL 1시간 코드는 호출 경로에 연결되지 않아 Cache Hit 수치를 제시하지 않습니다.</p>
         <div class="pstep-links">
           <a class="plink" href="https://sdui-delta.vercel.app/view/MAIN_PAGE" target="_blank" rel="noopener">라이브 데모 ↗</a>
           <a class="plink ghost" href="https://github.com/feed-mina/SDUI" target="_blank" rel="noopener">GitHub</a>
@@ -1563,11 +1563,11 @@ const projects = [
     tagline: '// "DB 한 줄로 화면이 바뀐다 — 클라이언트 배포 제로의 실시간 UI 아키텍처"',
     description: "UI의 구조(Component·Layout·Action)와 비즈니스 로직을 ui_metadata 테이블로 추상화해, 단순 화면 변경 시 클라이언트 배포 없이 서버 설정만으로 런타임 업데이트가 가능한 메타데이터 렌더링 엔진.",
     image: "assets/images/sdui-role-switch.gif",
-    stack: ["Next.js 15", "React 19", "TypeScript", "Spring Boot 3", "PostgreSQL", "Redis", "OpenAI GPT-4o", "JWT", "OAuth2", "PWA"],
+    stack: ["Next.js 15", "React 19", "TypeScript", "Spring Boot 3", "PostgreSQL", "Redis", "OpenAI GPT-4o-mini", "JWT", "OAuth2", "PWA"],
     design: [
       "반복되는 프론트엔드 수정과 배포 대기 시간을 줄이기 위해 UI 구조·컴포넌트 타입·액션·권한 정보를 ui_metadata로 추상화",
       "DOM이 트리 구조라는 점을 이용해 걱 요소들을 DynamicEngine으로 메타데이터 재귀 렌더링하는 구조 설계",
-      "Spring Boot에서 flat DB rows를 트리 구조로 변환하고 Redis 캐시 계층을 사용해 렌더링 비용 절감"
+      "Spring Boot에서 매 요청 PostgreSQL의 flat DB rows를 조회해 트리 구조로 변환하며, UI 트리용 Redis TTL 코드는 현재 호출 경로에 미연결"
     ],
     problem: [
       "하드코딩 페이지에 단순 문구·버튼 변경에도 코드 수정, PR, 빌드, 배포가 반복되는 구조를 바꾸고싶었습니다",
@@ -1576,11 +1576,11 @@ const projects = [
     role: [
       "ui_metadata 기반 렌더링 구조를 설계하고 DynamicEngine과 서버 API의 책임 경계를 잡았습니다",
       "Spring Security + JWT + Kakao OAuth2로 GUEST·USER·PREMIUM·ADMIN 권한별 UI (RBAC 구현)",
-      "일생활에 필요한 GPT-4o 기반 AI 채팅: 영어/일본어/한국어 AI 채팅 + 음성 입력, AI 면접 코칭, 구글캘린더/카카오톡 자동 알림 , 배치를 통헌 필요한 자료들을 슬랙으로 알림 등 SDUI 위에 실서비스 레이어링"
+      "일상생활에 필요한 GPT-4o-mini 기반 AI 채팅: 영어/일본어/한국어 AI 채팅 + 음성 입력, AI 면접 코칭, 구글캘린더/카카오톡 자동 알림, 배치를 통한 필요한 자료의 슬랙 알림 등 SDUI 위에 실서비스 레이어링"
     ],
     impact: [
-      "DB row 수정만으로 화면의 80%가 변경되는 실시간 UI 아키텍처(DynamicEngine) 구축",
-      "Redis TTL 1hr 캐싱 전략으로 Cache Hit 95%+ 달성, RDBMS 부하 최소화",
+      "DB row 수정 후 다음 UI 트리 요청에서 변경을 반영하는 DynamicEngine 구축",
+      "현재 UI 트리 API는 요청마다 PostgreSQL을 직접 조회하며, 미연결 Redis TTL 코드와 미측정 Cache Hit 수치는 성과 주장 대상에서 제외",
       "권한별 UI 전환과 AI 기능을 같은 엔진 위에 얹어 컴포넌트 재사용률 극대화"
     ],
     links: [
