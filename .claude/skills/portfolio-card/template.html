@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{제목}} — before/after</title>
+<!-- 스크립트 없음. {{…}} 자리를 전부 채운다. 끝나면 grep -c "{{" 결과가 0이어야 한다. -->
+<style>
+  :root{ --bg:#f7f4ee; --card:#fffdf8; --ink:#1f1d1a; --muted:#6b655c; --line:#e3dccf; --amber:#c8642a; --bad:#b4442f; --good:#2f7a4f; }
+  @media (prefers-color-scheme: dark){ :root{ --bg:#17150f; --card:#211e17; --ink:#efe9de; --muted:#a49b8c; --line:#3a352b; --amber:#e08a4f; --bad:#e07a66; --good:#6cc08f; } }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font:15px/1.6 "Noto Sans KR",system-ui,sans-serif; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:24px 16px 64px; }
+  h1{ font-family:Georgia,serif; font-weight:500; font-size:30px; margin:0 0 4px; }
+  h1 em{ color:var(--amber); }
+  .lead{ color:var(--muted); margin:0 0 24px; }
+  h2{ font-size:18px; margin:32px 0 12px; border-left:4px solid var(--amber); padding-left:10px; }
+  .ba{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:760px){ .ba{ grid-template-columns:1fr; } }
+  .pane{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .tag{ display:inline-block; font-size:12px; font-weight:700; padding:2px 10px; border-radius:99px; color:#fff; }
+  .tag.before{ background:var(--bad); } .tag.after{ background:var(--good); }
+  .pane img{ width:100%; border:1px solid var(--line); border-radius:8px; display:block; margin-top:10px; }
+  .cards{ display:flex; gap:10px; overflow-x:auto; margin-top:10px; }
+  .pcard{ flex:0 0 190px; border:1px solid var(--line); border-radius:10px; background:var(--bg); overflow:hidden; font-size:12px; }
+  .pcard .m{ height:96px; background:#ddd center/cover no-repeat; }
+  .pcard .b{ padding:8px; } .pcard h4{ margin:2px 0; font-size:13px; }
+  .pcard.new{ outline:3px solid var(--amber); }
+  .kick{ color:var(--amber); font-size:11px; letter-spacing:.04em; }
+  .chip{ display:inline-block; border:1px solid var(--line); border-radius:99px; padding:0 6px; margin:2px 2px 0 0; font-size:11px; }
+  ul{ margin:8px 0 0; padding-left:18px; }
+  .modal{ margin-top:12px; border:1px dashed var(--amber); border-radius:10px; padding:12px; }
+  .thumbs{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+  .thumbs img{ margin:0; aspect-ratio:4/3; object-fit:cover; object-position:top; }
+  .btn{ display:inline-block; margin-top:10px; background:var(--amber); color:#fff; border-radius:99px; padding:6px 14px; text-decoration:none; font-size:13px; }
+  table{ width:100%; border-collapse:collapse; background:var(--card); }
+  th,td{ border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  th{ background:var(--bg); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>{{제목}} <em>before → after</em></h1>
+  <p class="lead">{{한 줄 결론: 포트폴리오에서 무엇이 어떻게 달라지는가}}</p>
+
+  <h2>1. 화면 before / after</h2>
+  <div class="ba">
+    <section class="pane">
+      <span class="tag before">BEFORE</span>
+      <img src="{{before 이미지 data URI}}" alt="현재 포트폴리오 화면">
+      <ul>{{지금 문제 3가지 <li>}}</ul>
+    </section>
+    <section class="pane">
+      <span class="tag after">AFTER</span>
+      <div class="cards">
+        <div class="pcard new"><div class="m" style="background-image:url('{{대표 썸네일 data URI}}')"></div>
+          <div class="b"><div class="kick">{{kicker}}</div><h4>{{title}}</h4>{{chip 4개}}</div></div>
+        {{기존 카드 2~3개 축약}}
+      </div>
+      <div class="modal">
+        <div class="kick">카드를 누르면 열리는 모달</div>
+        <strong>{{tagline}}</strong>
+        <div class="thumbs">{{썸네일 4장 <img>}}</div>
+        <ul>{{설계 의도 / Problem / Role / Impact 각 1줄}}</ul>
+        <a class="btn" href="{{라이브 데모 주소}}">라이브 데모 ↗</a>
+      </div>
+    </section>
+  </div>
+
+  <h2>2. 직무 키워드 ↔ 근거</h2>
+  <table><tr><th>공고 키워드</th><th>프로젝트 근거</th><th>근거 위치</th></tr>{{행}}</table>
+
+  <h2>3. 채용 담당자가 10초 안에 읽을 3줄</h2>
+  <table><tr><th>#</th><th>문장</th><th>숫자·출처</th></tr>{{3행}}</table>
+
+  <h2>4. 공개 전 점검</h2>
+  <ul>{{점검표 <li>}}</ul>
+</div>
+</body>
+</html>
