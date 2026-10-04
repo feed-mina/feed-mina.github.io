@@ -1421,6 +1421,42 @@
 /* ─────────────── PROJECTS DATA ─────────────── */
 const projects = [
   {
+    id: "evol-guide-roll",
+    title: "가이드롤 생산 모니터링 (evol)",
+    category: "architecture web",
+    kicker: "Manufacturing Sensor Data · Case Study · 2026",
+    tagline: "// 가동 0회인데 1.2시간 — 버그가 아니라 지표 정의가 달랐던 문제를 정의 재합의와 불변식 검증으로 고쳤습니다",
+    description: "초음·진동 센서 사이클을 모아 FastAPI·React 대시보드로 보여 주는 제조 현장 모니터링 프로젝트입니다. 가동 횟수와 가동 시간이 서로 다른 기준으로 계산되던 문제를 현장과 정의부터 다시 맞추고, 36일치 화면을 불변식으로 검증해 고정했습니다.",
+    images: ["assets/images/evol-case-period-month-2026-07.png", "assets/images/evol-daily.webp", "assets/images/evol-period-week.webp"],
+    stack: ["FastAPI", "React", "DuckDB", "Parquet", "pytest", "Docker", "Nginx"],
+    design: [
+      "가동 횟수·가동 시간을 같은 '속도가 이어지는 덩어리' 하나로 세도록 정의를 통일 — 정지→속도 전이에서만 횟수 +1, 30분 조건 제거",
+      "일간 카드·주별·월별 화면이 같은 합산 함수를 쓰게 해 세 화면의 숫자가 서로 맞도록 구성",
+      "'0회면 0시간', '주별 합 = 전체' 같은 불변식을 먼저 문장으로 적고 계약 테스트 26건으로 고정",
+      "원본 파일 수백 개를 데이터셋당 한 묶음(compact)으로 합치고 DB 연결을 한 번만 열어 첫 조회 18.0초 → 0.89초"
+    ],
+    problem: [
+      "기간 통계 한 주 카드에 '가동 1.2시간 · 가동 0회'가 같이 떴고, 주별 합 3.7+1.2가 전체 4.8과 어긋남",
+      "횟수는 30분 넘게 이어진 덩어리만 세고 시간은 길이와 상관없이 다 더했기 때문 — 10분짜리 가동 여섯 번이 횟수엔 0, 시간엔 1.2h",
+      "개발용 데이터는 노드 4대가 같이 돌고 같이 멈춰 이 조합이 한 번도 안 나왔음"
+    ],
+    role: [
+      "정의 재합의 후보 작성과 제안 (결정은 대표·현장과 회의에서), 합산 함수 수정과 세 화면 연결",
+      "36일치 화면 전수 검증과 계약 테스트 작성, 결정대장·유지보수 문서화",
+      "첫 조회 성능 개선(연결 1회, compact 사본, 어긋나면 원본으로 되돌아가는 검증)"
+    ],
+    impact: [
+      "같은 주·같은 데이터에서 가동 1.2시간 · 0회 → 1.2시간 · 6회로 숫자가 서로 맞음",
+      "불변식 36일 전부 통과, 옛 규칙 모순 5일 → 새 규칙 0일, 계약 테스트 26건 통과",
+      "첫 조회 18.0초 → 0.89초, 전·후 화면 데이터 8/8 동일 검증",
+      "유령 속도(정지 중 센서가 찍는 속도) 임계값은 데이터 분석·패턴 분석이 필요한 항목으로 남김"
+    ],
+    links: [
+      { label: "Case Study", url: "evol-case-study.html", primary: true },
+      { label: "라이브 데모 (임시 주소)", url: "https://job-reduces-initial-indices.trycloudflare.com" }
+    ]
+  },
+  {
     id: "KMovement",
     title: "KMovement 3.0",
     category: "ai architecture web",
