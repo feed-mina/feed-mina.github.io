@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>가이드롤 생산 모니터링 Case Study | 민예린 Portfolio</title>
+  <meta name="description" content="가동 0회인데 가동 1.2시간. 제조 센서 대시보드에서 지표 정의가 어긋났던 문제를 정의 재합의와 불변식 검증으로 고친 기록." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0a0b;--surface:#15151a;--surface-2:#1c1c22;--line:rgba(245,241,234,.1);--line-strong:rgba(245,241,234,.2);--ink:#f5f1ea;--ink-dim:#a8a39b;--ink-mute:#6c6760;--amber:#ff8a3d;--amber-soft:rgba(255,138,61,.14);--mint:#8fd6c7;--red:#ff6b6b;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{min-height:100vh;background:radial-gradient(60% 50% at 80% 0%, rgba(255,138,61,.12), transparent 60%),radial-gradient(40% 35% at 0% 90%, rgba(143,214,199,.08), transparent 60%),var(--bg);color:var(--ink);font-family:"Geist","Noto Sans KR",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all;}
+    a{color:inherit;text-decoration:none;}
+    .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+    nav{border-bottom:1px solid var(--line);backdrop-filter:blur(14px);position:sticky;top:0;background:rgba(10,10,11,.8);z-index:10;}
+    nav .row{height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+    .brand{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;letter-spacing:.03em;display:flex;gap:10px;align-items:center;}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber);}
+    .back{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-dim);border:1px solid var(--line);padding:8px 13px;border-radius:999px;}
+    .back:hover{border-color:var(--amber);color:var(--amber);}
+    .mono{font-family:"JetBrains Mono",monospace;}
+    .serif{font-family:"Instrument Serif","Noto Serif KR",serif;font-weight:400;letter-spacing:-.01em;}
+
+    header{padding:56px 0 28px;}
+    .eyebrow{font-family:"JetBrains Mono",monospace;color:var(--amber);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;}
+    h1{font-family:"Instrument Serif","Noto Serif KR",serif;font-weight:400;font-size:clamp(34px,5.4vw,60px);line-height:1.06;letter-spacing:-.02em;}
+    h1 em{font-style:italic;color:var(--amber);}
+    .lede{max-width:720px;margin-top:18px;color:var(--ink-dim);font-size:16.5px;}
+    .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-mute);}
+    .meta b{color:var(--ink-dim);font-weight:500;}
+
+    /* before/after hero cards */
+    .ba{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;margin-top:26px;}
+    .screen{background:#101014;border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative;}
+    .screen .tag{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);}
+    .screen .title{font-size:12.5px;color:var(--ink-mute);margin-top:6px;}
+    .screen .nums{display:flex;gap:22px;margin-top:10px;}
+    .screen .num{font-family:"Instrument Serif","Noto Serif KR",serif;font-size:34px;line-height:1;}
+    .screen .num small{display:block;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);margin-top:6px;letter-spacing:.08em;}
+    .screen.bad .num.x{color:var(--red);} .screen.good .num.x{color:var(--amber);}
+    .screen .verdict{margin-top:12px;font-size:13px;color:var(--ink-dim);}
+    .screen.bad .verdict{color:var(--red);} .screen.good .verdict{color:var(--mint);}
+    .arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--ink-mute);font-family:"JetBrains Mono",monospace;font-size:11px;padding:0 6px;text-align:center;}
+    .arrow .ar{font-size:28px;color:var(--amber);line-height:1;}
+    .kpis{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:14px;}
+    .kpi{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:rgba(255,255,255,.03);}
+    .kpi b{color:var(--mint);font-weight:600;}
+    .actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:18px;}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;border:1px solid var(--line-strong);font-family:"JetBrains Mono",monospace;font-size:13px;transition:.2s;}
+    .btn:hover{transform:translateY(-2px);border-color:var(--amber);}
+    .btn.primary{background:var(--amber);color:var(--bg);border-color:transparent;}
+    .btn-note{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-mute);}
+    .shots{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;align-items:start;}
+    .shots figure{margin:0;background:#101014;border:1px solid var(--line);border-radius:12px;padding:10px;}
+    .shots img{display:block;width:100%;height:auto;border-radius:8px;}
+    .shots figcaption{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-mute);margin-top:8px;}
+    @media(max-width:700px){.shots{grid-template-columns:1fr;}}
+
+    /* stepper */
+    section{padding:34px 0;border-top:1px solid var(--line);}
+    .sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:16px;}
+    .sec-h h2{font-family:"Instrument Serif","Noto Serif KR",serif;font-weight:400;font-size:26px;}
+    .sec-h .hint{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-mute);}
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+    .step{appearance:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-align:left;color:var(--ink-dim);cursor:pointer;font:inherit;position:relative;transition:.15s;}
+    .step .n{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);letter-spacing:.1em;}
+    .step .t{display:block;margin-top:4px;font-size:15px;font-weight:600;color:var(--ink);}
+    .step .d{display:block;font-size:12px;margin-top:2px;}
+    .step:not(:last-child)::after{content:"›";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--ink-mute);font-size:16px;z-index:1;}
+    .step:hover{border-color:var(--line-strong);}
+    .step[aria-selected="true"]{border-color:var(--amber);background:linear-gradient(180deg,rgba(255,138,61,.14),rgba(255,138,61,.04));}
+    .step[aria-selected="true"] .n{color:var(--amber);}
+    .panel{margin-top:14px;background:linear-gradient(180deg,var(--surface),var(--surface-2));border:1px solid var(--line);border-radius:16px;padding:24px;}
+    .panel[hidden]{display:none;}
+    .panel h3{font-family:"Instrument Serif","Noto Serif KR",serif;font-weight:400;font-size:24px;margin-bottom:10px;}
+    .panel p{color:var(--ink-dim);font-size:15px;}
+    .panel p+p{margin-top:10px;}
+    .panel b{color:var(--ink);font-weight:600;}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;}
+    .box{background:#101014;border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+    .box .k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:8px;}
+    .box.warn .k{color:var(--red);} .box.ok .k{color:var(--mint);}
+    ul.list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    ul.list li{position:relative;padding-left:18px;color:var(--ink-dim);font-size:14.5px;}
+    ul.list li::before{content:"→";position:absolute;left:0;color:var(--amber);font-family:"JetBrains Mono",monospace;font-size:11px;top:2px;}
+    ul.check li::before{content:"✓";color:var(--mint);}
+    .rules{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;}
+    .rule{background:#101014;border:1px solid var(--line);border-radius:12px;padding:14px;}
+    .rule .big{font-family:"Instrument Serif","Noto Serif KR",serif;font-size:22px;color:var(--amber);line-height:1.1;}
+    .rule .s{font-size:13px;color:var(--ink-dim);margin-top:6px;}
+    .fig{margin-top:14px;background:#101014;border:1px solid var(--line);border-radius:12px;padding:14px;overflow:auto;}
+    .fig svg{display:block;} .fig.wide svg{min-width:620px;}
+    .cap{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-mute);margin-top:8px;}
+    .flow{font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.8;color:var(--ink);background:#101014;border:1px solid var(--line);border-radius:12px;padding:14px 16px;overflow:auto;margin-top:12px;}
+    .hl{color:var(--mint);} .hr{color:var(--red);} .ha{color:var(--amber);}
+    .bars{margin-top:12px;display:flex;flex-direction:column;gap:10px;}
+    .bar{display:grid;grid-template-columns:36px 1fr 60px;gap:10px;align-items:center;font-size:13px;}
+    .bar .lbl{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-mute);}
+    .track{height:12px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;}
+    .fill{height:100%;background:#4a4640;border-radius:999px;} .fill.accent{background:var(--amber);}
+    .val{font-family:"JetBrains Mono",monospace;font-weight:600;color:var(--ink);text-align:right;white-space:nowrap;}
+    .why{grid-column:2/-1;color:var(--ink-dim);font-size:12.5px;margin-top:-4px;}
+    table{width:100%;border-collapse:collapse;font-size:13.5px;}
+    th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+    th{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);font-weight:500;}
+    td{color:var(--ink-dim);} td.hi{color:var(--amber);font-weight:600;} td.dim{color:var(--ink-mute);}
+    .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;}
+    .chip{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-dim);border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:999px;padding:5px 10px;}
+    .chip.amber{color:var(--amber);border-color:rgba(255,138,61,.4);background:var(--amber-soft);}
+    .chip.mint{color:var(--mint);border-color:rgba(143,214,199,.35);}
+
+    /* accordion */
+    details{border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-top:10px;}
+    details summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:14px;}
+    details summary::-webkit-details-marker{display:none;}
+    summary .q{font-size:15.5px;font-weight:600;color:var(--ink);flex:1;}
+    summary .sub{font-size:12.5px;color:var(--ink-mute);display:block;font-weight:400;margin-top:2px;}
+    summary .ic{width:26px;height:26px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;color:var(--amber);font-family:"JetBrains Mono",monospace;font-size:14px;transition:.2s;flex:none;}
+    details[open] summary .ic{transform:rotate(45deg);}
+    details[open] summary{border-bottom:1px solid var(--line);}
+    .acc-body{padding:18px 20px 20px;color:var(--ink-dim);font-size:14.5px;}
+    .acc-body p+p{margin-top:10px;}
+    .acc-body b{color:var(--ink);font-weight:600;}
+    .pending{border:1px dashed var(--line-strong);border-radius:12px;padding:16px;color:var(--ink-mute);font-family:"JetBrains Mono",monospace;font-size:12px;text-align:center;margin-top:10px;}
+    .lesson{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;}
+    .lesson .big{font-family:"Instrument Serif","Noto Serif KR",serif;font-size:clamp(22px,3vw,30px);line-height:1.25;}
+    .lesson .big em{font-style:italic;color:var(--amber);}
+    footer{padding:36px 0;color:var(--ink-mute);font-family:"JetBrains Mono",monospace;font-size:12px;border-top:1px solid var(--line);}
+
+    @media(max-width:860px){.steps{grid-template-columns:1fr 1fr;}.step:not(:last-child)::after{display:none;}.rules{grid-template-columns:1fr 1fr;}}
+    @media(max-width:700px){.ba{grid-template-columns:1fr;}.arrow{flex-direction:row;padding:4px 0;}.arrow .ar{transform:rotate(90deg);}.two,.lesson{grid-template-columns:1fr;}.wrap{padding:0 16px;}.panel{padding:18px;}header{padding-top:40px;}nav .row{height:auto;padding:12px 0;flex-direction:column;align-items:flex-start;gap:8px;}}
+    @media(max-width:460px){.steps{grid-template-columns:1fr;}.rules{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <nav><div class="wrap row"><a class="brand" href="/"><span class="dot"></span>Yerin.Min <span style="color:var(--ink-dim);font-weight:400;">Portfolio</span></a><a class="back" href="/#projects">← Back to Projects</a></div></nav>
+
+  <header><div class="wrap">
+    <div class="eyebrow">Manufacturing Sensor Data · Case Study · 2026</div>
+    <h1>가동 0회인데 1.2시간.<br/><em>버그가 아니라 정의가 달랐다.</em></h1>
+    <p class="lede">가이드롤 생산 모니터링 대시보드에서 두 숫자가 서로 부딪혔습니다. 코드를 따라가 보니 가동 횟수와 가동 시간이 다른 기준으로 세고 있었습니다. 정의를 하나로 맞추고 불변식으로 잠근 과정입니다.</p>
+    <div class="meta"><span><b>내 역할</b> 제안 · 구현 · 검증 · 문서화 (백엔드 · 화면)</span><span><b>정의 결정</b> 대표 · 현장과 회의에서</span><span><b>기간</b> 2026.08 – 2026.09</span><span><b>스택</b> FastAPI · React · DuckDB · pytest</span><span><b>현장</b> 노드 4대, 10분마다 11초 측정</span></div>
+
+    <div class="ba">
+      <div class="screen bad"><div class="tag">Before</div><div class="title">기간 통계 · 한 주</div><div class="nums"><div class="num">1.2h<small>가동 시간</small></div><div class="num x">0회<small>가동 횟수</small></div></div><div class="verdict">한 번도 안 돌았는데 1.2시간을 돌았다?</div></div>
+      <div class="arrow"><span class="ar">→</span>정의 통일<br/>함수 한 곳 수정</div>
+      <div class="screen good"><div class="tag">After</div><div class="title">같은 주 · 같은 데이터</div><div class="nums"><div class="num">1.2h<small>가동 시간</small></div><div class="num x">6회<small>가동 횟수</small></div></div><div class="verdict">10분짜리 가동 6번. 숫자가 서로 맞는다</div></div>
+    </div>
+    <div class="kpis"><span class="kpi"><b>36일</b> 불변식 0건 위반</span><span class="kpi"><b>26건</b> 계약 테스트</span><span class="kpi"><b>18.0초 → 0.89초</b> 첫 조회</span><span class="kpi"><b>8/8</b> 전·후 화면 데이터 동일</span></div>
+    <div class="actions"><a class="btn primary" href="https://job-reduces-initial-indices.trycloudflare.com" target="_blank" rel="noopener">데모 보기 ↗</a><span class="btn-note">공개 샘플 데이터 · 임시 주소라 바뀔 수 있음</span></div>
+  </div></header>
+
+  <main>
+  <section><div class="wrap">
+    <div class="sec-h"><h2>무슨 일이 있었나</h2><span class="hint">단계를 누르면 내용이 바뀝니다</span></div>
+    <div class="steps" role="tablist">
+      <button class="step" role="tab" aria-selected="true" data-p="p1"><span class="n">01</span><span class="t">문제</span><span class="d">가동 1.2h인데 0회</span></button>
+      <button class="step" role="tab" aria-selected="false" data-p="p2"><span class="n">02</span><span class="t">원인</span><span class="d">10분짜리 6번, 횟수엔 0</span></button>
+      <button class="step" role="tab" aria-selected="false" data-p="p3"><span class="n">03</span><span class="t">고침</span><span class="d">새 정의 4개, 함수 한 곳</span></button>
+      <button class="step" role="tab" aria-selected="false" data-p="p4"><span class="n">04</span><span class="t">검증</span><span class="d">36일 · 테스트 26건</span></button>
+      <button class="step" role="tab" aria-selected="false" data-p="p5"><span class="n">05</span><span class="t">결과</span><span class="d">세 화면 일치 · 18.0 → 0.89초</span></button>
+    </div>
+
+    <div class="panel" id="p1" role="tabpanel">
+      <h3>가동 0회인데 가동 1.2시간</h3>
+      <p>한 주 통계 카드에 <b>가동 1.2시간</b>과 <b>가동 0회</b>가 같이 떴습니다. 주별 합 3.7+1.2도 전체 4.8과 어긋나 있었습니다. 개발할 때 쓰던 데이터에서는 한 번도 안 나온 조합이었습니다.</p>
+      <div class="two">
+        <div class="box ok"><div class="k">개발 데이터</div><ul class="list"><li>노드 4대가 같이 돌고 같이 멈춘다</li><li>짧은 가동이 없다</li><li>횟수와 시간이 늘 같은 방향</li></ul></div>
+        <div class="box warn"><div class="k">현장 데이터</div><ul class="list"><li>사이클의 67%가 정지</li><li>한 노드만 움직이는 구간이 있다</li><li>10분짜리 가동이 흔하다</li></ul></div>
+      </div>
+    </div>
+
+    <div class="panel" id="p2" role="tabpanel" hidden>
+      <h3>횟수에만 30분 문턱이 있었다</h3>
+      <p>가동 <b>횟수</b>는 "30분 넘게 이어진 덩어리"만 셌고, 가동 <b>시간</b>은 길이와 상관없이 다 더했습니다. 그날은 10~20분짜리 가동이 여섯 번. 횟수엔 하나도 안 들어가고, 시간엔 전부 들어갔습니다.</p>
+      <div class="fig"><svg viewBox="0 0 760 150" role="img" aria-label="7월 6일 가동 덩어리 6개" style="width:100%;font-family:inherit;font-size:11px"><rect x="16" y="44" width="728" height="34" rx="6" fill="rgba(255,255,255,.04)" stroke="rgba(245,241,234,.12)"/><line x1="16.0" y1="44" x2="16.0" y2="78" stroke="rgba(245,241,234,.12)"/><text x="16.0" y="96" text-anchor="middle" fill="#6c6760">10:00</text><line x1="120.0" y1="44" x2="120.0" y2="78" stroke="rgba(245,241,234,.12)"/><text x="120.0" y="96" text-anchor="middle" fill="#6c6760">11:00</text><line x1="224.0" y1="44" x2="224.0" y2="78" stroke="rgba(245,241,234,.12)"/><text x="224.0" y="96" text-anchor="middle" fill="#6c6760">12:00</text><line x1="328.0" y1="44" x2="328.0" y2="78" stroke="rgba(245,241,234,.12)"/><text x="328.0" y="96" text-anchor="middle" fill="#6c6760">13:00</text><line x1="432.0" y1="44" x2="432.0" y2="78" stroke="rgba(245,241,234,.12)"/><text x="432.0" y="96" text-anchor="middle" fill="#6c6760">14:00</text><line x1="536.0" y1="44" x2="536.0" y2="78" stroke="rgba(245,241,234,.12)"/><text x="536.0" y="96" text-anchor="middle" fill="#6c6760">15:00</text><line x1="640.0" y1="44" x2="640.0" y2="78" stroke="rgba(245,241,234,.12)"/><text x="640.0" y="96" text-anchor="middle" fill="#6c6760">16:00</text><line x1="744.0" y1="44" x2="744.0" y2="78" stroke="rgba(245,241,234,.12)"/><text x="744.0" y="96" text-anchor="middle" fill="#6c6760">17:00</text><rect x="74.9" y="48" width="17.3" height="26" rx="4" fill="#ff8a3d"/><text x="83.6" y="36" text-anchor="middle" fill="#f5f1ea" font-weight="600">33</text><rect x="126.9" y="48" width="17.3" height="26" rx="4" fill="#ff8a3d"/><text x="135.6" y="36" text-anchor="middle" fill="#f5f1ea" font-weight="600">17</text><rect x="161.6" y="48" width="17.3" height="26" rx="4" fill="#ff8a3d"/><text x="170.3" y="36" text-anchor="middle" fill="#f5f1ea" font-weight="600">10</text><rect x="196.3" y="48" width="34.7" height="26" rx="4" fill="#ff8a3d"/><text x="213.6" y="36" text-anchor="middle" fill="#f5f1ea" font-weight="600">24</text><rect x="248.3" y="48" width="17.3" height="26" rx="4" fill="#ff8a3d"/><text x="256.9" y="36" text-anchor="middle" fill="#f5f1ea" font-weight="600">28</text><rect x="664.3" y="48" width="17.3" height="26" rx="4" fill="#ff8a3d"/><text x="672.9" y="36" text-anchor="middle" fill="#f5f1ea" font-weight="600">11</text><text x="16" y="18" fill="#a8a39b">막대 위 숫자 = 평균 속도(MPM) · 막대 길이 = 가동 시간 (10:00~17:00 확대)</text><rect x="16.0" y="118" width="52.0" height="8" rx="3" fill="none" stroke="#6c6760" stroke-dasharray="3 3"/><text x="76.0" y="126" fill="#6c6760">← 옛 규칙이 1회로 치는 최소 길이 30분. 여섯 개 다 이보다 짧다</text></svg></div>
+      <div class="flow">횟수(옛) = <span class="hr">30분 이상</span> 덩어리만 센다        → 0회<br/>시간(옛) = 길이 상관없이 다 더한다       → 10분 × 6 = 1.2h<br/><span class="ha">같은 데이터, 다른 문턱</span></div>
+    </div>
+
+    <div class="panel" id="p3" role="tabpanel" hidden>
+      <h3>정의부터 다시 정했다</h3>
+      <p>현장과 같이 "가동 1회"가 뭔지부터 정했습니다. 합산 함수 한 곳을 바꾸고, 일간 카드·주별·월별 화면이 모두 그 함수를 쓰게 했습니다.</p>
+      <div class="rules">
+        <div class="rule"><div class="big">덩어리 = 1회</div><div class="s">속도가 이어지는 구간 하나가 가동 1회</div></div>
+        <div class="rule"><div class="big">정지→속도 +1</div><div class="s">횟수는 이 순간에만 는다</div></div>
+        <div class="rule"><div class="big">30분 조건 없음</div><div class="s">10분 덩어리도 1회</div></div>
+        <div class="rule"><div class="big">시간 = 같은 덩어리</div><div class="s">그래서 0회면 0시간</div></div>
+      </div>
+      <details><summary><span class="ic">+</span><span class="q">상태 전이 4조건 그림<span class="sub">정지·속도 두 상태 사이의 네 가지 전이</span></span></summary><div class="acc-body"><div class="fig wide"><svg viewBox="0 0 760 372" role="img" aria-label="가동 횟수 4조건" style="width:100%;max-width:760px;font-size:12px;font-family:inherit">
+<defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6c6760"/></marker><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ff8a3d"/></marker></defs>
+<text x="24" y="34" font-size="15" font-weight="600" fill="#f5f1ea">속도가 있는 연속 덩어리 하나가 가동 1회 — 횟수는 정지→속도 순간에만 늘어난다</text>
+<g fill="none" stroke="#6c6760" stroke-width="1.25"><path d="M160 112C160 64,240 64,240 112" marker-end="url(#a1)"/><path d="M545 112C545 64,625 64,625 112" marker-end="url(#a1)"/></g>
+<path d="M310 128H450" fill="none" stroke="#ff8a3d" stroke-width="2" marker-end="url(#a2)"/><path d="M450 152H310" fill="none" stroke="#6c6760" stroke-width="1.25" marker-end="url(#a1)"/>
+<rect x="90" y="112" width="220" height="56" rx="8" fill="none" stroke="#6c6760" stroke-width="1.25"/><text x="200" y="136" text-anchor="middle" font-size="13" font-weight="600" fill="#f5f1ea">정지 (가동 창 아님)</text><text x="200" y="154" text-anchor="middle" fill="#a8a39b">속도 0 · 결측 · 수신 끊김</text>
+<rect x="450" y="112" width="270" height="56" rx="8" fill="#ff8a3d" fill-opacity="0.12" stroke="#ff8a3d" stroke-width="2"/><text x="585" y="136" text-anchor="middle" font-size="13" font-weight="600" fill="#f5f1ea">속도 있음 (가동 창)</text><text x="585" y="154" text-anchor="middle" fill="#a8a39b">기대 노드 전부 · 평균 ≥ 1 MPM · 편차 ≤ 10%</text>
+<text x="200" y="56" text-anchor="middle" fill="#a8a39b">정지 → 정지 : 유지</text><text x="585" y="56" text-anchor="middle" fill="#a8a39b">속도 → 속도 : 유지</text>
+<text x="380" y="120" text-anchor="middle" font-weight="600" fill="#f5f1ea">정지 → 속도 : 횟수 +1</text><text x="380" y="188" text-anchor="middle" fill="#a8a39b">속도 → 정지 : 유지 (덩어리 끊김)</text>
+<rect x="24" y="216" width="336" height="96" rx="8" fill="none" stroke="#6c6760" stroke-width="1.25"/><text x="40" y="240" font-size="13" font-weight="600" fill="#f5f1ea">덩어리를 끊는 이유 (가동 창이 아님)</text><text x="40" y="260" fill="#f5f1ea">정지(속도 0) · 노드 결측 · 수신 끊김</text><text x="40" y="278" fill="#f5f1ea">자정 — 각 날짜에 귀속 (2026-09-01 Q4)</text><text x="40" y="298" fill="#a8a39b">이 두 가지뿐, 다른 이유로는 끊지 않는다</text>
+<rect x="376" y="216" width="368" height="96" rx="8" fill="rgba(255,138,61,0.08)" stroke="#6c6760" stroke-width="1.25"/><text x="392" y="240" font-size="13" font-weight="600" fill="#f5f1ea">옛 규칙과 다른 점 (2026-09-14 결정)</text><text x="392" y="260" fill="#f5f1ea">30분 이상 조건 없음 — 10분 덩어리도 1회</text><text x="392" y="278" fill="#f5f1ea">속도 밴드가 바뀌어도 끊지 않음</text><text x="392" y="298" fill="#f5f1ea">가동 시간도 같은 덩어리를 합산 → 0회면 0시간</text>
+<text x="24" y="346" fill="#a8a39b">횟수와 시간이 같은 덩어리를 세니까 “0회면 0시간”이 저절로 맞는다</text></svg>
+</div></div></details>
+    </div>
+
+    <div class="panel" id="p4" role="tabpanel" hidden>
+      <h3>불변식을 먼저 적고, 화면으로 확인했다</h3>
+      <p>"맞는 화면이라면 반드시 성립해야 하는 것"을 문장으로 먼저 쓰고, 36일치 화면 전부를 대조했습니다.</p>
+      <div class="two">
+        <div class="box ok"><div class="k">불변식</div><ul class="list check"><li>0회면 0시간 — 36일 전부 통과</li><li>주별 합 = 전체 — 6주 전부 통과</li><li>노드 카드 144칸 = 로컬 계산</li></ul></div>
+        <div class="box"><div class="k">숫자</div><ul class="list"><li>옛 규칙: 37일 중 <b>5일</b>에서 모순</li><li>새 규칙: <b>0일</b></li><li>계약 테스트 <b>26건</b>이 규칙을 고정</li><li>측정 안 한 것: 원파형 상세와 비교 탭은 그 회차에 돌리지 않았다</li></ul></div>
+      </div>
+      <details><summary><span class="ic">+</span><span class="q">7월 6일 덩어리 여섯 개<span class="sub">공개 샘플 데이터로 다시 계산한 값</span></span></summary><div class="acc-body"><table><thead><tr><th>구간</th><th>길이</th><th>평균 속도</th><th>옛 규칙</th><th>새 규칙</th></tr></thead><tbody>
+      <tr><td>10:34~10:44</td><td>10분</td><td>33.3 MPM</td><td class="dim">0회</td><td class="hi">1회</td></tr><tr><td>11:04~11:14</td><td>10분</td><td>16.9 MPM</td><td class="dim">0회</td><td class="hi">1회</td></tr><tr><td>11:24~11:34</td><td>10분</td><td>10.3 MPM</td><td class="dim">0회</td><td class="hi">1회</td></tr><tr><td>11:44~12:04</td><td>20분</td><td>24.2 MPM</td><td class="dim">0회</td><td class="hi">1회</td></tr><tr><td>12:14~12:24</td><td>10분</td><td>28.2 MPM</td><td class="dim">0회</td><td class="hi">1회</td></tr><tr><td>16:14~16:24</td><td>10분</td><td>10.8 MPM</td><td class="dim">0회</td><td class="hi">1회</td></tr><tr><td><b>합</b></td><td><b>1.2시간</b></td><td></td><td class="dim"><b>0회</b></td><td class="hi"><b>6회</b></td></tr></tbody></table></div></details>
+    </div>
+
+    <div class="panel" id="p5" role="tabpanel" hidden>
+      <h3>화면 세 곳이 한 번에 맞았다</h3>
+      <p>일간 카드, 주별, 월별이 같은 함수를 쓰니 세 화면의 숫자가 서로 맞습니다. 덤으로 첫 조회 속도도 잡았습니다.</p>
+      <div class="two">
+        <div class="box ok"><div class="k">지표</div><ul class="list check"><li>가동 1.2h · 6회 (7/6)</li><li>세 화면이 같은 덩어리를 센다</li><li>결정은 결정대장에 날짜·근거와 함께 기록</li></ul></div>
+        <div class="box"><div class="k">첫 조회 속도</div><div class="bars"><div class='bar'><span class='lbl'>원래</span><div class='track'><div class='fill' style='width:100%'></div></div><span class='val'>18.0초</span><span class='why'>파일 묶음 수백 개마다 DB 연결을 새로 열었다. 게이트웨이 30초 제한에 걸려 첫 화면이 502</span></div><div class='bar'><span class='lbl'>1차</span><div class='track'><div class='fill' style='width:51%'></div></div><span class='val'>9.1초</span><span class='why'>연결은 한 번만 열고, 대기 시간을 늘렸다</span></div><div class='bar'><span class='lbl'>2차</span><div class='track'><div class='fill accent' style='width:5%'></div></div><span class='val'>0.89초</span><span class='why'>데이터셋당 한 묶음으로 합친 사본을 읽는다. 어긋나면 원본으로 되돌아간다</span></div></div><div class="cap">전·후 화면 데이터 8/8 동일</div></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="sec-h"><h2>더 보기</h2><span class="hint">눌러서 펼치기</span></div>
+    <details open><summary><span class="ic">+</span><span class="q">두 번째 사례 — 유령 속도<span class="sub">센서가 속도를 찍었다고 롤이 돈 건 아니다</span></span></summary><div class="acc-body">
+      <p>롤이 멈춰 있어도 필름이 흔들리면 센서가 속도를 찍습니다. 그래서 정지 중인데 평균 속도가 0보다 큽니다. 첫 사례가 "정의가 서로 달랐다"면, 이건 <b>"정의가 아예 없었다"</b>입니다.</p>
+      <p>측정 칸 220개 중 속도가 찍힌 칸의 비율로 가려낼 수 있다는 건 실측 682 사이클에서 확인했습니다. 몇 %부터 유령으로 볼지는 아직 안 정했습니다. 사이클 길이에 따라 분포가 달라서, 데이터를 더 뜯어봐야 합니다.</p>
+      <div class="chips"><span class="chip amber">데이터 분석, 패턴 분석 필요</span><span class="chip">마스크 미구현 · 제안 단계</span></div>
+    </div></details>
+    <details><summary><span class="ic">+</span><span class="q">내가 한 것 / 아직 안 된 것</span></summary><div class="acc-body">
+      <div class="two" style="margin-top:0">
+        <div class="box ok"><div class="k">한 것</div><ul class="list check"><li>정의 재합의 제안과 구현</li><li>36일 전수 검증, 계약 테스트</li><li>결정대장·문서화</li><li>첫 조회 18.0초 → 0.89초</li></ul></div>
+        <div class="box warn"><div class="k">아직 안 된 것</div><ul class="list"><li>유령 속도 임계값 — 데이터 분석, 패턴 분석 필요</li><li>노드 카드의 가동 기준 — 기간 통계와 같은 정의로 맞출지 비교 필요</li></ul></div>
+      </div>
+    </div></details>
+    <details open><summary><span class="ic">+</span><span class="q">화면 · 데모<span class="sub">공개 샘플 데이터로 다시 띄운 화면</span></span></summary><div class="acc-body">
+      <div class="shots">
+        <figure><img src="assets/images/evol-case-period-month-2026-07.png" alt="기간 통계 월 화면, 2026년 7월. 둘째 주 카드에 가동 1.2시간 6회" loading="lazy"/><figcaption>기간 통계 · 2026-07 월 화면. W28 카드가 1.2시간 · 6회</figcaption></figure>
+        <figure><img src="assets/images/evol-case-day-2026-07-06.png" alt="일간 관제 화면, 2026-07-06. 속도 그래프와 상태 타임라인에 짧은 가동 여섯 개" loading="lazy"/><figcaption>일간 관제 · 2026-07-06. 10분짜리 가동 여섯 덩어리</figcaption></figure>
+      </div>
+      <p style="margin-top:12px;font-size:13px;color:var(--ink-mute)"><a href="https://job-reduces-initial-indices.trycloudflare.com" target="_blank" rel="noopener" style="color:var(--amber)">데모 보기 ↗</a> — 로그인 없음, 읽기 전용. 임시 주소라 바뀔 수 있습니다. 화면과 숫자는 공개 샘플 데이터이고, 고객사명·운영 원자료는 싣지 않았습니다.</p>
+    </div></details>
+  </div></section>
+
+  <section><div class="wrap lesson">
+    <div class="big">제조 데이터는 값보다 <em>정의가 먼저</em>다.<br/>분자·분모·예외를 한 줄로 적고, 불변식으로 잠근다.</div>
+    <div><p style="color:var(--ink-dim);font-size:14.5px">정할 수 없는 건 억지로 정하지 않습니다. 숫자를 보여 주고, 데이터를 더 보고, 현장과 같이 정합니다.</p><div class="chips"><span class="chip mint">정의 재합의</span><span class="chip mint">불변식 검증</span><span class="chip mint">계약 테스트</span><span class="chip mint">결정 기록</span></div></div>
+  </div></section>
+  </main>
+
+  <footer><div class="wrap">© 2026 Yerin Min — Guide Roll Monitoring Case Study.</div></footer>
+
+  <script>
+    (function(){
+      var tabs=document.querySelectorAll('.step'),panels=document.querySelectorAll('.panel');
+      function show(id){tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.p===id?'true':'false');});panels.forEach(function(p){p.hidden=(p.id!==id);});}
+      tabs.forEach(function(t){t.addEventListener('click',function(){show(t.dataset.p);});});
+      document.addEventListener('keydown',function(e){if(e.target.classList&&e.target.classList.contains('step')){var i=[].indexOf.call(tabs,e.target);if(e.key==='ArrowRight'&&tabs[i+1]){tabs[i+1].focus();tabs[i+1].click();}if(e.key==='ArrowLeft'&&tabs[i-1]){tabs[i-1].focus();tabs[i-1].click();}}});
+    })();
+  </script>
+</body>
+</html>
