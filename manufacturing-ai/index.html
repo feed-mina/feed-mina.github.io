@@ -143,7 +143,7 @@
     <h1>센서 숫자는 <em>정의부터</em> 맞추고,<br/>AI 작업은 <em>승인</em>을 거치게 합니다.</h1>
     <p class="lede">제조 현장 센서 대시보드를 만들고 고치면서, 그리고 AI 에이전트로 기획·요약 작업을 자동화하면서 해 온 일을 네 가지 사례로 모았습니다. 고친 것은 숫자로, 아직 못 정한 것은 못 정했다고 적었습니다.</p>
     <div class="three">
-      <div class="c"><div class="n">01 · 현장 데이터</div><div class="t">지표 정의를 맞춘다</div><div class="d">가동 0회인데 1.2시간 → 1.2시간 · 6회. 36일치 화면을 불변식으로 검증</div></div>
+      <div class="c"><div class="n">01 · 현장 데이터</div><div class="t">지표 정의를 맞춘다</div><div class="d">가동 1.2시간 · 0회 모순을 1.2시간 · 6회로 정합. 36일치 화면 불변식 검증</div></div>
       <div class="c"><div class="n">02 · 판단 근거</div><div class="t">정할 수 없는 건 남긴다</div><div class="d">같은 센서 값이 화면 세 곳에서 다르게 판정되는 이유를 코드 세 지점으로 설명</div></div>
       <div class="c"><div class="n">03 · AI 자동화</div><div class="t">승인 게이트로 통제한다</div><div class="d">AI 기획 루프와 회의록 요약 API. 사람 승인 전에는 외부 작업을 하지 않게 설계</div></div>
     </div>
@@ -160,15 +160,15 @@
   <!-- CASE 1 -->
   <section id="case-1"><div class="wrap">
     <div class="case-k">Case 01 · 가이드롤 생산 모니터링 (evol) <span class="status done">해결 · 검증 완료</span></div>
-    <div class="sec-h"><h2>가동 0회인데 1.2시간 — 정의가 달랐다</h2></div>
-    <p class="body">초음·진동 센서 사이클을 FastAPI·React 대시보드로 보여 주는 프로젝트입니다. 가동 <b>횟수</b>는 30분 넘게 이어진 덩어리만 세고, 가동 <b>시간</b>은 길이와 상관없이 다 더하고 있었습니다. 10분짜리 가동 여섯 번이 횟수엔 0, 시간엔 1.2시간으로 들어갔습니다.</p>
-    <p class="body">"가동 1회"가 무엇인지 현장과 다시 정하고, 합산 함수 한 곳을 고쳐 일간·주별·월별 화면이 모두 그 함수를 쓰게 했습니다.</p>
+    <div class="sec-h"><h2>제조 지표 정의 재합의와 불변식 검증</h2></div>
+    <p class="body">광학필름 생산 라인의 가이드롤(동력 없이 필름 장력으로 도는 롤)에 붙은 센서 노드 4대가 10분마다 11초씩 속도·진동을 측정하고, 이를 FastAPI·React 대시보드로 보여 주는 시스템입니다. 통계 화면에 <b>가동 1.2시간 · 가동 0회</b>가 함께 표시되는 모순이 있었습니다. 원인은 두 지표의 판정 기준 차이였습니다. 가동 <b>횟수</b>는 30분 이상 이어진 구간만 세고, 가동 <b>시간</b>은 길이와 무관하게 합산해, 10분 가동 6회가 횟수에서는 빠지고 시간에는 1.2시간으로 들어갔습니다.</p>
+    <p class="body">"가동 1회"의 정의를 현장과 다시 합의하고, 합산 함수를 단일화해 일간·주별·월별 화면이 같은 함수를 사용하도록 했습니다.</p>
     <div class="ba">
-      <div class="screen bad"><div class="tag">Before · 같은 주</div><div class="nums"><div class="num">1.2h<small>가동 시간</small></div><div class="num x">0회<small>가동 횟수</small></div></div><div class="verdict">한 번도 안 돌았는데 1.2시간?</div></div>
+      <div class="screen bad"><div class="tag">Before · 같은 주</div><div class="nums"><div class="num">1.2h<small>가동 시간</small></div><div class="num x">0회<small>가동 횟수</small></div></div><div class="verdict">가동 0회와 가동 1.2시간이 동시에 표시됨</div></div>
       <div class="arrow"><span class="ar">→</span>정의 통일<br/>함수 한 곳</div>
-      <div class="screen good"><div class="tag">After · 같은 데이터</div><div class="nums"><div class="num">1.2h<small>가동 시간</small></div><div class="num x">6회<small>가동 횟수</small></div></div><div class="verdict">10분짜리 가동 6번. 숫자가 서로 맞는다</div></div>
+      <div class="screen good"><div class="tag">After · 같은 데이터</div><div class="nums"><div class="num">1.2h<small>가동 시간</small></div><div class="num x">6회<small>가동 횟수</small></div></div><div class="verdict">10분 가동 6회 — 두 지표가 일치</div></div>
     </div>
-    <div class="kpis"><span class="kpi"><b>36일</b> 불변식 위반 0건</span><span class="kpi"><b>5일 → 0일</b> 모순</span><span class="kpi"><b>26건</b> 계약 테스트</span><span class="kpi"><b>18.0초 → 0.89초</b> 첫 조회</span></div>
+    <div class="kpis"><span class="kpi"><b>36일</b> 불변식 위반 0건</span><span class="kpi"><b>5일 → 0일</b> 모순</span><span class="kpi"><b>26건</b> 계약 테스트</span><span class="kpi"><b>95% 단축</b> 첫 조회 18.0초 → 0.89초 · DB 연결 1회화 + Parquet 병합 사본</span></div>
     <div class="shots">
       <figure><img src="../assets/images/evol-case-period-month-2026-07.png" alt="기간 통계 월 화면, 2026년 7월. 둘째 주 카드에 가동 1.2시간 6회" loading="lazy"/><figcaption>기간 통계 · 2026-07 · W28 카드 1.2시간 · 6회</figcaption></figure>
       <figure><img src="../assets/images/evol-case-day-2026-07-06.png" alt="일간 관제 화면, 2026-07-06. 짧은 가동 여섯 개" loading="lazy"/><figcaption>일간 관제 · 2026-07-06 · 10분짜리 가동 여섯 덩어리</figcaption></figure>
