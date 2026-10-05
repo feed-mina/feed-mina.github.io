@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>제조 데이터 · AI 자동화 | 민예린 Portfolio</title>
+  <meta name="description" content="제조 센서 데이터의 지표 정의를 맞추고, AI 작업을 승인 게이트로 통제해 온 사례 네 가지를 한 장에 모았습니다." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0a0b;--surface:#15151a;--surface-2:#1c1c22;--line:rgba(245,241,234,.1);--line-strong:rgba(245,241,234,.2);--ink:#f5f1ea;--ink-dim:#a8a39b;--ink-mute:#6c6760;--amber:#ff8a3d;--amber-soft:rgba(255,138,61,.14);--mint:#8fd6c7;--red:#ff6b6b;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{min-height:100vh;background:radial-gradient(60% 50% at 80% 0%, rgba(255,138,61,.12), transparent 60%),radial-gradient(40% 35% at 0% 90%, rgba(143,214,199,.08), transparent 60%),var(--bg);color:var(--ink);font-family:"Geist","Noto Sans KR",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all;}
+    a{color:inherit;text-decoration:none;}
+    .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+    nav{border-bottom:1px solid var(--line);backdrop-filter:blur(14px);position:sticky;top:0;background:rgba(10,10,11,.8);z-index:10;}
+    nav .row{height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+    .brand{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;letter-spacing:.03em;display:flex;gap:10px;align-items:center;}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber);}
+    .navlinks{display:flex;gap:8px;flex-wrap:wrap;}
+    .back{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-dim);border:1px solid var(--line);padding:8px 13px;border-radius:999px;}
+    .back:hover{border-color:var(--amber);color:var(--amber);}
+
+    header{padding:56px 0 28px;}
+    .eyebrow{font-family:"JetBrains Mono",monospace;color:var(--amber);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;}
+    h1{font-family:"Instrument Serif","Noto Serif KR",serif;font-weight:400;font-size:clamp(34px,5.4vw,58px);line-height:1.08;letter-spacing:-.02em;}
+    h1 em{font-style:italic;color:var(--amber);}
+    .lede{max-width:740px;margin-top:18px;color:var(--ink-dim);font-size:16.5px;}
+    .three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px;}
+    .three .c{background:#101014;border:1px solid var(--line);border-radius:14px;padding:16px 18px;}
+    .three .n{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;color:var(--amber);}
+    .three .t{font-size:15px;font-weight:600;margin-top:6px;}
+    .three .d{font-size:13px;color:var(--ink-dim);margin-top:4px;}
+    .toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+    .toc a{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:rgba(255,255,255,.03);}
+    .toc a:hover{border-color:var(--amber);color:var(--amber);}
+
+    section{padding:40px 0;border-top:1px solid var(--line);scroll-margin-top:70px;}
+    .sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
+    .sec-h h2{font-family:"Instrument Serif","Noto Serif KR",serif;font-weight:400;font-size:28px;}
+    .sec-h .hint{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-mute);}
+    .case-k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:6px;}
+    .status{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11px;border-radius:999px;padding:4px 10px;margin-left:8px;vertical-align:middle;letter-spacing:0;text-transform:none;}
+    .status.done{color:var(--mint);border:1px solid rgba(143,214,199,.35);}
+    .status.open{color:var(--amber);border:1px solid rgba(255,138,61,.4);background:var(--amber-soft);}
+    p.body{color:var(--ink-dim);font-size:15px;max-width:780px;}
+    p.body b{color:var(--ink);font-weight:600;}
+    p.body+p.body{margin-top:10px;}
+
+    .ba{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;margin-top:18px;}
+    .screen{background:#101014;border:1px solid var(--line);border-radius:14px;padding:16px 18px;}
+    .screen .tag{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);}
+    .screen .nums{display:flex;gap:22px;margin-top:10px;}
+    .screen .num{font-family:"Instrument Serif","Noto Serif KR",serif;font-size:32px;line-height:1;}
+    .screen .num small{display:block;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);margin-top:6px;letter-spacing:.08em;}
+    .screen.bad .num.x{color:var(--red);} .screen.good .num.x{color:var(--amber);}
+    .screen .verdict{margin-top:12px;font-size:13px;}
+    .screen.bad .verdict{color:var(--red);} .screen.good .verdict{color:var(--mint);}
+    .arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--ink-mute);font-family:"JetBrains Mono",monospace;font-size:11px;padding:0 6px;text-align:center;}
+    .arrow .ar{font-size:28px;color:var(--amber);line-height:1;}
+    .kpis{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:14px;}
+    .kpi{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:rgba(255,255,255,.03);}
+    .kpi b{color:var(--mint);font-weight:600;}
+    .actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:18px;}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;border:1px solid var(--line-strong);font-family:"JetBrains Mono",monospace;font-size:13px;transition:.2s;}
+    .btn:hover{transform:translateY(-2px);border-color:var(--amber);}
+    .btn.primary{background:var(--amber);color:var(--bg);border-color:transparent;}
+    .btn-note{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-mute);}
+    .shots{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px;align-items:start;}
+    .shots figure{margin:0;background:#101014;border:1px solid var(--line);border-radius:12px;padding:10px;}
+    .shots img{display:block;width:100%;height:auto;border-radius:8px;}
+    .shots figcaption{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-mute);margin-top:8px;}
+
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+    .box{background:#101014;border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+    .box .k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:8px;}
+    .box.warn .k{color:var(--red);} .box.ok .k{color:var(--mint);} .box.amber .k{color:var(--amber);}
+    ul.list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    ul.list li{position:relative;padding-left:18px;color:var(--ink-dim);font-size:14.5px;}
+    ul.list li::before{content:"→";position:absolute;left:0;color:var(--amber);font-family:"JetBrains Mono",monospace;font-size:11px;top:2px;}
+    ul.check li::before{content:"✓";color:var(--mint);}
+    ul.list b{color:var(--ink);font-weight:600;}
+
+    .tbl{margin-top:16px;background:#101014;border:1px solid var(--line);border-radius:12px;overflow-x:auto;}
+    table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:620px;}
+    th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+    tr:last-child td{border-bottom:none;}
+    th{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);font-weight:500;}
+    td{color:var(--ink-dim);} td.hi{color:var(--amber);font-weight:600;} td.dim{color:var(--ink-mute);} td.m{font-family:"JetBrains Mono",monospace;font-size:12.5px;}
+    .cap{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-mute);margin-top:8px;}
+
+    .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:16px;}
+    .flow .s{background:#101014;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:13px;color:var(--ink);}
+    .flow .s small{display:block;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);}
+    .flow .s.gate{border-color:var(--amber);background:var(--amber-soft);}
+    .flow .s.err{border-color:rgba(255,107,107,.45);}
+    .flow .ar{color:var(--ink-mute);font-family:"JetBrains Mono",monospace;}
+
+    .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+    .chip{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-dim);border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:999px;padding:5px 10px;}
+    .chip.mint{color:var(--mint);border-color:rgba(143,214,199,.35);}
+
+    .ways{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .way{background:#101014;border:1px solid var(--line);border-radius:12px;padding:16px;}
+    .way .big{font-family:"Instrument Serif","Noto Serif KR",serif;font-size:22px;color:var(--amber);line-height:1.15;}
+    .way .s{font-size:13px;color:var(--ink-dim);margin-top:8px;}
+    .way .src{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);margin-top:10px;}
+
+    details{border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-top:14px;}
+    details summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;align-items:center;gap:12px;}
+    details summary::-webkit-details-marker{display:none;}
+    summary .q{font-size:15px;font-weight:600;flex:1;}
+    summary .ic{width:24px;height:24px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;color:var(--amber);font-family:"JetBrains Mono",monospace;font-size:13px;transition:.2s;flex:none;}
+    details[open] summary .ic{transform:rotate(45deg);}
+    details[open] summary{border-bottom:1px solid var(--line);}
+    .acc-body{padding:16px 18px 18px;}
+
+    footer{padding:36px 0;color:var(--ink-mute);font-family:"JetBrains Mono",monospace;font-size:12px;border-top:1px solid var(--line);}
+    footer .row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+    footer a{color:var(--ink-dim);} footer a:hover{color:var(--amber);}
+
+    @media(max-width:860px){.ways{grid-template-columns:1fr 1fr;}}
+    @media(max-width:700px){
+      .wrap{padding:0 16px;} header{padding-top:40px;}
+      nav .row{height:auto;padding:12px 0;flex-direction:column;align-items:flex-start;gap:8px;}
+      .three,.two,.shots{grid-template-columns:1fr;}
+      .ba{grid-template-columns:1fr;} .arrow{flex-direction:row;padding:4px 0;} .arrow .ar{transform:rotate(90deg);}
+    }
+    @media(max-width:460px){.ways{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <nav><div class="wrap row">
+    <a class="brand" href="/"><span class="dot"></span>Yerin.Min <span style="color:var(--ink-dim);font-weight:400;">Portfolio</span></a>
+    <div class="navlinks"><a class="back" href="/#projects">전체 포트폴리오 →</a></div>
+  </div></nav>
+
+  <header><div class="wrap">
+    <div class="eyebrow">Manufacturing Data · Agentic Automation · 2026</div>
+    <h1>센서 숫자는 <em>정의부터</em> 맞추고,<br/>AI 작업은 <em>승인</em>을 거치게 합니다.</h1>
+    <p class="lede">제조 현장 센서 대시보드를 만들고 고치면서, 그리고 AI 에이전트로 기획·요약 작업을 자동화하면서 해 온 일을 네 가지 사례로 모았습니다. 고친 것은 숫자로, 아직 못 정한 것은 못 정했다고 적었습니다.</p>
+    <div class="three">
+      <div class="c"><div class="n">01 · 현장 데이터</div><div class="t">지표 정의를 맞춘다</div><div class="d">가동 1.2시간 · 0회 모순을 1.2시간 · 6회로 정합. 36일치 화면 불변식 검증</div></div>
+      <div class="c"><div class="n">02 · 판단 근거</div><div class="t">정할 수 없는 건 남긴다</div><div class="d">같은 센서 값이 화면 세 곳에서 다르게 판정되는 이유를 코드 세 지점으로 설명</div></div>
+      <div class="c"><div class="n">03 · AI 자동화</div><div class="t">승인 게이트로 통제한다</div><div class="d">AI 기획 루프와 회의록 요약 API. 사람 승인 전에는 외부 작업을 하지 않게 설계</div></div>
+    </div>
+    <div class="toc">
+      <a href="#case-1">① 가동 지표 정의</a>
+      <a href="#case-2">② 세 가지 "가동"</a>
+      <a href="#case-3">③ AI 기획 루프</a>
+      <a href="#case-4">④ 회의록 AI 요약 API</a>
+      <a href="#how">일하는 방식</a>
+    </div>
+  </div></header>
+
+  <main>
+  <!-- CASE 1 -->
+  <section id="case-1"><div class="wrap">
+    <div class="case-k">Case 01 · 가이드롤 생산 모니터링 (evol) <span class="status done">해결 · 검증 완료</span></div>
+    <div class="sec-h"><h2>제조 지표 정의 재합의와 불변식 검증</h2></div>
+    <p class="body">광학필름 생산 라인의 가이드롤(동력 없이 필름 장력으로 도는 롤)에 붙은 센서 노드 4대가 10분마다 11초씩 속도·진동을 측정하고, 이를 FastAPI·React 대시보드로 보여 주는 시스템입니다. 통계 화면에 <b>가동 1.2시간 · 가동 0회</b>가 함께 표시되는 모순이 있었습니다. 원인은 두 지표의 판정 기준 차이였습니다. 가동 <b>횟수</b>는 30분 이상 이어진 구간만 세고, 가동 <b>시간</b>은 길이와 무관하게 합산해, 10분 가동 6회가 횟수에서는 빠지고 시간에는 1.2시간으로 들어갔습니다.</p>
+    <p class="body">"가동 1회"의 정의를 현장과 다시 합의하고, 합산 함수를 단일화해 일간·주별·월별 화면이 같은 함수를 사용하도록 했습니다.</p>
+    <div class="ba">
+      <div class="screen bad"><div class="tag">Before · 같은 주</div><div class="nums"><div class="num">1.2h<small>가동 시간</small></div><div class="num x">0회<small>가동 횟수</small></div></div><div class="verdict">가동 0회와 가동 1.2시간이 동시에 표시됨</div></div>
+      <div class="arrow"><span class="ar">→</span>정의 통일<br/>함수 한 곳</div>
+      <div class="screen good"><div class="tag">After · 같은 데이터</div><div class="nums"><div class="num">1.2h<small>가동 시간</small></div><div class="num x">6회<small>가동 횟수</small></div></div><div class="verdict">10분 가동 6회 — 두 지표가 일치</div></div>
+    </div>
+    <div class="kpis"><span class="kpi"><b>36일</b> 불변식 위반 0건</span><span class="kpi"><b>5일 → 0일</b> 모순</span><span class="kpi"><b>26건</b> 계약 테스트</span><span class="kpi"><b>95% 단축</b> 첫 조회 18.0초 → 0.89초 · DB 연결 1회화 + Parquet 병합 사본</span></div>
+    <div class="shots">
+      <figure><img src="../assets/images/evol-case-period-month-2026-07.png" alt="기간 통계 월 화면, 2026년 7월. 둘째 주 카드에 가동 1.2시간 6회" loading="lazy"/><figcaption>기간 통계 · 2026-07 · W28 카드 1.2시간 · 6회</figcaption></figure>
+      <figure><img src="../assets/images/evol-case-day-2026-07-06.png" alt="일간 관제 화면, 2026-07-06. 짧은 가동 여섯 개" loading="lazy"/><figcaption>일간 관제 · 2026-07-06 · 10분짜리 가동 여섯 덩어리</figcaption></figure>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="../evol-case-study.html">Case Study 전체 보기 →</a>
+      <a class="btn" href="https://job-reduces-initial-indices.trycloudflare.com" target="_blank" rel="noopener">데모 보기 ↗</a>
+      <span class="btn-note">공개 샘플 데이터 · 데모는 임시 주소라 바뀔 수 있음</span>
+    </div>
+  </div></section>
+
+  <!-- CASE 2 -->
+  <section id="case-2"><div class="wrap">
+    <div class="case-k">Case 02 · 같은 프로젝트, 다음 질문 <span class="status open">정의 미확정 · 현장 확인 필요</span></div>
+    <div class="sec-h"><h2>"움직인 시간"과 "생산 가동"은 다른 지표다</h2></div>
+    <p class="body">같은 센서 사이클 한 행이 화면 세 곳에서 <b>세 가지 규칙</b>으로 "가동"인지 판정됩니다. 노드 카드는 속도가 0만 아니면 가동, 기간 통계는 모든 노드가 함께 1 MPM 이상으로 돌아야 가동, 공정 분류는 0~1 MPM을 판정 보류로 둡니다. 어느 쪽이 현장의 "가동"인지는 생산 라벨이 없어 아직 정하지 않았습니다.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>입력 (합성 · 노드 4대, 10분 간격)</th><th>① 노드 카드</th><th>② 기간 통계</th><th>③ 공정 후보 분류</th></tr></thead>
+      <tbody>
+        <tr><td>A 정상 — 전부 33 MPM</td><td>가동</td><td>가동</td><td>생산 후보</td></tr>
+        <tr><td>B 정지 — 전부 0</td><td>정지</td><td>제외</td><td>정지·잡음 후보</td></tr>
+        <tr><td>C 누락 — 한 노드 값 없음</td><td class="dim">집계에서 빠짐</td><td>제외</td><td>판정 불가 (값 없음)</td></tr>
+        <tr><td>D 음수 — 한 노드 −2</td><td class="hi">정지</td><td>제외</td><td class="hi">데이터 품질 확인</td></tr>
+        <tr><td>E 저속 — 전부 0.5 MPM</td><td class="hi">가동</td><td class="hi">가동 아님</td><td class="hi">판정 보류</td></tr>
+      </tbody>
+    </table></div>
+    <div class="cap">합성 값입니다. 현장 ID·운영 수치가 아니며, 결과는 코드를 따라가 계산한 기대값입니다.</div>
+    <div class="two">
+      <div class="box ok"><div class="k">한 것</div><ul class="list check"><li>세 규칙의 분자·분모·예외를 한 표로 정리</li><li>음수와 0~1 MPM 구간을 세 곳이 다르게 다룬다는 것을 코드 세 지점으로 설명</li><li>결정이 필요한 질문을 이슈로 남김</li></ul></div>
+      <div class="box amber"><div class="k">아직 안 한 것</div><ul class="list"><li>현장 평균에 맞춰 문턱을 고르지 않았습니다 — 숫자 맞추기이지 근거가 아니어서</li><li>다음: 위 5행을 테스트로 고정하고, 현장 확인 뒤 문턱 한 곳만 바꾼다</li></ul></div>
+    </div>
+  </div></section>
+
+  <!-- CASE 3 -->
+  <section id="case-3"><div class="wrap">
+    <div class="case-k">Case 03 · Planning Harness <span class="status done">동작 · 데모 공개</span></div>
+    <div class="sec-h"><h2>AI가 마음대로 반영하지 못하게 — 승인 게이트 기획 루프</h2></div>
+    <p class="body">기획자가 명령어 한 줄로 상세기획 산출물을 만들고, 승인된 기획만 개발 저장소 이슈·PR로 넘기는 Claude Code 플러그인입니다. 프롬프트마다 결과가 달라지는 문제를 <b>고정된 스킬 8개와 가드레일</b>로 묶었고, GitHub에 쓰는 작업은 dry-run과 사람 승인을 거치게 했습니다.</p>
+    <div class="flow">
+      <div class="s">요구사항<small>spec.md (기준 문서)</small></div><span class="ar">→</span>
+      <div class="s">분해 · 다이어그램<small>시퀀스 · 사용자 흐름</small></div><span class="ar">→</span>
+      <div class="s">테스트 케이스<small>단계별 산출물</small></div><span class="ar">→</span>
+      <div class="s gate">dry-run + 사람 승인<small>여기서 멈춘다</small></div><span class="ar">→</span>
+      <div class="s">Issue · PR 핸드오프<small>GitHub</small></div>
+    </div>
+    <p class="body" style="margin-top:16px">제조 현장에 맞춰 바꾸면 같은 구조가 "원인 확인 → 수정안 → <b>승인</b> → 배포 → 보고"가 됩니다. evol 작업에서도 이 순서를 스킬로 만들어 씁니다.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://harness-meeting-app.kibayerin.workers.dev" target="_blank" rel="noopener">Live Demo ↗</a>
+      <a class="btn" href="../assets/docs/planning-harness-user-guide.pptx">사용자 가이드 (PPT)</a>
+      <a class="btn" href="../assets/docs/planning-harness-developer-guide.pptx">개발자 문서 (PPT)</a>
+    </div>
+  </div></section>
+
+  <!-- CASE 4 -->
+  <section id="case-4"><div class="wrap">
+    <div class="case-k">Case 04 · work-cycle 회의록 요약 <span class="status done">구현 · 코드 기준 정리</span></div>
+    <div class="sec-h"><h2>회의록 AI 요약 API — 실패해도 흔적이 남지 않게</h2></div>
+    <p class="body">사용자가 확인한 회의 텍스트 한 덩어리가 <b>인증 → 입력·사용량 검사 → 프롬프트 조립 → 모델 호출 → 저장</b> 순서로 처리됩니다. 모델은 Workers AI를 먼저 부르고, 실패하면 Gemini로 넘어갑니다. 둘 다 실패하면 저장 전에 멈추므로 회의록도 사용량 기록도 생기지 않습니다.</p>
+    <div class="flow">
+      <div class="s">텍스트 확인<small>사용자가 고친 뒤 전송</small></div><span class="ar">→</span>
+      <div class="s err">인증<small>없으면 401</small></div><span class="ar">→</span>
+      <div class="s err">입력 · 하루 한도<small>400 · 429 (하루 20회)</small></div><span class="ar">→</span>
+      <div class="s err">모델 호출<small>Workers AI → Gemini · 둘 다 실패 502</small></div><span class="ar">→</span>
+      <div class="s">저장<small>생성된 회의록만</small></div>
+    </div>
+    <div class="two">
+      <div class="box ok"><div class="k">설계에서 지킨 것</div><ul class="list check"><li>요청 원문은 DB에 저장하지 않고 생성된 회의록만 저장</li><li>하루 호출 한도로 비용 상한</li><li>모델 2단 폴백, 실패 시 쓰기 0건</li></ul></div>
+      <div class="box"><div class="k">정확히 말하면</div><ul class="list"><li>임베딩·벡터 검색은 쓰지 않습니다 — 회의 한 건 요약이라 검색 대상이 없음</li><li>원문은 최대 60,000자까지 모델 제공자에게 전송됩니다</li><li>위 순서는 코드 읽기로 정리했고, 실패 경로 실행 테스트는 다음 작업입니다</li></ul></div>
+    </div>
+  </div></section>
+
+  <!-- HOW -->
+  <section id="how"><div class="wrap">
+    <div class="sec-h"><h2>네 사례에서 반복한 일하는 방식</h2></div>
+    <div class="ways">
+      <div class="way"><div class="big">정의 먼저</div><div class="s">분자·분모·예외를 한 줄로 적고 현장과 합의한 뒤에 코드를 고친다</div><div class="src">Case 01 · 02</div></div>
+      <div class="way"><div class="big">불변식으로 잠근다</div><div class="s">"맞는 화면이면 반드시 성립하는 것"을 먼저 쓰고 전수 대조, 테스트로 고정</div><div class="src">Case 01</div></div>
+      <div class="way"><div class="big">승인 게이트</div><div class="s">AI가 만든 결과는 사람이 승인하기 전까지 외부에 반영하지 않는다</div><div class="src">Case 03 · 04</div></div>
+      <div class="way"><div class="big">한계를 적는다</div><div class="s">측정 안 한 것, 정하지 못한 것은 그렇다고 쓰고 다음 작업으로 남긴다</div><div class="src">Case 02 · 04</div></div>
+    </div>
+    <div class="chips"><span class="chip mint">FastAPI</span><span class="chip mint">React</span><span class="chip mint">DuckDB · Parquet</span><span class="chip mint">pytest</span><span class="chip mint">Docker · Nginx</span><span class="chip mint">Cloudflare Workers · D1</span><span class="chip mint">Claude Code 스킬</span><span class="chip mint">Workers AI · Gemini</span></div>
+    <details><summary><span class="ic">+</span><span class="q">이 페이지의 숫자 출처</span></summary><div class="acc-body">
+      <ul class="list">
+        <li>Case 01 — evol 지표 정의 수정 기록과 36일 검증 결과 (<a href="../evol-case-study.html" style="color:var(--amber)">Case Study</a>에 상세)</li>
+        <li>Case 02 — evol 현장 지표 사례 문서 (2026-10-04, 코드 읽기와 열린 이슈 대조, 새 실행 없음)</li>
+        <li>Case 03 — Planning Harness 저장소 README·플러그인 문서</li>
+        <li>Case 04 — work-cycle 회의록 요약 API 흐름 문서 (2026-10-04, 코드 읽기 기준)</li>
+        <li>화면 캡처는 공개 샘플 데이터이며 고객사명·운영 원자료는 싣지 않았습니다</li>
+      </ul>
+    </div></details>
+  </div></section>
+  </main>
+
+  <footer><div class="wrap row"><span>© 2026 Yerin Min — Manufacturing Data · AI Automation</span><a href="/">전체 포트폴리오 보기 →</a></div></footer>
+</body>
+</html>
