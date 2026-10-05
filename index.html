@@ -1017,11 +1017,11 @@
         <div class="eyebrow">Portfolio · 2026 · Seoul, KR</div>
         <h1>
           Hello, I'm <span class="it">Yerin.</span><br/>
-          Backend / <span class="it">Fullstack Developer.</span>
-          <span class="small">웹 화면·API·데이터를 연결하고, 운영 문제를 코드와 기록으로 설명하는 개발자 민예린입니다. B2B 웹 개발과 서비스 운영을 경험했고, 개인 프로젝트에서 화면부터 서버·DB·배포까지 구성했습니다.</span>
+          <span class="it">Fullstack Developer.</span>
+          <span class="small">공장 센서 데이터를 현장이 보는 화면으로 만드는 풀스택 개발자 민예린입니다. 데이터를 기본 단위부터 정의하고, 현장 의견을 반영해 대시보드를 만들고, B2B 웹 서비스를 운영했습니다.</span>
         </h1>
         <p class="lede">
-          EBS·포스코DX 운영 파견과 B2B 웹 개발, 센서 데이터 조회·분석 웹 개발 경험에 더해, <strong>SDUI · 비동기 메시지 큐 · RAG</strong>를 직접 구성한 개인 프로젝트를 함께 가졌습니다.
+          회사에서는 운영과 B2B 웹을, 개인 프로젝트에서는 <strong>SDUI 엔진 · 비동기 큐 · RAG</strong>를 만들었습니다.
         </p>
         <div class="hero-actions">
           <a class="btn primary" href="#platform">지금 열어볼 수 있는 제품 4개 →</a>
@@ -1031,11 +1031,11 @@
 
       <aside class="profile-panel reveal" aria-label="프로필 요약">
         <div class="profile-image">
-          <img src="assets/images/profile.jpg" alt="백엔드 개발자 민예린 프로필 사진" />
+          <img src="assets/images/profile.jpg" alt="풀스택 개발자 민예린 프로필 사진" />
         </div>
         <div class="profile-meta">
           <div class="ko">Yerin Min · 민예린</div>
-          <div class="name">Backend / Fullstack Developer</div>
+          <div class="name">Fullstack Developer</div>
           <div class="role">Spring Boot · FastAPI · Next.js · AI</div>
         </div>
         <dl class="signal-list">
@@ -1065,30 +1065,25 @@
       <div class="pillar">
         <div class="idx">01</div>
         <h3>AI 파이프라인 아키텍처 설계</h3>
-        <p>비동기 메시지 큐(FastAPI · Celery · Redis)로 무거운 미디어 생성을 API 응답과 분리하고, 모델 라우터로 호출 대상을 나눕니다. 처리 비용·응답 시간의 절감 수치는 별도 측정이 필요한 상태입니다.</p>
+        <p>비동기 메시지 큐(FastAPI · Celery · Redis)로 무거운 미디어 생성을 API 응답과 분리하고, 모델 라우터로 호출 대상을 나눕니다.</p>
       </div>
       <div class="pillar">
         <div class="idx">02</div>
-        <h3>비즈니스 로직과 AI의 완벽한 통합</h3>
-        <p>'Redis → DB → 외부 API' 3단계 Fallback, OAuth2 인증 제어, 트랜잭션 관리로 외부 장애 시 강등 경로를 둔 엔드투엔드 서비스를 구축합니다. 가용성 수치는 측정 기록이 있을 때만 적습니다.</p>
+        <h3>외부 API가 작동이 안 될 때 대처하는 3단계 방법</h3>
+        <p>'Redis → DB → 외부 API' 3단계 Fallback, OAuth2 인증 제어, 트랜잭션 관리로 외부 장애 시 강등 경로를 둔 엔드투엔드 서비스를 구축합니다.</p>
       </div>
       <div class="pillar">
         <div class="idx">03</div>
         <h3>대용량 트래픽 통제 &amp; 인프라 운영</h3>
-        <p>EBS 영어 트래픽 통계 스케줄링과 포스코DX 메일 보안(ISMS-P) 운영 경험을 바탕으로, 최신 AI 서비스를 Docker · 클라우드에 안전하게 배포·확장합니다.</p>
+        <p>스케줄 셸 스크립트로 EBS 영어 트래픽 통계를 집계하고, 포스코DX에서 메일 보안(ISMS-P) 필터를 운영했습니다. 지금은 같은 운영 습관으로 Docker 배포를 합니다.</p>
       </div>
-    </div>
-
-    <div class="quote-block reveal">
-      <p>"레거시 코드는 적이 아닙니다. 개선해야 할 통계일 뿐입니다. 주장마다 현재 코드 또는 확인 기록을 붙이고, 아직 검증하지 않은 것은 예정으로 표시합니다."</p>
-      <div class="cite">— DEVELOPMENT PHILOSOPHY</div>
     </div>
 
     <!-- 비즈니스 로직과 AI를 연결하는 개발자 -->
     <div class="about-grid reveal" style="margin-top: 110px;">
       <h3>비즈니스 로직과<br/>AI를 연결하는 개발자</h3>
       <div class="about-copy">
-        <p>마케팅 데이터 분석에서 시작해 시스템을 설계하고 제어하는 백엔드 엔지니어링으로 확장했습니다. EBS 트래픽 운영, 포스코 DX 메일 보안 운영, B2B 웹 솔루션 개발 경험을 거치며 <em>"사용자가 보는 화면"</em>과 <em>"서버가 책임지는 안정성"</em> 사이의 균형을 배웠습니다.</p>
+        <p>마케팅 데이터 분석을 하다 데이터 통계에 관심이 생겼고, PM과 퍼블리싱을 거쳐 풀스택 개발자로 성장했습니다. EBS 트래픽 운영, 포스코 DX 메일 보안 운영, B2B 웹 솔루션 개발을 거치며 화면과 서버를 둘 다 맡아 봤습니다.</p>
         <p>최근에는 센서 데이터 조회·분석 화면과 API·DB 구조를 맡아, 관측한 움직임과 생산 가동의 정의가 다른 문제를 코드와 문서로 추적했습니다. 개인 프로젝트에서는 SDUI 엔진으로 화면 구조를 메타데이터로 추상화하고 요청별 PostgreSQL 조회와 권한별 렌더링으로 배포 없이 UI를 바꾸는 구조를 구현했습니다. AI 도구는 구현 초안과 디버깅 후보를 만드는 데 쓰고, 설계 결정과 검증은 제가 책임집니다.</p>
         <div class="principles">
           <span>Architecture first</span>
@@ -1109,7 +1104,7 @@
       <div class="num">02 / Platform</div>
       <div>
         <h2>One Engine, <span class="it">Three Products.</span></h2>
-        <p class="blurb">따로 만든 사이드 프로젝트 세 개가 아닙니다. 같은 메타데이터 계약 위에 <strong>엔진 · 편집기 · 기획 루프</strong>를 차례로 얹어 만든 하나의 제품 라인이고, 세 개 모두 지금 바로 열어볼 수 있습니다.</p>
+        <p class="blurb">세 제품은 같은 메타데이터 규칙 위에서 돌아갑니다. <strong>엔진</strong> 위에 <strong>편집기</strong>를, 그 앞단에 <strong>기획 루프</strong>를 얹었습니다. 셋 다 지금 열립니다.</p>
       </div>
     </div>
 
@@ -1374,7 +1369,7 @@
       "Talk is cheap.<br/>
       <span class="it">Show me</span> the <a href="/cdn-cgi/l/email-protection#ed898f89819e99819980d4d9ad8a808c8481c38e8280">architecture.</a>"
     </h2>
-    <p class="sub">백엔드, AI 협업, SDUI, 운영 자동화에 관한 이야기를 좋아합니다.</p>
+    <p class="sub">화면부터 서버까지 한 사람이 끝까지 맡는 풀스택 개발, 사람 대신 판단하고 일을 이어가는 에이전트 설계, 매일 반복되는 운영 일을 자동으로 돌리는 방법. 이런 이야기라면 언제든 메일 주세요.</p>
 
     <div class="contact-links">
       <a href="mailto:myelin24@naver.com">✉  myelin24@naver.com</a>
