@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Planning Harness 사용자 가이드 | 민예린 Portfolio</title>
+  <meta name="description" content="기획자가 명령어 한 줄로 상세기획을 만들고, 승인 게이트를 지나 GitHub 이슈·프로젝트까지 연결하는 회의 앱 사용법." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="planning-harness-guide/guide.css" />
+</head>
+<body>
+  <nav><div class="wrap row">
+    <a class="brand" href="/"><span class="dot"></span>Yerin.Min <span>Portfolio</span></a>
+    <div class="navlinks">
+      <a class="back" href="planning-harness-developer-guide.html">개발자 문서 →</a>
+      <a class="back" href="/manufacturing-ai/#case-3">Case 03으로 →</a>
+    </div>
+  </div></nav>
+
+  <header><div class="wrap">
+    <div class="eyebrow">User Guide · 사용자 가이드 · planning-harness</div>
+    <h1>Planning Harness<br/><em>사용 설명서</em></h1>
+    <p class="lede">기획자가 명령어 한 줄로 상세기획을 만들고, 승인 게이트를 지나 GitHub 이슈·프로젝트까지 연결하는 회의 앱 사용법입니다.</p>
+    <div class="meta">2026 · Yerin.Min · MIT License</div>
+    <div class="toc">
+      <a href="#overview">전체 흐름</a>
+      <a href="#step-1">1 설치</a>
+      <a href="#step-2">2 가입·로그인</a>
+      <a href="#step-3">3 분석설계</a>
+      <a href="#step-4">4 회의록</a>
+      <a href="#step-5">5–6 GitHub 연결·추적</a>
+      <a href="#principle">원칙</a>
+    </div>
+  </div></header>
+
+  <main>
+  <section id="overview"><div class="wrap">
+    <div class="k">Overview · 전체 흐름</div>
+    <h2>6단계로 끝내는 사용 흐름</h2>
+    <figure><img src="planning-harness-guide/user-s2-1.png" alt="여섯 단계 흐름: 개발환경 설치, 로그인·가입, 분석설계 페이지, 회의록 페이지, 토큰·GitHub 연결, 이슈·프로젝트 자동 동기화" loading="lazy"/><figcaption>① 설치 → ② 가입·로그인 → ③ 분석설계 → ④ 회의록 → ⑤ 연결 → ⑥ 추적</figcaption></figure>
+    <div class="three">
+      <div class="card"><div class="t">① 설치 · ② 가입</div><div class="d">개발환경·ask-todo·Claude Code를 준비하고, 소셜 또는 이메일 인증으로 들어갑니다.</div></div>
+      <div class="card"><div class="t">③ 분석설계 · ④ 회의록</div><div class="d">기획 산출물을 단계별로 만들고, 녹음·자막을 AI 요약으로 정리합니다.</div></div>
+      <div class="card"><div class="t">⑤ 연결 · ⑥ 추적</div><div class="d">토큰을 연결하면 할 일이 GitHub 이슈·프로젝트로 넘어가 추적됩니다.</div></div>
+    </div>
+  </div></section>
+
+  <section id="step-1"><div class="wrap">
+    <div class="k">Step 1 · 설치</div>
+    <h2>개발환경 · ask-todo · 하네스 설치</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div><div class="t">Claude Code + gh CLI 준비</div><ul><li>Claude Code 설치 후 로그인</li><li>GitHub CLI(gh) 설치 → <code>gh auth login</code></li><li>이 두 가지가 GitHub 연결·이슈 생성의 기반입니다.</li></ul></div></div>
+      <div class="step"><div class="n">2</div><div><div class="t">planning-harness 플러그인 설치</div><span class="cmd">claude plugin marketplace add feed-mina/planning-harness
+claude plugin install planning-harness@feed-mina-harness</span><ul><li>8개 스킬이 프로젝트에 추가됩니다.</li></ul></div></div>
+      <div class="step"><div class="n">3</div><div><div class="t">ask-todo 자동 기록 설치</div><ul><li>ask-todo-hub로 대화·작업을 ASK/Todo에 누적</li><li>"오늘 대화 ASK에 기록" 한 마디로 로그 생성</li><li>git 근거 기반, 추측 없이 append 보존.</li></ul></div></div>
+      <div class="step"><div class="n">4</div><div><div class="t">프로젝트 설정 (.harness/config.env)</div><ul><li>OWNER / PROJECT_NUMBER / REPO 지정</li><li>우선순위: 환경변수 &gt; config.env &gt; 기본값</li><li>회의록→GitHub 동기화 대상이 여기서 정해집니다.</li></ul></div></div>
+    </div>
+  </div></section>
+
+  <section id="step-2"><div class="wrap">
+    <div class="k">Step 2 · 가입 / 로그인</div>
+    <h2>소셜 로그인 · 이메일 가입 · 토큰 연결</h2>
+    <p class="body">이메일 가입은 메일 인증 후 마이페이지로, 소셜은 카카오/구글 OAuth로 즉시 진입합니다. <b>개인 API 키는 브라우저에만 저장</b>됩니다.</p>
+    <figure class="narrow"><img src="planning-harness-guide/user-s4-1.png" alt="로그인 흐름도: 계정이 없으면 이메일 회원가입과 메일 인증, 있으면 카카오·구글 OAuth 또는 이메일·비밀번호, 모두 마이페이지를 거쳐 개인 API 토큰 연결로" loading="lazy"/><figcaption>계정 유무 → 가입 또는 로그인 → 마이페이지 → 개인 API 토큰 연결(브라우저 저장)</figcaption></figure>
+  </div></section>
+
+  <section id="step-3"><div class="wrap">
+    <div class="k">Step 3 · 분석설계 페이지</div>
+    <h2>기획 산출물을 단계별로 생성</h2>
+    <div class="steps">
+      <div class="step gate"><div class="n">1</div><div><div class="t">/split-requirements</div><ul><li>기능을 요구사항으로 분해 → requirements.md</li><li>승인 게이트에서 멈추고 모호한 점을 되묻습니다.</li></ul></div></div>
+      <div class="step"><div class="n">2</div><div><div class="t">/user-flow · /sequence-diagram</div><ul><li>분기·예외를 사용자 플로우와 시퀀스 다이어그램으로 시각화</li><li>승인 불필요</li></ul></div></div>
+      <div class="step gate"><div class="n">3</div><div><div class="t">/logic-check</div><ul><li>정상·예외·보안·성능 테스트 케이스를 도출</li></ul></div></div>
+      <div class="step"><div class="n">4</div><div><div class="t">/search-documents</div><ul><li>기존 spec.md·산출물에서 근거 문서를 검색해 일관성 유지</li></ul></div></div>
+    </div>
+  </div></section>
+
+  <section id="step-4"><div class="wrap">
+    <div class="k">Step 4 · 회의록 페이지</div>
+    <h2>녹음·자막 → AI 요약 → 추적 연결</h2>
+    <p class="body">자막(.vtt/.srt)·브라우저 녹음을 파싱하고 <b>본인 키</b>로 AI 요약합니다. 출력 Markdown이 곧 동기화 입력이 됩니다.</p>
+    <figure><img src="planning-harness-guide/user-s6-1.png" alt="회의록 흐름: 자막·녹음, 회의록 메이커 파싱·정리, AI 요약(본인 키), 날짜_meeting.md 내려받기, /git-project-sync, GitHub Issues·Project" loading="lazy"/><figcaption>자막·녹음 → 파싱·정리 → AI 요약 → meeting.md → /git-project-sync → GitHub</figcaption></figure>
+  </div></section>
+
+  <section id="step-5"><div class="wrap">
+    <div class="k">Step 5–6 · GitHub 연결 &amp; 추적</div>
+    <h2>토큰 연결 → 승인 → 이슈·프로젝트</h2>
+    <p class="body">토큰을 연결하면 회의록의 할 일이 <b>dry-run 미리보기 → "승인" → GitHub Issues·Project 항목</b>으로 생성됩니다. 승인 없이는 아무것도 쓰지 않습니다.</p>
+    <figure class="narrow"><img src="planning-harness-guide/user-s7-1.png" alt="시퀀스: 사용자가 GitHub 토큰을 연결하면 회의 앱이 권한을 확인하고, 동기화 요청에 dry-run 미리보기를 돌려주며, 승인 뒤에만 이슈·프로젝트 항목을 생성하고 추적 보드를 최신화한다" loading="lazy"/><figcaption>① 토큰 연결 ② 권한 확인 ③ 동기화 요청 ④ dry-run 미리보기 ⑤ "승인" ⑥ 이슈·프로젝트 생성 ⑦ 추적 보드 최신화</figcaption></figure>
+  </div></section>
+
+  <section id="principle"><div class="wrap">
+    <div class="k">Principle · 원칙</div>
+    <h2>승인 게이트 — 안전한 자동화</h2>
+    <div class="three">
+      <div class="card amber"><div class="t">⚠️ 승인 게이트</div><div class="d">요구사항 분해·테스트·Git 반영·핸드오프는 사람이 "승인"하기 전까지 외부에 쓰지 않습니다.</div></div>
+      <div class="card"><div class="t">🔑 본인 키</div><div class="d">AI 요약·분석은 브라우저 localStorage의 사용자 본인 키로만 호출됩니다.</div></div>
+      <div class="card"><div class="t">📁 산출물 보존</div><div class="d">모든 결과물은 outputs/&lt;날짜&gt;/ 에 누적되어 추적·재현이 가능합니다.</div></div>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="https://harness-meeting-app.kibayerin.workers.dev" target="_blank" rel="noopener">Live Demo ↗</a>
+      <a class="btn" href="planning-harness-developer-guide.html">개발자 문서 →</a>
+      <a class="btn" href="https://github.com/feed-mina/planning-harness-portfolio" target="_blank" rel="noopener">GitHub (포트폴리오 사본) ↗</a>
+    </div>
+  </div></section>
+  </main>
+
+  <footer><div class="wrap row"><span>© 2026 Yerin.Min · planning-harness · MIT License</span><span><a href="planning-harness-user-guide.pptx">PPT 원본 내려받기</a> · <a href="/">전체 포트폴리오 →</a></span></div></footer>
+</body>
+</html>

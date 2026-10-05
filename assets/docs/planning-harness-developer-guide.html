@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Planning Harness 개발자 문서 | 민예린 Portfolio</title>
+  <meta name="description" content="SDUI on Cloudflare Workers · 승인 게이트 기반 기획 루프 · RAG를 활용한 분석설계 설계(초안)." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="planning-harness-guide/guide.css" />
+</head>
+<body>
+  <nav><div class="wrap row">
+    <a class="brand" href="/"><span class="dot"></span>Yerin.Min <span>Portfolio</span></a>
+    <div class="navlinks">
+      <a class="back" href="planning-harness-user-guide.html">사용자 가이드 →</a>
+      <a class="back" href="/manufacturing-ai/#case-3">Case 03으로 →</a>
+    </div>
+  </div></nav>
+
+  <header><div class="wrap">
+    <div class="eyebrow">Developer Guide · 개발자 문서 · planning-harness</div>
+    <h1>Architecture &amp;<br/><em>LLM Design</em></h1>
+    <p class="lede">SDUI on Cloudflare Workers · 승인 게이트 기반 기획 루프 · RAG를 활용한 분석설계 설계(초안). 확인된 사실과 설계 제안을 구분해 적었습니다.</p>
+    <div class="meta">2026 · Yerin.Min · MIT License · 일부는 설계 제안(초안)</div>
+    <div class="toc">
+      <a href="#usage">개발자 사용법</a>
+      <a href="#arch">아키텍처</a>
+      <a href="#cloudflare">Cloudflare 연결 구조</a>
+      <a href="#rag">RAG 설계</a>
+      <a href="#gate">승인 게이트</a>
+      <a href="#summary">정리</a>
+    </div>
+  </div></header>
+
+  <main>
+  <section id="usage"><div class="wrap">
+    <div class="k">For Developers · 개발자 사용법</div>
+    <h2>이 사이트를 개발에 붙이는 법</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div><div class="t">플러그인으로 스킬 설치</div><span class="cmd">claude plugin marketplace add feed-mina/planning-harness</span><ul><li>어느 프로젝트에서든 8개 기획 스킬 사용.</li></ul></div></div>
+      <div class="step"><div class="n">2</div><div><div class="t">개발 repo에 @claude 봇 연결</div><ul><li><code>templates/github-actions/claude-dev-bot.yml</code> 복사</li><li>이슈 댓글 @claude 로 PR 자동 생성.</li></ul></div></div>
+      <div class="step"><div class="n">3</div><div><div class="t">핸드오프 경계 준수</div><ul><li>에이전트는 제안·PR만.</li><li>직접 배포·시크릿 변경·리뷰 우회는 금지(사람이 머지).</li></ul></div></div>
+      <div class="step"><div class="n">4</div><div><div class="t">SSOT = spec.md</div><ul><li>모든 산출물의 기준은 spec.md. 규칙은 CLAUDE.md.</li><li>충돌은 분해 전에 점검.</li></ul></div></div>
+    </div>
+  </div></section>
+
+  <section id="arch"><div class="wrap">
+    <div class="k">Architecture · 아키텍처</div>
+    <h2>SDUI on Cloudflare Workers</h2>
+    <p class="body"><b>확인된 사실:</b> 앱은 Cloudflare Workers가 SDUI 엔진(sdui-engine.js)과 API를 서빙하는 SPA입니다. 저장/인덱스 계층은 설계 제안입니다.</p>
+    <figure><img src="planning-harness-guide/dev-s3-1.png" alt="구조도: 브라우저 SPA(sdui-engine.js)가 fetch로 Cloudflare Workers(SDUI 서빙·API)를 호출하고, Workers가 KV/D1, Vectorize, LLM API, GitHub Issues/Projects로 연결된다" loading="lazy"/><figcaption>브라우저 SPA → Workers(SDUI 서빙·API) → KV/D1 · Vectorize · LLM API · GitHub</figcaption></figure>
+  </div></section>
+
+  <section id="cloudflare"><div class="wrap">
+    <div class="k">Cloudflare · 연결 구조</div>
+    <h2>무엇을 어디에 매핑하나</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Cloudflare</th><th>역할</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td class="m">Workers</td><td>SDUI 메타데이터 렌더 · REST API · LLM/gh 호출 오케스트레이션</td><td><span class="pill ok">확인</span></td></tr>
+        <tr><td class="m">KV / D1</td><td>ui_metadata · 세션 · 회의록 메타 저장</td><td><span class="pill idea">제안</span></td></tr>
+        <tr><td class="m">Vectorize</td><td>문서 임베딩 인덱스(RAG 리트리버)</td><td><span class="pill idea">제안</span></td></tr>
+        <tr><td class="m">R2</td><td>녹음·첨부 원본 보관(민감정보 분리)</td><td><span class="pill idea">제안</span></td></tr>
+        <tr><td class="m">Pages</td><td>회의록 메이커 정적 배포(docs/)</td><td><span class="pill ok">확인</span></td></tr>
+      </tbody>
+    </table></div>
+  </div></section>
+
+  <section id="rag"><div class="wrap">
+    <div class="k">LLM Design · RAG</div>
+    <h2>분석설계에 RAG를 쓰는 법 (설계 제안)</h2>
+    <p class="body"><b>설계 제안:</b> 문서→chunk→embedding→Vectorize 인덱스, 질의 시 top-k 리트리버로 근거를 모아 LLM이 산출물을 생성합니다.</p>
+    <figure><img src="planning-harness-guide/dev-s5-1.png" alt="RAG 흐름: 회의록·기획 문서를 Chunking, Embedding 뒤 Vectorize 인덱스에 저장하고, 분석설계 질의를 Retriever(top-k 유사도)로 검색해 컨텍스트를 조립한 뒤 LLM이 근거 기반 산출물을 생성" loading="lazy"/><figcaption>문서 → Chunking → Embedding → Vectorize → Retriever(top-k) → 컨텍스트 조립 → LLM 생성</figcaption></figure>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div><div class="t">Chunking</div><ul><li>회의록·기획 문서를 문단/토큰 단위로 분할.</li><li>헤딩·발화자 경계를 살려 컨텍스트 손실 최소화.</li></ul></div></div>
+      <div class="step"><div class="n">2</div><div><div class="t">Embedding &amp; Index</div><ul><li>청크를 임베딩해 Vectorize에 저장.</li><li>회의 날짜·기능 태그를 메타데이터로 부착.</li></ul></div></div>
+      <div class="step"><div class="n">3</div><div><div class="t">Retriever</div><ul><li>분석설계 질의를 임베딩해 top-k 유사 청크 검색.</li><li>최근성·태그로 재랭킹.</li></ul></div></div>
+      <div class="step"><div class="n">4</div><div><div class="t">Grounded Generation</div><ul><li>검색 컨텍스트를 프롬프트에 조립해 근거 있는 requirements/logic 산출물 생성.</li><li>출처를 함께 남김.</li></ul></div></div>
+    </div>
+  </div></section>
+
+  <section id="gate"><div class="wrap">
+    <div class="k">Control Plane · 승인 게이트</div>
+    <h2>스킬 → RAG → 승인 → 핸드오프</h2>
+    <p class="body">스킬이 RAG로 근거를 모아 산출물을 만들고, <b>⚠️ 승인 후에만</b> dry-run→이슈/PR 핸드오프가 일어납니다.</p>
+    <figure class="narrow"><img src="planning-harness-guide/dev-s7-1.png" alt="시퀀스: 기획자가 /split-requirements를 호출하면 Harness 스킬이 Retriever/LLM에서 근거 컨텍스트를 받아 requirements.md와 승인 요청을 돌려주고, 승인 뒤에만 dry-run을 거쳐 GitHub 이슈/PR 핸드오프" loading="lazy"/><figcaption>① 스킬 호출 ② 관련 문서 검색(RAG) ③ 근거 컨텍스트 ④ requirements.md + 승인 요청 ⑤ "승인" ⑥ dry-run → 이슈/PR 핸드오프</figcaption></figure>
+  </div></section>
+
+  <section id="summary"><div class="wrap">
+    <div class="k">Summary · 정리</div>
+    <h2>핵심 요약 &amp; 라이선스</h2>
+    <ul class="list">
+      <li><b>확인:</b> 앱은 Cloudflare Workers 위 SDUI SPA — 클라이언트 배포 없이 서버 메타데이터로 화면 제어.</li>
+      <li><b>설계 제안:</b> KV/D1·Vectorize·R2로 저장·RAG·원본 분리를 매핑(실제 구성에 맞게 조정 필요).</li>
+      <li>RAG(chunk→embed→retriever→grounded generation)로 분석설계 산출물의 근거성을 확보.</li>
+      <li>모든 위험 작업은 승인 게이트 통과 후에만 GitHub에 반영 — 에이전트는 제안·PR까지만.</li>
+    </ul>
+    <div class="actions">
+      <a class="btn primary" href="https://harness-meeting-app.kibayerin.workers.dev" target="_blank" rel="noopener">Live Demo ↗</a>
+      <a class="btn" href="planning-harness-user-guide.html">사용자 가이드 →</a>
+      <a class="btn" href="https://github.com/feed-mina/planning-harness-portfolio" target="_blank" rel="noopener">GitHub (포트폴리오 사본) ↗</a>
+    </div>
+  </div></section>
+  </main>
+
+  <footer><div class="wrap row"><span>© 2026 Yerin.Min · planning-harness · MIT License</span><span><a href="planning-harness-developer-guide.pptx">PPT 원본 내려받기</a> · <a href="/">전체 포트폴리오 →</a></span></div></footer>
+</body>
+</html>
