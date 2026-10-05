@@ -973,6 +973,177 @@
     .quote-block{ padding: 28px 24px;}
     footer .row{ flex-direction: column; gap: 12px;}
   }
+
+  /* ────── 2026-10 개편: 결과 먼저, 나머지는 접기 ────── */
+  section{ padding: 84px 0;}
+  header.hero{ padding: 72px 0 60px;}
+  .reveal{ opacity:1; transform:none; transition:none;}
+  .sec-head{ margin-bottom: 40px; padding-bottom: 22px;}
+  .sec-head .blurb{ margin-top: 10px;}
+
+  .hero-one h1{
+    font-family: "Instrument Serif", "Noto Serif KR", serif;
+    font-weight: 400;
+    font-size: clamp(30px, 4.2vw, 50px);
+    line-height: 1.18; letter-spacing: -0.012em;
+    max-width: 880px; margin-bottom: 0;
+  }
+  .hero-one h1 .it{ font-style: italic; color: var(--amber);}
+  .hero-num{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 22px;}
+  .hero-num span{
+    font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--mint);
+    border: 1px solid color-mix(in srgb, var(--mint) 40%, transparent);
+    border-radius: 999px; padding: 6px 13px;
+  }
+  .chips{ display:flex; flex-wrap:wrap; gap:6px; margin-top: 14px;}
+  .chip{
+    font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-dim);
+    border: 1px solid var(--line); background: var(--surface);
+    border-radius: 999px; padding: 4px 10px;
+  }
+  .hero-one .hero-actions{ margin-top: 28px; align-items:center; gap: 18px;}
+  .hero-mail{ font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--ink-dim);}
+  .hero-mail:hover{ color: var(--amber);}
+
+  /* cases */
+  .cases{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;}
+  a.case{
+    display:flex; flex-direction:column; min-width:0;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    overflow:hidden; transition: transform .2s, border-color .2s;
+  }
+  a.case:hover{ transform: translateY(-3px); border-color: var(--amber);}
+  a.case:focus-visible{ outline: 2px solid var(--amber); outline-offset: 2px;}
+  .case img{ width:100%; height:auto; aspect-ratio: 16/9; object-fit: cover; object-position: top; border-bottom: 1px solid var(--line);}
+  .case .b{ padding: 16px 18px 18px; display:flex; flex-direction:column; gap: 8px; flex:1;}
+  .case .tag{ font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute);}
+  .case h3{ font-family: "Instrument Serif", "Noto Serif KR", serif; font-weight: 400; font-size: 24px; line-height: 1.2;}
+  .case .q{ font-size: 13.5px; color: var(--ink-dim); line-height: 1.6;}
+  .case .q b{ color: var(--ink); font-weight: 600;}
+  .case .m{ font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--mint);}
+  .case .ln{ display:flex; flex-wrap:wrap; gap: 8px; align-items:center; margin-top:auto; padding-top: 10px;}
+  .case .ln .btn{ padding: 7px 13px; font-size: 11.5px;}
+  .case .st{ font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--ink-mute);}
+  .case .st.tmp{ color: var(--amber);}
+
+  details.more{ margin-top: 18px;}
+  details.more summary{
+    list-style:none; cursor:pointer; font-family: "JetBrains Mono", monospace; font-size: 12.5px;
+    color: var(--ink-dim); padding: 12px 0;
+  }
+  details.more summary::-webkit-details-marker{ display:none;}
+  details.more summary::before{ content:"+ "; color: var(--amber);}
+  details.more[open] summary::before{ content:"– ";}
+  details.more ul{ list-style:none; display:grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; padding: 4px 0 6px;}
+  details.more li{
+    display:flex; justify-content:space-between; gap: 12px; align-items:baseline;
+    border-bottom: 1px dashed var(--line); padding: 8px 0; font-size: 13.5px; color: var(--ink-dim); min-width:0;
+  }
+  details.more li b{ color: var(--ink); font-weight: 500;}
+  details.more li a{ font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-mute); white-space:nowrap;}
+  details.more li a:hover{ color: var(--amber);}
+
+  /* figures (svg) */
+  .fig{ background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; overflow-x:auto;}
+  .fig svg{ display:block; width:100%; height:auto; min-width: 600px; font-family: "Geist", "Noto Sans KR", sans-serif;}
+  .fig .links{ display:flex; flex-wrap:wrap; gap: 8px; margin-top: 10px;}
+  .fig .links .btn{ padding: 8px 14px; font-size: 12px;}
+  .fig-note{ color: var(--ink-dim); font-size: 15px; max-width: 680px; margin-top: 16px;}
+  .svg-ink{ fill: var(--ink);} .svg-dim{ fill: var(--ink-dim);} .svg-mute{ fill: var(--ink-mute);} .svg-amber{ fill: var(--amber);}
+  .svg-box{ fill: var(--surface-2); stroke: var(--ink-mute); stroke-width: 1.2;}
+  .svg-box.hi{ fill: var(--amber-soft); stroke: var(--amber); stroke-width: 1.6;}
+  .svg-arrow{ stroke: var(--amber); stroke-width: 2; fill:none;}
+  .svg-grid{ stroke: var(--line-strong);}
+  .k-e{ fill: var(--amber);} .k-d{ fill: #8db4ff;} .k-t{ fill: var(--ink-mute);} .k-p{ fill: var(--mint);}
+  :root[data-theme="light"] .k-d{ fill: #3b6fd6;}
+  .k-sub{ fill:none; stroke: var(--mint); stroke-width: 1.5;}
+  .legend{ display:flex; flex-wrap:wrap; gap: 14px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-dim); margin-top: 10px;}
+  .legend i{ display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; vertical-align:-1px;}
+  .legend .e{ background: var(--amber);} .legend .d{ background:#8db4ff;} .legend .t{ background: var(--ink-mute);} .legend .p{ background: var(--mint);}
+  :root[data-theme="light"] .legend .d{ background:#3b6fd6;}
+
+  /* about */
+  .about-two{ display:grid; grid-template-columns: 1fr 340px; gap: 48px; align-items:start;}
+  .three{ font-size: 17px; color: var(--ink); line-height: 1.65; max-width: 640px;}
+  .three + .three{ margin-top: 6px;}
+  details.acc{ border: 1px solid var(--line); border-radius: 12px; background: var(--surface); margin-top: 12px;}
+  details.acc summary{ list-style:none; cursor:pointer; padding: 13px 16px; display:flex; align-items:center; gap: 12px; font-size: 14.5px; color: var(--ink);}
+  details.acc summary::-webkit-details-marker{ display:none;}
+  details.acc summary .ic{
+    width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line-strong);
+    display:grid; place-items:center; color: var(--amber); font-family: "JetBrains Mono", monospace; font-size: 13px; flex:none;
+    transition: transform .2s;
+  }
+  details.acc[open] summary .ic{ transform: rotate(45deg);}
+  details.acc summary .s{ margin-left:auto; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-mute); white-space:nowrap;}
+  details.acc .body{ padding: 0 16px 16px 50px; color: var(--ink-dim); font-size: 14.5px; line-height: 1.65;}
+  details.acc .body ul{ padding-left: 18px;} details.acc .body li + li{ margin-top: 4px;}
+  details.acc .kind{ display:inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 8px; vertical-align: 1px;}
+  .kind.e{ background: var(--amber);} .kind.d{ background:#8db4ff;} .kind.t{ background: var(--ink-mute);}
+  :root[data-theme="light"] .kind.d{ background:#3b6fd6;}
+  .career-fig{ margin-bottom: 18px;}
+
+  /* stack */
+  .stack-head{ display:flex; align-items:center; gap: 14px; flex-wrap:wrap; margin-bottom: 18px;}
+  .stack-head select{
+    font-family: "JetBrains Mono", monospace; font-size: 12.5px;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px 12px;
+  }
+  .stack-head .hint{ font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--ink-mute);}
+  .stack-grid[data-stack="hot"] .stack-col li:not(.primary){ display:none;}
+
+  /* contact */
+  .contact h2 .q{ font-style: italic; color: var(--amber);}
+  .contact .sub{ max-width: 620px;}
+
+  @media (max-width: 980px){
+    .cases{ grid-template-columns: 1fr;}
+    .about-two{ grid-template-columns: 1fr;}
+    details.more ul{ grid-template-columns: 1fr;}
+    section{ padding: 64px 0;}
+    header.hero{ padding: 48px 0 44px;}
+  }
+
+  /* 세로 길이 목표(데스크톱 4,000px 안팎)에 맞춘 간격 */
+  section{ padding: 48px 0;}
+  header.hero{ padding: 52px 0 40px;}
+  .sec-head{ grid-template-columns: 110px 1fr; gap: 32px; margin-bottom: 26px; padding-bottom: 14px;}
+  .sec-head h2{ font-size: clamp(30px, 3.6vw, 44px);}
+  .sec-head .blurb{ font-size: 15px; margin-top: 8px;}
+  .hero-one h1{ font-size: clamp(28px, 3.8vw, 44px);}
+  .case img{ aspect-ratio: 2/1;}
+  .case .b{ padding: 14px 16px 16px; gap: 6px;}
+  .case h3{ font-size: 21px;}
+  .case .q{ font-size: 13px; line-height: 1.55;}
+  .about-two{ grid-template-columns: 1fr 260px; gap: 36px;}
+  .about-two .profile-image{ aspect-ratio: 1/1;}
+  .about-two .profile-panel{ padding: 12px;}
+  .three{ font-size: 16px;}
+  details.acc summary{ padding: 11px 14px; font-size: 14px;}
+  details.acc .body{ font-size: 14px;}
+  .fig{ padding: 12px;}
+  .contact{ padding: 56px 0 !important;}
+  .contact h2{ font-size: clamp(28px, 4vw, 48px) !important;}
+  .contact .label{ margin-bottom: 14px !important;}
+  footer{ padding: 24px 0 !important;}
+  @media (max-width: 980px){
+    .cases{ grid-template-columns: 1fr;}
+    .case img{ aspect-ratio: 21/9;}
+    .about-two{ grid-template-columns: 1fr; gap: 24px;}
+    .about-two .profile-panel{ max-width: 320px;}
+    .about-two .profile-image{ aspect-ratio: 16/10;}
+    .sec-head{ grid-template-columns: 1fr; gap: 6px;}
+    details.acc summary{ flex-wrap: wrap;}
+    details.acc summary .s{ margin-left: 34px; white-space: normal;}
+    details.more ul{ grid-template-columns: 1fr;}
+    section{ padding: 40px 0;}
+    header.hero{ padding: 36px 0 32px;}
+    .contact{ padding: 40px 0 !important;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto;}
+    *, *::before, *::after{ transition: none !important; animation: none !important;}
+  }
 </style>
 </head>
 <body>
@@ -982,12 +1153,12 @@
   <div class="row">
     <a href="#top" class="brand">
       <img src="/assets/images/logo-mark.svg" class="brand-mark" alt="Yerin.Min 로고" width="26" height="26" />
-      Yerin.Min <i> AI Software Engineer</i>
+      Yerin.Min <i> Fullstack Developer</i>
     </a>
     <ul>
-      <li><a href="#about">01 · About</a></li>
+      <li><a href="#projects">01 · Projects</a></li>
       <li><a href="#platform">02 · Platform</a></li>
-      <li><a href="#projects">03 · Projects</a></li>
+      <li><a href="#about">03 · About</a></li>
       <li><a href="#career">04 · Career</a></li>
       <li><a href="#stack">05 · Stack</a></li>
       <li><a href="#contact">06 · Contact</a></li>
@@ -997,11 +1168,9 @@
       <span class="track">
         <span class="knob"></span>
         <span class="opt" data-mode="dark">
-          <!-- moon -->
           <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
         <span class="opt" data-mode="light">
-          <!-- sun -->
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke-linecap="round"/></svg>
         </span>
       </span>
@@ -1010,27 +1179,133 @@
 </nav>
 
 <!-- ─────────────── HERO ─────────────── -->
-<header class="hero" id="top">
+<header class="hero hero-one" id="top">
   <div class="wrap">
-    <div class="hero-grid">
-      <div class="hero-copy reveal">
-        <div class="eyebrow">Portfolio · 2026 · Seoul, KR</div>
-        <h1>
-          Hello, I'm <span class="it">Yerin.</span><br/>
-          <span class="it">Fullstack Developer.</span>
-          <span class="small">공장 센서 데이터를 현장이 보는 화면으로 만드는 풀스택 개발자 민예린입니다. 데이터를 기본 단위부터 정의하고, 현장 의견을 반영해 대시보드를 만들고, B2B 웹 서비스를 운영했습니다.</span>
-        </h1>
-        <p class="lede">
-          회사에서는 운영과 B2B 웹을, 개인 프로젝트에서는 <strong>SDUI 엔진 · 비동기 큐 · RAG</strong>를 만들었습니다.
-        </p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#platform">지금 열어볼 수 있는 제품 4개 →</a>
-          <a class="btn" href="evol-case-study.html">제조 데이터 사례 →</a>
-          <a class="btn" href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener">이력서 PDF ↗</a>
-        </div>
-      </div>
+    <div class="eyebrow">Portfolio · 2026 · Seoul, KR</div>
+    <h1>현실 데이터를 현장이 보는 화면으로 만들고,<br/>AI와 웹 서비스로 연결하는 <span class="it">풀스택 개발자</span> <span style="white-space:nowrap">민예린입니다.</span></h1>
+    <div class="hero-num"><span>첫 조회 18.0초 → 0.89초</span></div>
+    <div class="chips"><span class="chip">FastAPI</span><span class="chip">Spring Boot</span><span class="chip">Next.js · React</span><span class="chip">PostgreSQL · DuckDB</span></div>
+    <div class="hero-actions">
+      <a class="btn primary" href="#projects">케이스 보기 ↓</a>
+      <a class="hero-mail" href="mailto:myelin24@naver.com">✉ myelin24@naver.com</a>
+    </div>
+  </div>
+</header>
+<main>
 
-      <aside class="profile-panel reveal" aria-label="프로필 요약">
+<!-- ─────────────── PROJECTS (대표 케이스 3 + 전체 목록) ─────────────── -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">01 / Projects</div>
+      <div>
+        <h2>Featured <span class="it">Projects.</span></h2>
+        <p class="blurb">직접 만들고 고친 것 세 가지. 카드마다 무엇이 문제였고 무엇이 달라졌는지 적었습니다.</p>
+      </div>
+    </div>
+
+    <div class="cases">
+      <a class="case" href="evol-case-study.html">
+        <img src="assets/images/evol-period-week.webp" alt="가이드롤 생산 모니터링 기간 통계 주 화면" loading="lazy" width="1280" height="720" />
+        <div class="b">
+          <div class="tag">01 · 제조 센서 데이터</div>
+          <h3>가동 0회인데 1.2시간</h3>
+          <div class="q"><b>문제</b> 한 주 통계에 가동 1.2시간과 가동 0회가 같이 떴다. 횟수와 시간이 다른 기준으로 세고 있었다.</div>
+          <div class="q"><b>결과</b> "가동 1회"를 현장과 다시 정하고 합산 함수 한 곳으로 통일. 36일치 화면 전부를 대조해 두 숫자가 맞는지 확인.</div>
+          <div class="m">36일치 화면 전부 일치 · 18.0초 → 0.89초</div>
+          <div class="ln"><span class="btn primary">케이스 →</span><span class="st tmp">데모 · 임시 주소</span></div>
+        </div>
+      </a>
+      <a class="case" href="https://github.com/feed-mina/KMovement#readme" target="_blank" rel="noopener">
+        <img src="KMovement/assets/capture/evidence-rag.png" alt="KMovement 검색 근거 화면" loading="lazy" width="1280" height="720" />
+        <div class="b">
+          <div class="tag">02 · RAG 검색</div>
+          <h3>검색 점수 하나로 답하지 않는다</h3>
+          <div class="q"><b>문제</b> "경기도 촬영지"를 물었는데 서울 장소가 섞이거나, 실제로 없는 장소가 답에 들어갔다.</div>
+          <div class="q"><b>결과</b> 질문과 충분히 비슷한 장소만 답에 쓰고, "서울" 같은 지역 조건은 점수와 상관없이 따로 거릅니다. 근거가 되는 장소를 못 찾으면 못 찾았다고 화면에 표시합니다.</div>
+          <div class="m">비슷함 기준 0.25 · 후보 3개 · 근거 없으면 표시</div>
+          <div class="ln"><span class="btn primary">GitHub README ↗</span><span class="st tmp">케이스 페이지 · 라이브 주소 준비 중</span></div>
+        </div>
+      </a>
+      <a class="case" href="https://harness-meeting-app.kibayerin.workers.dev" target="_blank" rel="noopener">
+        <img src="assets/images/planning-harness-analysis.png" alt="Planning Harness 분석 화면" loading="lazy" width="1280" height="720" />
+        <div class="b">
+          <div class="tag">03 · AI 기획 루프</div>
+          <h3>AI가 마음대로 반영하지 못하게</h3>
+          <div class="q"><b>문제</b> 기획 산출물이 프롬프트마다 달라지고, 이슈로 넘기는 사이 맥락이 사라졌다.</div>
+          <div class="q"><b>결과</b> 스킬 8개로 흐름을 고정하고, GitHub에 쓰는 작업은 dry-run과 사람 승인을 거친다.</div>
+          <div class="m">스킬 8개 · 승인 전 외부 작업 0건</div>
+          <div class="ln"><span class="btn primary">Live Demo ↗</span><span class="st">라이브</span></div>
+        </div>
+      </a>
+    </div>
+
+    <details class="more">
+      <summary>전체 프로젝트 6개 더 보기</summary>
+      <ul data-more-projects></ul>
+    </details>
+  </div>
+</section>
+
+<!-- ─────────────── PLATFORM (흐름도 한 장) ─────────────── -->
+<section id="platform">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">02 / Platform</div>
+      <div>
+        <h2>엔진 → 편집기 → <span class="it">기획 루프.</span></h2>
+      </div>
+    </div>
+    <div class="fig">
+      <svg viewBox="0 0 760 150" role="img" aria-label="SDUI 엔진, Template Kit Studio, Planning Harness 세 제품의 흐름">
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="svg-amber"/></marker></defs>
+          <rect x="12" y="24" width="220" height="92" rx="10" class="svg-box"/>
+          <text x="28" y="50" class="svg-amber mono" font-size="10.5" letter-spacing="1.5">01 · 엔진</text>
+          <text x="28" y="72" class="svg-ink" font-size="14" font-weight="600">SDUI Metadata Engine</text>
+          <text x="28" y="92" class="svg-dim" font-size="12">화면 구조를 DB에 둔다. DB만 고치면</text><text x="28" y="108" class="svg-dim" font-size="12">배포 없이 화면이 바뀐다 · 약 1초</text>
+          <path d="M232 70H268" class="svg-arrow" marker-end="url(#ar)"/>
+          <rect x="270" y="24" width="220" height="92" rx="10" class="svg-box"/>
+          <text x="286" y="50" class="svg-amber mono" font-size="10.5" letter-spacing="1.5">02 · 편집기</text>
+          <text x="286" y="72" class="svg-ink" font-size="14" font-weight="600">Template Kit Studio</text>
+          <text x="286" y="92" class="svg-dim" font-size="12">그 DB를 개발자가 아니어도</text><text x="286" y="108" class="svg-dim" font-size="12">브라우저에서 고친다</text>
+          <path d="M490 70H526" class="svg-arrow" marker-end="url(#ar)"/>
+          <rect x="528" y="24" width="220" height="92" rx="10" class="svg-box hi"/>
+          <text x="544" y="50" class="svg-amber mono" font-size="10.5" letter-spacing="1.5">03 · 기획 루프</text>
+          <text x="544" y="72" class="svg-ink" font-size="14" font-weight="600">Planning Harness</text>
+          <text x="544" y="92" class="svg-dim" font-size="12">회의록 → 기획 산출물 → 승인 →</text><text x="544" y="108" class="svg-dim" font-size="12">GitHub 이슈 · PR</text>
+          <text x="380" y="140" text-anchor="middle" class="svg-mute mono" font-size="10.5">같은 규칙: 화면과 기획을 코드가 아니라 데이터로 다룬다</text>
+        </svg>
+      <div class="links">
+        <a class="btn" href="https://sdui-delta.vercel.app/view/MAIN_PAGE" target="_blank" rel="noopener">엔진 데모 ↗</a>
+        <a class="btn" href="https://sdui-template-kit-productization.pages.dev/studio/" target="_blank" rel="noopener">스튜디오 열기 ↗</a>
+        <a class="btn" href="https://harness-meeting-app.kibayerin.workers.dev" target="_blank" rel="noopener">기획 루프 데모 ↗</a>
+      </div>
+    </div>
+    <p class="fig-note">세 제품은 "화면을 코드가 아니라 데이터로 다룬다"는 한 가지 규칙을 같이 씁니다. 셋 다 지금 열립니다.</p>
+  </div>
+</section>
+
+<!-- ─────────────── ABOUT ─────────────── -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="num">03 / About</div>
+      <div><h2>Why <span class="it">Yerin?</span></h2></div>
+    </div>
+    <div class="about-two">
+      <div>
+        <p class="three">공장 센서 데이터를 현장이 보는 화면으로 만드는 풀스택 개발자입니다.</p>
+        <p class="three">회사에서는 운영과 B2B 웹을, 개인 프로젝트에서는 SDUI 엔진·비동기 큐·RAG를 만들었습니다.</p>
+        <p class="three">AI 도구는 구현 초안과 디버깅 후보를 만드는 데 쓰고, 설계 결정과 검증은 제가 책임집니다.</p>
+        <details class="acc">
+          <summary><span class="ic">+</span>더 보기<span class="s">문단 1 · 칩 4</span></summary>
+          <div class="body">
+            마케팅 데이터 분석을 하다 데이터 통계에 관심이 생겼고, PM과 퍼블리싱을 거쳐 풀스택 개발자로 성장했습니다. EBS 트래픽 운영, 포스코DX 메일 보안 운영, B2B 웹 개발을 거치며 화면과 서버를 둘 다 맡아 봤습니다. 최근에는 센서 데이터 조회·분석 화면과 API·DB 구조를 맡아, 관측한 움직임과 생산 가동의 정의가 다른 문제를 코드와 문서로 추적했습니다.
+            <div class="chips"><span class="chip">정의 먼저</span><span class="chip">운영 안정성</span><span class="chip">AI 위임</span><span class="chip">읽히는 시스템</span></div>
+          </div>
+        </details>
+      </div>
+      <aside class="profile-panel" aria-label="프로필 요약">
         <div class="profile-image">
           <img src="assets/images/profile.jpg" alt="풀스택 개발자 민예린 프로필 사진" />
         </div>
@@ -1040,325 +1315,114 @@
           <div class="role">Spring Boot · FastAPI · Next.js · AI</div>
         </div>
         <dl class="signal-list">
-          <li><dt>Core</dt><dd>Server-Driven UI</dd></li>
-          <li><dt>Focus</dt><dd>Ops · Security · Cache</dd></li>
           <li><dt>Base</dt><dd>Seoul, KR</dd></li>
           <li><dt>Status</dt><dd><span style="color:var(--mint);">●</span> Open to work</dd></li>
+          <li><dt>이력서</dt><dd><a href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener">PDF ↗</a></dd></li>
         </dl>
       </aside>
     </div>
   </div>
-</header>
-<main>
-
-<!-- ─────────────── ABOUT (Why Yerin? + 소개) ─────────────── -->
-<section id="about">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="num">01 / About</div>
-      <div>
-        <h2>Why <span class="it">Yerin?</span></h2>
-        <p class="blurb">"운영 문제를 추측이 아니라 코드와 기록으로 설명합니다." — 한 요청이 화면에서 서버와 DB를 거쳐 돌아오는 과정과, 실패했을 때 어디서 멈추는지를 먼저 확인합니다.</p>
-      </div>
-    </div>
-
-    <div class="pillars reveal">
-      <div class="pillar">
-        <div class="idx">01</div>
-        <h3>AI 파이프라인 아키텍처 설계</h3>
-        <p>비동기 메시지 큐(FastAPI · Celery · Redis)로 무거운 미디어 생성을 API 응답과 분리하고, 모델 라우터로 호출 대상을 나눕니다.</p>
-      </div>
-      <div class="pillar">
-        <div class="idx">02</div>
-        <h3>외부 API 장애 대응: 3단계 Fallback</h3>
-        <p>'Redis → DB → 외부 API' 3단계 Fallback, OAuth2 인증 제어, 트랜잭션 관리로 외부 장애 시 강등 경로를 둔 엔드투엔드 서비스를 구축합니다.</p>
-      </div>
-      <div class="pillar">
-        <div class="idx">03</div>
-        <h3>대용량 트래픽 통제 &amp; 인프라 운영</h3>
-        <p>스케줄 셸 스크립트로 EBS 영어 트래픽 통계를 집계하고, 포스코DX에서 메일 보안(ISMS-P) 필터를 운영했습니다. 지금은 같은 운영 습관으로 Docker 배포를 합니다.</p>
-      </div>
-    </div>
-
-    <!-- 비즈니스 로직과 AI를 연결하는 개발자 -->
-    <div class="about-grid reveal" style="margin-top: 110px;">
-      <h3>비즈니스 로직과<br/>AI를 연결하는 개발자</h3>
-      <div class="about-copy">
-        <p>마케팅 데이터 분석을 하다 데이터 통계에 관심이 생겼고, PM과 퍼블리싱을 거쳐 풀스택 개발자로 성장했습니다. EBS 트래픽 운영, 포스코 DX 메일 보안 운영, B2B 웹 솔루션 개발을 거치며 화면과 서버를 둘 다 맡아 봤습니다.</p>
-        <p>최근에는 센서 데이터 조회·분석 화면과 API·DB 구조를 맡아, 관측한 움직임과 생산 가동의 정의가 다른 문제를 코드와 문서로 추적했습니다. 개인 프로젝트에서는 SDUI 엔진으로 화면 구조를 메타데이터로 추상화하고 요청별 PostgreSQL 조회와 권한별 렌더링으로 배포 없이 UI를 바꾸는 구조를 구현했습니다. AI 도구는 구현 초안과 디버깅 후보를 만드는 데 쓰고, 설계 결정과 검증은 제가 책임집니다.</p>
-        <div class="principles">
-          <span>Architecture first</span>
-          <span>Operational stability</span>
-          <span>AI delegation</span>
-          <span>Readable systems</span>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
-<!-- ─────────────── PROJECTS ─────────────── -->
-<!-- ─────────────── PLATFORM (SDUI product line) ─────────────── -->
-<section id="platform">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="num">02 / Platform</div>
-      <div>
-        <h2>One Engine, <span class="it">Three Products.</span></h2>
-        <p class="blurb">세 제품은 “화면을 코드가 아니라 데이터로 다룬다”는 한 가지 규칙을 같이 씁니다. <strong>엔진</strong>은 화면 구조를 DB에 저장해 두고, DB만 고치면 배포 없이 화면이 바뀝니다. <strong>편집기</strong>는 그 DB를 개발자가 아니어도 브라우저에서 고칠 수 있게 합니다. <strong>기획 루프</strong>는 그보다 앞 단계인 회의록에서 GitHub 이슈까지를 자동으로 잇습니다. 셋 다 지금 열립니다.</p>
-      </div>
-    </div>
-
-    <div class="platform-thesis reveal">
-      <p>화면과 기획을 코드가 아니라 <span class="it">데이터</span>로 다루면,<br/>바꾸는 데 개발자를 기다릴 필요가 없습니다.</p>
-      <div class="thesis-meta">
-        Live · 3 products<br/>
-        Metadata contract<br/>
-        Deploy-free UI
-      </div>
-    </div>
-
-    <div class="platform-flow reveal">
-      <article class="pstep">
-        <div class="pstep-media">
-          <img src="assets/images/sdui-db-to-ui.gif" loading="lazy" decoding="async" width="720" height="247"
-               alt="psql에서 ui_metadata 테이블의 label_text를 UPDATE 하자 브라우저의 버튼 문구가 즉시 바뀌는 데모" />
-          <span class="media-tag">DB 수정 → 화면 반영 · 약 1초</span>
-        </div>
-        <div class="pstep-head">
-          <span class="pstep-num">01</span>
-          <span class="pstep-role">엔진</span>
-        </div>
-        <h3>SDUI Metadata Engine</h3>
-        <p class="pstep-claim">문구 하나 바꾸려고 배포하지 않습니다.</p>
-        <p class="pstep-body">화면의 구조·권한·동작을 <code>ui_metadata</code> 테이블로 추상화했습니다. DB row를 수정하면 다음 UI 트리 요청에 반영되고, 권한별(GUEST·USER·PREMIUM·ADMIN) 화면도 같은 엔진이 처리합니다. 현재 API는 요청마다 PostgreSQL을 직접 조회하며, Redis TTL 1시간 코드는 호출 경로에 연결되지 않아 Cache Hit 수치를 제시하지 않습니다.</p>
-        <div class="pstep-links">
-          <a class="plink" href="https://sdui-delta.vercel.app/view/MAIN_PAGE" target="_blank" rel="noopener">라이브 데모 ↗</a>
-          <a class="plink ghost" href="https://github.com/feed-mina/SDUI" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </article>
-
-      <article class="pstep">
-        <div class="pstep-media">
-          <video src="assets/images/sdui-studio-edit.mp4" autoplay loop muted playsinline preload="metadata"
-                 width="900" height="312"
-                 aria-label="스튜디오에서 제목 문구를 고치자 오른쪽 미리보기가 즉시 따라 바뀌는 화면"></video>
-          <span class="media-tag">문구 편집 → 미리보기 즉시 반영</span>
-        </div>
-        <div class="pstep-head">
-          <span class="pstep-num">02</span>
-          <span class="pstep-role">편집기</span>
-        </div>
-        <h3>Template Kit Studio</h3>
-        <p class="pstep-claim">이제 개발자가 아니어도 화면을 만듭니다.</p>
-        <p class="pstep-body">엔진을 제품으로 바꾼 단계입니다. 브라우저에서 컴포넌트를 고르고 문구·디자인을 바꾸면 실시간으로 미리보기가 뜹니다. 서로 다른 프로젝트의 화면 메타데이터를 공통 manifest로 변환하고, 검증기가 호환성을 미리 알려준 뒤 정적 페이지로 게시합니다.</p>
-        <div class="pstep-links">
-          <a class="plink" href="https://sdui-template-kit-productization.pages.dev/studio/" target="_blank" rel="noopener">스튜디오 열기 ↗</a>
-        </div>
-      </article>
-
-      <article class="pstep">
-        <div class="pstep-head">
-          <span class="pstep-num">03</span>
-          <span class="pstep-role">기획 루프</span>
-        </div>
-        <h3>Planning Harness</h3>
-        <p class="pstep-claim">회의록이 GitHub 이슈까지 끊기지 않고 갑니다.</p>
-        <p class="pstep-body">화면을 만드는 앞단, 즉 기획을 자동화합니다. 회의록·분석·Kanban을 다루는 웹앱과, 기획 산출물을 만들어 개발 repo 이슈/PR로 넘기는 8개 스킬. AI가 임의로 반영하지 못하도록 위험한 작업은 전부 <strong>사람 승인 게이트</strong>를 거칩니다.</p>
-        <div class="pstep-links">
-          <a class="plink" href="https://harness-meeting-app.kibayerin.workers.dev/" target="_blank" rel="noopener">라이브 데모 ↗</a>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section id="projects">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="num">03 / Work</div>
-      <div>
-        <h2>Featured <span class="it">Projects.</span></h2>
-        <p class="blurb">카드로 훑고, 모달에서 설계 의도까지 깊게 봅니다. 각 카드는 README와 이력서를 바탕으로 문제 · 역할 · 기술 선택 · 결과를 압축했습니다.</p>
-      </div>
-    </div>
-
-    <div class="project-toolbar reveal" aria-label="프로젝트 필터">
-      <button type="button" class="filter active" data-filter="all">All</button>
-      <button type="button" class="filter" data-filter="architecture">Architecture</button>
-      <button type="button" class="filter" data-filter="ai">AI</button>
-      <button type="button" class="filter" data-filter="web">Web</button>
-      <button type="button" class="filter" data-filter="learning">Learning</button>
-    </div>
-
-    <div class="slider-shell reveal">
-      <button class="slider-control prev" type="button" aria-label="이전 프로젝트" data-slider-prev>‹</button>
-      <div class="project-slider" data-project-slider aria-live="polite"></div>
-      <button class="slider-control next" type="button" aria-label="다음 프로젝트" data-slider-next>›</button>
-    </div>
-    <div class="slider-dots" data-slider-dots aria-label="프로젝트 위치"></div>
-  </div>
-</section>
-
-<!-- ─────────────── CAREER ROADMAP (with id photo) ─────────────── -->
+<!-- ─────────────── CAREER / PROJECT ─────────────── -->
 <section id="career">
   <div class="wrap">
-    <div class="sec-head reveal">
+    <div class="sec-head">
       <div class="num">04 / Career</div>
       <div>
-        <h2>Experience <span class="it">Roadmap.</span></h2>
-        <p class="blurb">레거시 분석 → B2B 웹 개발 → 엔터프라이즈 SM 운영 → AI 서비스 개발 → 센서 데이터 웹 개발로 이어진 흐름입니다.</p>
+        <h2>Career <span class="it">/ Project.</span></h2>
+        <p class="blurb">회사 경력과 개인 프로젝트를 시작한 순서대로. 막대에 마우스를 올리면 기간이 보입니다.</p>
       </div>
     </div>
-
-    <div class="career-grid">
-      <aside class="career-side reveal">
-        <div class="career-photo">
-          <img src="assets/images/id-photo.jpg" alt="백엔드 개발자 민예린 증명사진" />
-        </div>
-        <div class="meta">
-          <div class="label">Profile</div>
-          <strong>민예린</strong>
-          <p>1994 · Seoul · 웹 개발 · 서비스 운영 · 센서 데이터 웹 개발</p>
-        </div>
-        <a class="btn primary" href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener" style="display:flex; justify-content:center; margin-top: 14px;">전체 이력서 PDF ↗</a>
-      </aside>
-
-      <div class="timeline reveal">
-
-        <article class="exp">
-          <div class="when">2026.08 — 2026.09</div>
-          <div>
-            <h4>이볼빅스 <span class="org">— 센서 데이터 조회·분석 웹</span></h4>
-            <div class="role">전임연구원 · Web Dev (2026.08.02 — 09.30)</div>
-            <ul>
-              <li>센서 수집 자료의 조회·분석 화면과 API·DB 구조 구현, 배포</li>
-              <li>가동 시간·가동 횟수 정의 불일치를 현장과 재합의해 해결, 36일 전수 불변식 검증·계약 테스트 26건으로 고정</li>
-              <li>첫 조회 18.0초 → 0.89초 (95% 단축)</li>
-              <li>움직임과 생산 가동의 정의 차이를 정의표로 정리, 현장 확인 필요 항목은 미확정 유지</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="exp">
-          <div class="when">2026.03 — 2026.05</div>
-          <div>
-            <h4>휴먼IT교육센터 <span class="org">— AI 서비스 개발 심화</span></h4>
-            <div class="role">교육 · Self-Study</div>
-            <ul>
-              <li>LangChain · LangGraph 활용 하이브리드 RAG(Neo4j + Chroma) 파이프라인 구축</li>
-              <li>Spring Boot ↔ FastAPI 연동 실무 및 K8s 컨테이너 배포 학습</li>
-            </ul>
-          </div>
-        </article>
-        <article class="exp">
-          <div class="when">2025.08 — 2026.01</div>
-          <div>
-            <h4>에이아이피플스 <span class="org">— 포스코DX SM 파견</span></h4>
-            <div class="role">운영부서 사원 · Mail Security Operations</div>
-            <ul>
-              <li>전사 스팸메일 차단 필터 시스템 운영 · 오탐지율 최적화</li>
-              <li>DMARC · SPF · DKIM 메일 인증 프로토콜 트래픽 모니터링</li>
-              <li>ISMS-P 보안 정책 기반 운영 리포트 통계 엔지니어링</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="exp">
-          <div class="when">2024.05 — 2025.02</div>
-          <div>
-            <h4>유인시스 &amp; 상록에스 <span class="org">— EBS SM 파견</span></h4>
-            <div class="role">계약직 사원 · Traffic &amp; Security Ops</div>
-            <ul>
-              <li>EBS 영어 접속 트래픽 통계 스케줄링(Crontab) 관제</li>
-              <li>ISMS-P 개인정보 보호 심사 검증 및 대응 문서화 완료</li>
-              <li>개인추천 서비스 역공학 소스/구조 심도 검토</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="exp">
-          <div class="when">2023.06 — 2024.02</div>
-          <div>
-            <h4>솔앤드 주식회사 <span class="org">— 웹솔루션 B2B</span></h4>
-            <div class="role">웹 개발 사원 · Fullstack</div>
-            <ul>
-              <li>Vue.js + Spring Boot 기반 순천향대 LMS · 공자학당 앱 구축</li>
-              <li>JPA <code style="font-family:'JetBrains Mono';font-size:0.92em;color:var(--amber);">@Transactional</code> 제어로 데이터 무결성 확보</li>
-              <li>KT 멤버십 API · 등급별 권한 관리(Spring Auth) 도입</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="exp">
-          <div class="when">2023.01 — 2023.04</div>
-          <div>
-            <h4>무브인터렉티브 <span class="org">— ASP.NET 역공학 분석</span></h4>
-            <div class="role">분석 · C# / Legacy</div>
-            <ul>
-              <li>Doxygen · DB Dictionary 구조 도식화 리딩</li>
-              <li>C# 기반 결제 모듈 DB 참조 관계(FK) 분석</li>
-            </ul>
-          </div>
-        </article>
-
-      </div>
+    <div class="fig career-fig">
+      <svg viewBox="0 0 760 236" role="img" aria-label="2023년부터 2026년까지 경력과 개인 프로젝트를 시작 순서대로 그린 타임라인">
+          <g class="svg-mute mono" font-size="10.5"><text x="40" y="16">2023</text><text x="220" y="16">2024</text><text x="400" y="16">2025</text><text x="580" y="16">2026</text></g>
+          <g class="svg-grid"><line x1="40" y1="22" x2="40" y2="230"/><line x1="220" y1="22" x2="220" y2="230"/><line x1="400" y1="22" x2="400" y2="230"/><line x1="580" y1="22" x2="580" y2="230"/><line x1="760" y1="22" x2="760" y2="230"/></g>
+          <rect x="40" y="30" width="45" height="14" rx="3" class="k-e"><title>무브인터렉티브 · 분석 — 2023.01 – 04 · 회사</title></rect><text x="91" y="41" class="svg-dim" font-size="11">무브인터렉티브 · 분석</text>
+          <rect x="115" y="52" width="120" height="14" rx="3" class="k-e"><title>솔앤드 · B2B 웹 개발 — 2023.06 – 2024.02 · 회사</title></rect><text x="241" y="63" class="svg-dim" font-size="11">솔앤드 · B2B 웹 개발</text>
+          <rect x="280" y="74" width="135" height="14" rx="3" class="k-d"><title>유인시스·상록에스 · EBS 파견 — 2024.05 – 2025.02 · 파견</title></rect><text x="421" y="85" class="svg-dim" font-size="11">유인시스·상록에스 · EBS 파견</text>
+          <rect x="460" y="96" width="120" height="14" rx="3" class="k-p"><title>SDUI 1차 (MySQL) · 2025.05 – 2026.01 — 개인 프로젝트</title></rect><text x="454" y="107" class="svg-dim" font-size="11" text-anchor="end">SDUI 1차 (MySQL) · 2025.05 – 2026.01</text>
+          <rect x="505" y="118" width="75" height="14" rx="3" class="k-d"><title>에이아이피플스 · 포스코DX 파견 — 2025.08 – 2026.01 · 파견</title></rect><text x="499" y="129" class="svg-dim" font-size="11" text-anchor="end">에이아이피플스 · 포스코DX 파견</text>
+          <rect x="580" y="140" width="135" height="14" rx="3" class="k-p"><title>SDUI 2차 · 엔진 → 스튜디오 → 기획 루프 · 2026.01 ~ — 개인 프로젝트 · 진행 중</title></rect><text x="574" y="151" class="svg-dim" font-size="11" text-anchor="end">SDUI 2차 · 엔진 → 스튜디오 → 기획 루프 · 2026.01 ~</text>
+          <rect x="610" y="162" width="105" height="14" rx="3" class="k-p"><title>KMovement 3.0 · 2026.03 ~ — 개인 프로젝트 · 진행 중</title></rect><text x="604" y="173" class="svg-dim" font-size="11" text-anchor="end">KMovement 3.0 · 2026.03 ~</text>
+          <rect x="610" y="184" width="45" height="14" rx="3" class="k-t"><title>휴먼IT 교육 + 오늘의 냉장고(팀) · 2026.03 – 05 — 교육 · 팀 프로젝트 2026.04 – 05</title></rect><rect x="625" y="184" width="30" height="14" rx="3" class="k-sub"/><text x="604" y="195" class="svg-dim" font-size="11" text-anchor="end">휴먼IT 교육 + 오늘의 냉장고(팀) · 2026.03 – 05</text>
+          <rect x="685" y="206" width="30" height="14" rx="3" class="k-e"><title>이볼빅스 · 센서 데이터 웹 · 2026.08 – 09 — 회사 · 전임연구원</title></rect><text x="679" y="217" class="svg-ink" font-size="11" text-anchor="end" font-weight="600">이볼빅스 · 센서 데이터 웹 · 2026.08 – 09</text>
+        </svg>
+      <div class="legend"><span><i class="e"></i>정규직·계약</span><span><i class="d"></i>파견</span><span><i class="t"></i>교육</span><span><i class="p"></i>개인 프로젝트</span></div>
     </div>
+
+    <details class="acc" open id="career-evolvix">
+      <summary><span class="ic">+</span><span><span class="kind e"></span>이볼빅스 — 센서 데이터 조회·분석 웹</span><span class="s">2026.08 – 09 · 가동 통계 모순 해결 · 조회 95% 단축</span></summary>
+      <div class="body"><ul>
+        <li>센서 수집 자료의 조회·분석 화면과 API·DB 구조 구현, 배포</li>
+        <li>통계 화면에서 가동 시간과 가동 횟수가 서로 맞지 않던 문제를, 현장과 "가동"의 기준을 다시 정해 해결. 36일치 화면을 전부 대조해 확인하고 테스트 26건으로 고정</li>
+        <li>첫 조회 18.0초 → 0.89초 (95% 단축)</li>
+        <li>센서가 움직인 시간과 실제 생산 가동이 다른 지표라는 점을 표로 정리, 현장 확인이 필요한 항목은 미확정으로 남김</li>
+      </ul></div>
+    </details>
+    <details class="acc" id="career-humanit">
+      <summary><span class="ic">+</span><span><span class="kind t"></span>휴먼IT교육센터 — AI 서비스 개발 심화 · 오늘의 냉장고(팀)</span><span class="s">2026.03 – 05 · 하이브리드 RAG · 3단계 Fallback</span></summary>
+      <div class="body"><ul>
+        <li>LangChain · LangGraph 하이브리드 RAG(Neo4j + Chroma) 파이프라인 구축</li>
+        <li>Spring Boot ↔ FastAPI 연동, K8s 컨테이너 배포 학습</li>
+        <li>팀 프로젝트 "오늘의 냉장고"(2026.04–05): 외부 API 장애에도 서비스가 멈추지 않도록 Redis → DB → 외부 API 3단계 Fallback 설계</li>
+      </ul></div>
+    </details>
+    <details class="acc" id="career-aipeoples">
+      <summary><span class="ic">+</span><span><span class="kind d"></span>에이아이피플스 — 포스코DX SM 파견</span><span class="s">2025.08 – 2026.01 · 메일 보안 운영</span></summary>
+      <div class="body"><ul>
+        <li>전사 스팸메일 차단 필터 운영, 오탐지율 최적화</li>
+        <li>DMARC · SPF · DKIM 트래픽 모니터링, ISMS-P 운영 리포트 통계</li>
+      </ul></div>
+    </details>
+    <details class="acc" id="career-ebs">
+      <summary><span class="ic">+</span><span><span class="kind d"></span>유인시스 &amp; 상록에스 — EBS SM 파견</span><span class="s">2024.05 – 2025.02 · 트래픽 관제</span></summary>
+      <div class="body"><ul>
+        <li>EBS 영어 접속 트래픽 통계 스케줄링(Crontab) 관제</li>
+        <li>ISMS-P 개인정보 보호 심사 검증·대응 문서화, 개인추천 서비스 소스 분석</li>
+      </ul></div>
+    </details>
+    <details class="acc" id="career-solnd">
+      <summary><span class="ic">+</span><span><span class="kind e"></span>솔앤드 — 웹솔루션 B2B</span><span class="s">2023.06 – 2024.02 · LMS · 멤버십 API</span></summary>
+      <div class="body"><ul>
+        <li>Vue.js + Spring Boot 순천향대 LMS · 공자학당 앱 구축</li>
+        <li>JPA @Transactional 제어, KT 멤버십 API · 등급별 권한 관리</li>
+      </ul></div>
+    </details>
+    <details class="acc" id="career-move">
+      <summary><span class="ic">+</span><span><span class="kind e"></span>무브인터렉티브 — ASP.NET 역공학 분석</span><span class="s">2023.01 – 04 · 결제 모듈 FK 분석</span></summary>
+      <div class="body"><ul>
+        <li>Doxygen · DB Dictionary 구조 도식화, C# 결제 모듈 DB 참조 관계 분석</li>
+      </ul></div>
+    </details>
   </div>
 </section>
 
 <!-- ─────────────── STACK ─────────────── -->
 <section id="stack">
   <div class="wrap">
-    <div class="sec-head reveal">
+    <div class="sec-head">
       <div class="num">05 / Tech</div>
-      <div>
-        <h2>Tech <span class="it">Stack.</span></h2>
-        <p class="blurb">주황색 점이 찍힌 항목은 실서비스 운영 경험이 있는 핵심 스택입니다.</p>
-      </div>
+      <div><h2>Tech <span class="it">Stack.</span></h2></div>
     </div>
-
-    <div class="stack-grid reveal">
-      <div class="stack-col">
-        <h4>Backend &amp; Lang</h4>
-        <ul>
-          <li class="primary">Java / Spring Boot 3</li>
-          <li class="primary">Python / FastAPI</li>
-          <li>Node.js / Express</li>
-          <li>C# / .NET</li>
-          <li>TypeScript</li>
-        </ul>
-      </div>
-      <div class="stack-col">
-        <h4>AI &amp; ML</h4>
-        <ul>
-          <li class="primary">LangChain · LangGraph</li>
-          <li class="primary">OpenAI GPT-4o · Gemini</li>
-          <li class="primary">RAG (Neo4j + Chroma)</li>
-          <li>PyTorch · TensorFlow</li>
-          <li>Celery · 비동기 큐</li>
-        </ul>
-      </div>
-      <div class="stack-col">
-        <h4>Data &amp; Infra</h4>
-        <ul>
-          <li class="primary">MySQL · PostgreSQL</li>
-          <li class="primary">Redis (TTL 캐싱)</li>
-          <li class="primary">Docker · Compose</li>
-          <li>Kubernetes</li>
-          <li>AWS · GCP</li>
-        </ul>
-      </div>
-      <div class="stack-col">
-        <h4>Frontend &amp; Tools</h4>
-        <ul>
-          <li class="primary">Next.js · React 19</li>
-          <li>Vue.js</li>
-          <li>JPA · Flyway</li>
-          <li>JWT · OAuth 2.0</li>
-          <li>Claude Code (AI 협업)</li>
-        </ul>
-      </div>
+    <div class="stack-head">
+      <label for="stack-filter" class="hint">보기</label>
+      <select id="stack-filter" data-stack-filter aria-label="스택 필터"><option value="hot">실서비스 경험만</option><option value="all">전부</option></select>
+      <span class="hint">주황색 점 = 실서비스 운영 경험</span>
+    </div>
+    <div class="stack-grid" data-stack-grid data-stack="hot">
+      <div class="stack-col"><h4>Backend &amp; Lang</h4><ul>
+        <li class="primary">Java / Spring Boot 3</li><li class="primary">Python / FastAPI</li><li>Node.js / Express</li><li>C# / .NET</li><li>TypeScript</li>
+      </ul></div>
+      <div class="stack-col"><h4>Data &amp; Infra</h4><ul>
+        <li class="primary">MySQL · PostgreSQL</li><li class="primary">DuckDB · Parquet</li><li class="primary">Redis (TTL 캐싱)</li><li class="primary">Docker · Compose</li><li>Kubernetes</li><li>AWS · GCP</li>
+      </ul></div>
+      <div class="stack-col"><h4>AI &amp; ML</h4><ul>
+        <li class="primary">LangChain · LangGraph</li><li class="primary">ChromaDB · 임베딩</li><li class="primary">Workers AI · Gemini · OpenAI</li><li class="primary">Celery · 비동기 큐</li><li>RAG (Neo4j)</li><li>PyTorch · TensorFlow</li>
+      </ul></div>
+      <div class="stack-col"><h4>Frontend &amp; Tools</h4><ul>
+        <li class="primary">Next.js · React 19</li><li class="primary">pytest · 계약 테스트</li><li class="primary">Claude Code (AI 협업)</li><li>Vue.js</li><li>JPA · Flyway</li><li>JWT · OAuth 2.0</li>
+      </ul></div>
     </div>
   </div>
 </section>
@@ -1366,18 +1430,13 @@
 <!-- ─────────────── CONTACT ─────────────── -->
 <section class="contact" id="contact">
   <div class="wrap">
-    <div class="label">— Let's build something —</div>
-    <h2>
-      "Talk is cheap.<br/>
-      <span class="it">Show me</span> the <a href="mailto:myelin24@naver.com">architecture.</a>"
-    </h2>
-    <p class="sub">화면부터 서버까지 한 사람이 끝까지 맡는 풀스택 개발, 사람 대신 판단하고 일을 이어가는 에이전트 설계, 매일 반복되는 운영 일을 자동으로 돌리는 방법. 이런 이야기라면 언제든 메일 주세요.</p>
-
+    <div class="label">— Contact —</div>
+    <h2>"데이터는 <span class="q">기준</span>부터,<br/>AI는 <span class="q">근거</span>부터."</h2>
+    <p class="sub">화면부터 서버까지 한 사람이 끝까지 맡는 풀스택 개발, 사람 승인 뒤에 움직이는 에이전트 설계. 이런 이야기라면 언제든 메일 주세요.</p>
     <div class="contact-links">
       <a href="mailto:myelin24@naver.com">✉  myelin24@naver.com</a>
       <a href="https://github.com/feed-mina" target="_blank" rel="noopener">⌥  GitHub @feed-mina</a>
-      <a href="https://yerin.duckdns.org/" target="_blank" rel="noopener">↗ KMovement 3.0 Live</a>
-      <a href="https://sdui-template-kit-productization.pages.dev/studio/" target="_blank" rel="noopener">↗ SDUI Studio Live</a>
+      <a href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener">↗  이력서 PDF</a>
     </div>
   </div>
 </section>
@@ -1390,32 +1449,8 @@
   </div>
 </footer>
 
-<!-- ─────────────── MODAL ─────────────── -->
-<div class="project-modal" data-modal hidden>
-  <div class="modal-backdrop" data-modal-close></div>
-  <article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <button class="modal-close" type="button" aria-label="모달 닫기" data-modal-close>×</button>
-    <div class="modal-media" data-modal-media></div>
-    <div class="modal-body">
-      <div class="kicker" data-modal-kicker></div>
-      <h2 id="modal-title" data-modal-title></h2>
-      <div class="tagline" data-modal-tagline></div>
-      <p class="desc" data-modal-description></p>
-      <div class="modal-tabs" role="tablist" aria-label="프로젝트 상세">
-        <button type="button" class="active" data-tab="design">설계 의도</button>
-        <button type="button" data-tab="problem">Problem</button>
-        <button type="button" data-tab="role">Role</button>
-        <button type="button" data-tab="impact">Impact</button>
-      </div>
-      <div class="modal-panel" data-modal-panel></div>
-      <div class="modal-stack" data-modal-stack></div>
-      <div class="modal-actions" data-modal-actions></div>
-    </div>
-  </article>
-</div>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ─────────────── PROJECTS DATA ─────────────── */
+<script>
+/* ─────────────── PROJECTS DATA (상세 보관용 · 홈에서는 대표 3개 + 접힌 목록만 보여 준다) ─────────────── */
 const projects = [
   {
     id: "evol-guide-roll",
@@ -1739,238 +1774,33 @@ const projects = [
   }
 ];
 
-/* ─────────────── render projects ─────────────── */
-const slider = document.querySelector("[data-project-slider]");
-const dotsEl = document.querySelector("[data-slider-dots]");
-const modal = document.querySelector("[data-modal]");
-let activeProject = projects[0];
-let activeTab = "design";
 
-const TAB_LABELS = {
-  design: "설계 의도",
-  problem: "Problem",
-  role: "Role",
-  impact: "Impact"
-};
-
-function createCard(p){
-  const card = document.createElement("article");
-  card.className = "project-card";
-  card.dataset.category = p.category;
-  card.tabIndex = 0;
-  card.setAttribute("role", "button");
-  card.setAttribute("aria-label", `${p.title} 상세 보기`);
-
-  const media = document.createElement("div");
-  media.className = "project-media";
-  if(p.images){
-    const container = document.createElement("div");
-    container.className = "crossfade-container";
-    container.style.position = "relative";
-    container.style.width = "100%";
-    container.style.height = "100%";
-    p.images.forEach((src, idx) => {
-      const img = document.createElement("img");
-      img.src = src;
-      img.style.position = "absolute";
-      img.style.top = "0";
-      img.style.left = "0";
-      img.style.width = "100%";
-      img.style.height = "100%";
-      img.style.objectFit = "cover";
-      img.style.transition = "opacity 1.5s ease-in-out";
-      img.style.opacity = idx === 0 ? "1" : "0";
-      container.appendChild(img);
-    });
-    if(p.images.length > 1){
-      let currentIdx = 0;
-      const imgs = container.querySelectorAll("img");
-      setInterval(() => {
-        imgs[currentIdx].style.opacity = "0";
-        currentIdx = (currentIdx + 1) % imgs.length;
-        imgs[currentIdx].style.opacity = "1";
-      }, 3000);
+/* ── 전체 프로젝트 목록 (대표 3개 제외) ── */
+const FEATURED = new Set(["evol-guide-roll", "KMovement", "planning-harness"]);
+function renderMoreProjects(){
+  const ul = document.querySelector("[data-more-projects]");
+  if(!ul) return;
+  projects.filter(p => !FEATURED.has(p.id)).forEach(p => {
+    const li = document.createElement("li");
+    const b = document.createElement("b"); b.textContent = p.title;
+    const link = (p.links || [])[0];
+    li.appendChild(b);
+    if(link){
+      const a = document.createElement("a");
+      a.href = link.url; a.textContent = link.label + " ↗";
+      if(/^https?:/.test(link.url)){ a.target = "_blank"; a.rel = "noopener"; }
+      li.appendChild(a);
     }
-    media.appendChild(container);
-  } else if(p.video){
-    const vid = document.createElement("video");
-    vid.src = p.video;
-    vid.autoplay = true;
-    vid.loop = true;
-    vid.muted = true;
-    vid.playsInline = true;
-    media.appendChild(vid);
-  } else if(p.iframe){
-    const iframe = document.createElement("iframe");
-    iframe.src = p.iframe;
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
-    iframe.style.border = "none";
-    iframe.style.pointerEvents = "none";
-    media.appendChild(iframe);
-  } else if(p.image){
-    if (p.id === 'til') {
-      const container = document.createElement("div");
-      container.style.width = "100%";
-      container.style.height = "100%";
-      container.style.overflow = "hidden";
-      container.style.display = "flex";
-      container.style.justifyContent = "flex-end";
-      container.style.alignItems = "center";
-      
-      const img = document.createElement("img");
-      img.src = p.image;
-      img.alt = p.title + " 프로젝트 포트폴리오 썸네일 이미지";
-      img.loading = "lazy";
-      img.style.height = "100%";
-      img.style.width = "auto";
-      img.style.maxWidth = "none";
-      
-      container.appendChild(img);
-      media.appendChild(container);
-    } else {
-      const img = document.createElement("img");
-      img.src = p.image;
-      img.alt = `${p.title} 프로젝트 포트폴리오 썸네일 이미지`;
-      img.loading = "lazy";
-      img.onerror = ()=>{ img.remove();};
-      media.appendChild(img);
-    }
-  }
-  if(p.kicker.includes("🏆") || p.kicker.includes("Awarded")){
-    const badge = document.createElement("span");
-    badge.className = "badge";
-    badge.textContent = "★ Awarded";
-    media.appendChild(badge);
-  }
-
-  const body = document.createElement("div");
-  body.className = "project-body";
-  body.innerHTML = `
-    <div class="kicker">${p.kicker}</div>
-    <h3>${p.title}</h3>
-    <p class="desc">${p.description}</p>
-    <div class="chips">
-      ${p.stack.slice(0,4).map(s=>`<span class="chip">${s}</span>`).join("")}
-    </div>
-  `;
-
-  card.append(media, body);
-  card.addEventListener("click", ()=> openModal(p));
-  card.addEventListener("keydown", e=>{
-    if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openModal(p);}
-  });
-  return card;
-}
-
-function renderProjects(){
-  slider.innerHTML = "";
-  projects.forEach(p => slider.appendChild(createCard(p)));
-  renderDots();
-}
-
-function renderDots(){
-  dotsEl.innerHTML = "";
-  const cards = [...slider.querySelectorAll(".project-card:not([hidden])")];
-  cards.forEach((card, i)=>{
-    const dot = document.createElement("button");
-    dot.type = "button";
-    if(i === 0) dot.classList.add("active");
-    dot.addEventListener("click", ()=>{
-      card.scrollIntoView({ behavior:"smooth", inline:"start", block:"nearest"});
-    });
-    dotsEl.appendChild(dot);
+    ul.appendChild(li);
   });
 }
 
-function updateDots(){
-  const cards = [...slider.querySelectorAll(".project-card:not([hidden])")];
-  const sliderRect = slider.getBoundingClientRect();
-  let closest = { i: 0, d: Infinity};
-  cards.forEach((c, i)=>{
-    const d = Math.abs(c.getBoundingClientRect().left - sliderRect.left);
-    if(d < closest.d) closest = { i, d};
-  });
-  [...dotsEl.children].forEach((dot, i)=>{
-    dot.classList.toggle("active", i === closest.i);
-  });
-}
-
-/* ── modal ── */
-function openModal(p){
-  activeProject = p;
-  activeTab = "design";
-  modal.querySelector("[data-modal-kicker]").textContent = p.kicker;
-  modal.querySelector("[data-modal-title]").textContent = p.title;
-  modal.querySelector("[data-modal-tagline]").textContent = p.tagline || "";
-  modal.querySelector("[data-modal-description]").textContent = p.description;
-  modal.querySelector("[data-modal-stack]").innerHTML = p.stack.map(s=>`<span>${s}</span>`).join("");
-  modal.querySelector("[data-modal-actions]").innerHTML = p.links.map(l =>
-    `<a class="btn ${l.primary ? "primary" : ""}" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`
-  ).join("");
-
-  const media = modal.querySelector("[data-modal-media]");
-  media.innerHTML = p.video ? `<video src="${p.video}" autoplay loop muted playsinline></video>` : (p.iframe ? `<iframe src="${p.iframe}" style="width:100%; height:100%; border:none;"></iframe>` : (p.images ? `<img src="${p.images[0]}" alt="${p.title} 프로젝트 썸네일" onerror="this.remove()">` : (p.image ? `<img src="${p.image}" alt="${p.title} 프로젝트 썸네일" onerror="this.remove()">` : "")));
-
-  modal.querySelectorAll("[data-tab]").forEach(t=>{
-    t.classList.toggle("active", t.dataset.tab === activeTab);
-  });
-  renderModalPanel();
-  modal.hidden = false;
-  document.body.classList.add("modal-open");
-}
-
-function renderModalPanel(){
-  const panel = modal.querySelector("[data-modal-panel]");
-  const items = activeProject[activeTab] || [];
-  panel.innerHTML = `<ul>${items.map(i=>`<li>${i}</li>`).join("")}</ul>`;
-}
-
-function closeModal(){
-  modal.hidden = true;
-  document.body.classList.remove("modal-open");
-}
-
-/* ── filters ── */
-function setupFilters(){
-  document.querySelectorAll("[data-filter]").forEach(btn=>{
-    btn.addEventListener("click", ()=>{
-      const f = btn.dataset.filter;
-      document.querySelectorAll("[data-filter]").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      slider.querySelectorAll(".project-card").forEach(c=>{
-        const show = f === "all" || c.dataset.category.includes(f);
-        c.hidden = !show;
-      });
-      slider.scrollTo({ left: 0, behavior: "smooth"});
-      renderDots(); updateDots();
-    });
-  });
-}
-
-function setupSliderControls(){
-  document.querySelector("[data-slider-prev]").addEventListener("click", ()=>{
-    slider.scrollBy({ left: -340, behavior: "smooth"});
-  });
-  document.querySelector("[data-slider-next]").addEventListener("click", ()=>{
-    slider.scrollBy({ left: 340, behavior: "smooth"});
-  });
-  slider.addEventListener("scroll", ()=> requestAnimationFrame(updateDots));
-}
-
-function setupModal(){
-  document.querySelectorAll("[data-modal-close]").forEach(el => el.addEventListener("click", closeModal));
-  modal.querySelectorAll("[data-tab]").forEach(tab=>{
-    tab.addEventListener("click", ()=>{
-      activeTab = tab.dataset.tab;
-      modal.querySelectorAll("[data-tab]").forEach(t => t.classList.toggle("active", t === tab));
-      renderModalPanel();
-    });
-  });
-  document.addEventListener("keydown", e=>{
-    if(e.key === "Escape" && !modal.hidden) closeModal();
-  });
+/* ── 스택 필터 ── */
+function setupStackFilter(){
+  const sel = document.querySelector("[data-stack-filter]");
+  const grid = document.querySelector("[data-stack-grid]");
+  if(!sel || !grid) return;
+  sel.addEventListener("change", ()=> { grid.dataset.stack = sel.value; });
 }
 
 /* ── theme ── */
@@ -1986,19 +1816,6 @@ function setupTheme(){
   });
 }
 
-/* ── reveal ── */
-function setupReveal(){
-  const io = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add("in");
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12});
-  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-}
-
 /* ── nav spy ── */
 function setupNavSpy(){
   const links = [...document.querySelectorAll('nav ul a')];
@@ -2012,14 +1829,11 @@ function setupNavSpy(){
   sections.forEach(s => io.observe(s));
 }
 
-renderProjects();
-setupSliderControls();
-setupFilters();
-setupModal();
+
+renderMoreProjects();
+setupStackFilter();
 setupTheme();
-setupReveal();
 setupNavSpy();
 </script>
-
 </body>
 </html>
