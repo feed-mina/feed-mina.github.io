@@ -1010,13 +1010,14 @@
 
   /* cases */
   .cases{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;}
-  a.case{
+  .case{
     display:flex; flex-direction:column; min-width:0;
     background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
     overflow:hidden; transition: transform .2s, border-color .2s;
   }
-  a.case:hover{ transform: translateY(-3px); border-color: var(--amber);}
-  a.case:focus-visible{ outline: 2px solid var(--amber); outline-offset: 2px;}
+  .case:hover{ transform: translateY(-3px); border-color: var(--amber);}
+  .case a:focus-visible{ outline: 2px solid var(--amber); outline-offset: 2px;}
+  .case .ln a.btn:hover{ border-color: var(--amber);}
   .case img{ width:100%; height:auto; aspect-ratio: 16/9; object-fit: cover; object-position: top; border-bottom: 1px solid var(--line);}
   .case .b{ padding: 16px 18px 18px; display:flex; flex-direction:column; gap: 8px; flex:1;}
   .case .tag{ font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute);}
@@ -1210,39 +1211,39 @@
     </div>
 
     <div class="cases">
-      <a class="case" href="evol-case-study.html">
-        <img src="assets/images/evol-period-week.webp" alt="가이드롤 생산 모니터링 기간 통계 주 화면" loading="lazy" width="1280" height="720" />
+      <div class="case">
+        <a href="evol-case-study.html"><img src="assets/images/evol-period-week.webp" alt="가이드롤 생산 모니터링 기간 통계 주 화면" loading="lazy" width="1280" height="720" /></a>
         <div class="b">
           <div class="tag">01 · 제조 센서 데이터</div>
           <h3>가동 0회인데 1.2시간</h3>
           <div class="q"><b>문제</b> 한 주 통계에 가동 1.2시간과 가동 0회가 같이 떴다. 횟수와 시간이 다른 기준으로 세고 있었다.</div>
           <div class="q"><b>결과</b> "가동 1회"를 현장과 다시 정하고 합산 함수 한 곳으로 통일. 36일치 화면 전부를 대조해 두 숫자가 맞는지 확인.</div>
           <div class="m">36일치 화면 전부 일치 · 18.0초 → 0.89초</div>
-          <div class="ln"><span class="btn primary">케이스 →</span><span class="st tmp">데모 · 임시 주소</span></div>
+          <div class="ln"><a class="btn primary" href="evol-case-study.html">케이스 →</a><a class="btn" href="https://job-reduces-initial-indices.trycloudflare.com" target="_blank" rel="noopener">Live Demo ↗</a><span class="st tmp">데모 · 임시 주소</span></div>
         </div>
-      </a>
-      <a class="case" href="https://github.com/feed-mina/KMovement#readme" target="_blank" rel="noopener">
-        <img src="KMovement/assets/capture/evidence-rag.png" alt="KMovement 검색 근거 화면" loading="lazy" width="1280" height="720" />
+      </div>
+      <div class="case">
+        <a href="https://kmovement.srv1869569.hstgr.cloud/view/ROUTE_PLANNER" target="_blank" rel="noopener"><img src="KMovement/assets/capture/evidence-rag.png" alt="KMovement 검색 근거 화면" loading="lazy" width="1280" height="720" /></a>
         <div class="b">
           <div class="tag">02 · RAG 검색</div>
           <h3>검색 점수 하나로 답하지 않는다</h3>
           <div class="q"><b>문제</b> "경기도 촬영지"를 물었는데 서울 장소가 섞이거나, 실제로 없는 장소가 답에 들어갔다.</div>
           <div class="q"><b>결과</b> 질문과 충분히 비슷한 장소만 답에 쓰고, "서울" 같은 지역 조건은 점수와 상관없이 따로 거릅니다. 근거가 되는 장소를 못 찾으면 못 찾았다고 화면에 표시합니다.</div>
           <div class="m">비슷함 기준 0.25 · 후보 3개 · 근거 없으면 표시</div>
-          <div class="ln"><span class="btn primary">GitHub README ↗</span><span class="st tmp">케이스 페이지 · 라이브 주소 준비 중</span></div>
+          <div class="ln"><a class="btn primary" href="https://kmovement.srv1869569.hstgr.cloud/view/ROUTE_PLANNER" target="_blank" rel="noopener">Live Demo ↗</a><a class="btn" href="https://github.com/feed-mina/KMovement#readme" target="_blank" rel="noopener">GitHub ↗</a><span class="st">라이브</span></div>
         </div>
-      </a>
-      <a class="case" href="https://harness-meeting-app.kibayerin.workers.dev" target="_blank" rel="noopener">
-        <img src="assets/images/planning-harness-analysis.png" alt="Planning Harness 분석 화면" loading="lazy" width="1280" height="720" />
+      </div>
+      <div class="case">
+        <a href="https://harness-meeting-app.kibayerin.workers.dev" target="_blank" rel="noopener"><img src="assets/images/planning-harness-analysis.png" alt="Planning Harness 분석 화면" loading="lazy" width="1280" height="720" /></a>
         <div class="b">
           <div class="tag">03 · AI 기획 루프</div>
           <h3>AI가 마음대로 반영하지 못하게</h3>
           <div class="q"><b>문제</b> 기획 산출물이 프롬프트마다 달라지고, 이슈로 넘기는 사이 맥락이 사라졌다.</div>
           <div class="q"><b>결과</b> 스킬 8개로 흐름을 고정하고, GitHub에 쓰는 작업은 dry-run과 사람 승인을 거친다.</div>
           <div class="m">스킬 8개 · 승인 전 외부 작업 0건</div>
-          <div class="ln"><span class="btn primary">Live Demo ↗</span><span class="st">라이브</span></div>
+          <div class="ln"><a class="btn primary" href="https://harness-meeting-app.kibayerin.workers.dev" target="_blank" rel="noopener">Live Demo ↗</a><a class="btn" href="https://github.com/feed-mina/planning-harness-portfolio" target="_blank" rel="noopener">GitHub ↗</a><span class="st">라이브</span></div>
         </div>
-      </a>
+      </div>
     </div>
 
     <details class="more">
@@ -1322,7 +1323,7 @@
         <dl class="signal-list">
           <li><dt>Base</dt><dd>Seoul, KR</dd></li>
           <li><dt>Status</dt><dd><span style="color:var(--mint);">●</span> Open to work</dd></li>
-          <li><dt>이력서</dt><dd><a href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener">PDF 요약판 (3쪽) ↗</a> · <a href="assets/resume-yerin-min-full.pdf" target="_blank" rel="noopener">전체판 (8쪽) ↗</a></dd></li>
+          <li><dt>이력서</dt><dd><a href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener">PDF 요약판 ↗</a> · <a href="assets/resume-yerin-min-full.pdf" target="_blank" rel="noopener">전체판 ↗</a></dd></li>
         </dl>
       </aside>
     </div>
@@ -1376,7 +1377,7 @@
     <details class="acc" id="career-aipeoples">
       <summary><span class="ic">+</span><span><span class="kind d"></span>에이아이피플스 — 포스코DX SM 파견</span><span class="s">2025.08 – 2026.01 · 메일 보안 운영</span></summary>
       <div class="body"><ul>
-        <li>전사 스팸메일 차단 필터 운영, 오탐지율 최적화</li>
+        <li>전사 스팸메일 차단 필터 운영, 정상 메일이 스팸으로 잘못 걸리는 비율(오탐) 줄이기</li>
         <li>DMARC · SPF · DKIM 트래픽 모니터링, ISMS-P 운영 리포트 통계</li>
       </ul></div>
     </details>
@@ -1441,8 +1442,8 @@
     <div class="contact-links">
       <a href="mailto:myelin24@naver.com">✉  myelin24@naver.com</a>
       <a href="https://github.com/feed-mina" target="_blank" rel="noopener">⌥  GitHub @feed-mina</a>
-      <a href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener">↗  이력서 PDF (요약판 3쪽)</a>
-      <a href="assets/resume-yerin-min-full.pdf" target="_blank" rel="noopener">↗  이력서 전체판 (8쪽)</a>
+      <a href="assets/resume-yerin-min.pdf" target="_blank" rel="noopener">↗  이력서 PDF (요약판)</a>
+      <a href="assets/resume-yerin-min-full.pdf" target="_blank" rel="noopener">↗  이력서 전체판</a>
     </div>
   </div>
 </section>
@@ -1463,14 +1464,14 @@ const projects = [
     title: "가이드롤 생산 모니터링 (evol)",
     category: "architecture web",
     kicker: "Manufacturing Sensor Data · Case Study · 2026",
-    tagline: "// 제조 지표 정의 재합의와 불변식 검증 — 가동 시간·가동 횟수 불일치 해결, 첫 조회 95% 단축",
-    description: "광학필름 생산 라인의 가이드롤에 붙은 센서 노드(속도·진동)의 측정값을 FastAPI·React 대시보드로 보여 주는 모니터링 시스템입니다. 가동 시간과 가동 횟수가 서로 다른 기준으로 계산되던 문제를 현장과 정의를 다시 합의해 해결하고, 36일치 화면을 불변식으로 검증해 고정했습니다.",
+    tagline: "// 제조 지표 정의 재합의와 '항상 맞아야 할 규칙' 검증 — 가동 시간·가동 횟수 불일치 해결, 첫 조회 95% 단축",
+    description: "광학필름 생산 라인의 가이드롤에 붙은 센서 노드(속도·진동)의 측정값을 FastAPI·React 대시보드로 보여 주는 모니터링 시스템입니다. 가동 시간과 가동 횟수가 서로 다른 기준으로 계산되던 문제를 현장과 정의를 다시 합의해 해결하고, 36일치 화면을 '항상 맞아야 할 규칙'으로 검증해 고정했습니다.",
     images: ["assets/images/evol-case-period-month-2026-07.png", "assets/images/evol-daily.webp", "assets/images/evol-period-week.webp"],
     stack: ["FastAPI", "React", "DuckDB", "Parquet", "pytest", "Docker", "Nginx"],
     design: [
       "가동 횟수·가동 시간이 같은 '연속 가동 구간'을 기준으로 집계되도록 정의 통일 — 정지→가동 전이 시에만 횟수 +1, 30분 조건 제거",
       "일간 카드·주별·월별 화면이 단일 합산 함수를 사용하도록 구조 정리, 세 화면 지표 일치",
-      "'0회면 0시간', '주별 합 = 전체' 등 불변식을 먼저 정의하고 계약 테스트 26건으로 규칙 고정",
+      "'0회면 0시간', '주별 합 = 전체' 등 '항상 맞아야 할 규칙'을 먼저 정의하고 계약 테스트 26건으로 규칙 고정",
       "DuckDB 연결 1회화와 데이터셋별 Parquet 병합 사본(compact)으로 첫 조회 18.0초 → 0.89초 (95% 단축)"
     ],
     problem: [
@@ -1485,7 +1486,7 @@ const projects = [
     ],
     impact: [
       "같은 주·같은 데이터에서 가동 1.2시간 · 0회 → 1.2시간 · 6회로 지표 정합성 확보",
-      "36일 전수 불변식 검증 위반 0건, 지표 모순 발생일 5일 → 0일, 계약 테스트 26건 통과",
+      "36일 전수 규칙 검증 위반 0건, 지표 모순 발생일 5일 → 0일, 계약 테스트 26건 통과",
       "첫 조회 18.0초 → 0.89초 (95% 단축), 최적화 전·후 화면 데이터 8/8 동일",
       "향후 과제: 정지 중 유령 속도 필터링 — 측정 비율 기반 구분 가설을 682 사이클로 검증, 임계값은 분포 분석 후 정립 예정"
     ],
@@ -1524,14 +1525,14 @@ const projects = [
       "MLflow(Dagshub)로 RAG 성능·프롬프트·생성 시간을 실험 단위로 기록"
     ],
     impact: [
-      "일정 추천부터 영상 가이드 생성까지 엔드투엔드로 동작 (라이브 주소는 준비 중)",
+      "일정 추천부터 영상 가이드 생성까지 엔드투엔드로 동작",
       "지역 같은 정확 조건, 검색 점수의 의미, 근거 없을 때의 응답을 경로별로 구분",
       "영상 모델 호출을 라우터로 나눠 호출 대상을 제한",
       "MLflow(Dagshub)에 RAG·생성 실험을 실험 단위로 기록",
       "GraphRAG 도입으로 단순 검색이 닿지 못하는 '관계 기반' 장소 추천 구현"
     ],
     links: [
-      { label: "라이브 서비스", url: "https://yerin.duckdns.org/", primary: true },
+      { label: "라이브 서비스", url: "https://kmovement.srv1869569.hstgr.cloud/view/ROUTE_PLANNER", primary: true },
       { label: "GitHub", url: "https://github.com/feed-mina/KMovement" },
       { label: "MLflow 실험 기록", url: "https://dagshub.com/myelin24m/Kride.mlflow/#/experiments/18" },
       { label: "View Deck", url: "KMovement/deck.html" },

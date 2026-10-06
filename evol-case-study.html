@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>가이드롤 생산 모니터링 Case Study | 민예린 Portfolio</title>
-  <meta name="description" content="제조 센서 대시보드에서 가동 시간과 가동 횟수의 정의가 어긋났던 문제를 정의 재합의와 불변식 검증으로 해결하고, 첫 조회 속도를 95% 단축한 사례." />
+  <meta name="description" content="제조 센서 대시보드에서 가동 시간과 가동 횟수의 정의가 어긋났던 문제를 정의 재합의와 '항상 맞아야 할 규칙' 검증으로 해결하고, 첫 조회 속도를 95% 단축한 사례." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -146,8 +146,8 @@
 
   <header><div class="wrap">
     <div class="eyebrow">Manufacturing Sensor Data · Case Study · 2026.08 – 2026.09</div>
-    <h1>가이드롤 생산 모니터링 시스템<br/><em>제조 지표 정의 재합의와 불변식 검증</em></h1>
-    <p class="lede">가동 시간과 가동 횟수가 서로 모순되게 표시되던 통계 화면의 원인을 추적해, 코드 버그가 아닌 <b style="color:var(--ink)">지표 정의의 불일치</b>임을 밝혔습니다. 현장과 정의를 다시 합의하고, 불변식 검증과 계약 테스트로 고정했습니다. 같은 기간에 첫 화면 조회 속도도 95% 단축했습니다.</p>
+    <h1>가이드롤 생산 모니터링 시스템<br/><em>제조 지표 정의 재합의와 '항상 맞아야 할 규칙' 검증</em></h1>
+    <p class="lede">가동 시간과 가동 횟수가 서로 모순되게 표시되던 통계 화면의 원인을 추적해, 코드 버그가 아닌 <b style="color:var(--ink)">지표 정의의 불일치</b>임을 밝혔습니다. 현장과 정의를 다시 합의하고, '항상 맞아야 할 규칙' 검증과 계약 테스트로 고정했습니다. 같은 기간에 첫 화면 조회 속도도 95% 단축했습니다.</p>
     <div class="overview">
       <div class="k">시스템 개요</div>
       <p><b>가이드롤</b>은 광학필름 생산 라인에서 동력 없이 필름 장력으로 도는 롤입니다. 롤에 붙은 <b>센서 노드 4대</b>(펄스=속도, 가속도=진동)가 <b>10분마다 11초씩</b> 측정하고, 이 측정 1회분을 <b>사이클</b>이라고 부릅니다. 속도 단위는 분당 이동 거리(<b>MPM</b>, m/min)입니다.</p>
@@ -160,7 +160,7 @@
       <div class="arrow"><span class="ar">→</span>지표 정의 통일<br/>합산 함수 단일화</div>
       <div class="screen good"><div class="tag">After</div><div class="title">같은 주 · 같은 데이터</div><div class="nums"><div class="num">1.2h<small>가동 시간</small></div><div class="num x">6회<small>가동 횟수</small></div></div><div class="verdict">10분 가동 6회 — 두 지표와 일간 관제 화면이 일치</div></div>
     </div>
-    <div class="kpis"><span class="kpi"><b>95% 단축</b> 첫 조회 18.0초 → 0.89초 · DB 연결 1회화 + 데이터셋별 Parquet 병합 사본</span><span class="kpi"><b>위반 0건</b> 36일 전수 불변식 검증</span><span class="kpi"><b>26건</b> 가동 규칙을 고정한 계약 테스트</span><span class="kpi"><b>8/8</b> 최적화 전·후 화면 데이터 동일</span></div>
+    <div class="kpis"><span class="kpi"><b>95% 단축</b> 첫 조회 18.0초 → 0.89초 · DB 연결 1회화 + 데이터셋별 Parquet 병합 사본</span><span class="kpi"><b>위반 0건</b> 36일 전수 규칙 검증</span><span class="kpi"><b>26건</b> 가동 규칙을 고정한 계약 테스트</span><span class="kpi"><b>8/8</b> 최적화 전·후 화면 데이터 동일</span></div>
     <div class="actions"><a class="btn primary" href="https://job-reduces-initial-indices.trycloudflare.com" target="_blank" rel="noopener">데모 보기 ↗</a><span class="btn-note">공개 샘플 데이터 · 임시 주소라 바뀔 수 있음</span></div>
   </div></header>
 
@@ -216,10 +216,10 @@
     </div>
 
     <div class="panel" id="p4" role="tabpanel" hidden>
-      <h3>검증: 불변식 정의 후 36일치 화면 전수 대조</h3>
-      <p>"올바른 화면이라면 반드시 성립해야 하는 조건"(불변식)을 먼저 문장으로 정의하고, 36일치 화면 전부와 대조했습니다.</p>
+      <h3>검증: '항상 맞아야 할 규칙' 정의 후 36일치 화면 전수 대조</h3>
+      <p>"올바른 화면이라면 반드시 성립해야 하는 조건", 즉 항상 맞아야 할 규칙을 먼저 문장으로 정의하고, 36일치 화면 전부와 대조했습니다.</p>
       <div class="two">
-        <div class="box ok"><div class="k">불변식</div><ul class="list check"><li>0회면 0시간 — 36일 전부 통과</li><li>주별 합 = 전체 — 6주 전부 통과</li><li>노드 카드 144칸 = 로컬 계산</li></ul></div>
+        <div class="box ok"><div class="k">항상 맞아야 할 규칙</div><ul class="list check"><li>0회면 0시간 — 36일 전부 통과</li><li>주별 합 = 전체 — 6주 전부 통과</li><li>노드 카드 144칸 = 로컬 계산</li></ul></div>
         <div class="box"><div class="k">숫자</div><ul class="list"><li>옛 규칙: 37일 중 <b>5일</b>에서 모순</li><li>새 규칙: <b>0일</b></li><li>계약 테스트 <b>26건</b>이 규칙을 고정</li><li>검증 범위 외: 원파형 상세·비교 탭은 해당 회차에서 미검증</li></ul></div>
       </div>
       <details><summary><span class="ic">+</span><span class="q">7월 6일 덩어리 여섯 개<span class="sub">공개 샘플 데이터로 다시 계산한 값</span></span></summary><div class="acc-body"><table><thead><tr><th>구간</th><th>길이</th><th>평균 속도</th><th>옛 규칙</th><th>새 규칙</th></tr></thead><tbody>
@@ -247,7 +247,7 @@
 
     <div class="sec-h" style="margin-top:30px"><h2>기여도 및 향후 과제 <span style="font-size:15px;color:var(--ink-mute)">Contributions &amp; Next Steps</span></h2></div>
     <div class="two" style="margin-top:0">
-      <div class="box ok"><div class="k">기여 (Contributions)</div><ul class="list check"><li>가동 정의 재합의안 작성·제안 및 구현 (최종 결정은 대표·현장 협의)</li><li>합산 함수 단일화와 일간·주별·월별 화면 연결</li><li>36일 전수 불변식 검증, 계약 테스트 26건 작성</li><li>첫 조회 성능 개선: DB 연결 1회화, Parquet 병합 사본, 원본 자동 복귀 검증</li><li>결정대장·유지보수 문서화</li></ul></div>
+      <div class="box ok"><div class="k">기여 (Contributions)</div><ul class="list check"><li>가동 정의 재합의안 작성·제안 및 구현 (최종 결정은 대표·현장 협의)</li><li>합산 함수 단일화와 일간·주별·월별 화면 연결</li><li>36일 전수 규칙 검증, 계약 테스트 26건 작성</li><li>첫 조회 성능 개선: DB 연결 1회화, Parquet 병합 사본, 원본 자동 복귀 검증</li><li>결정대장·유지보수 문서화</li></ul></div>
       <div class="box"><div class="k">향후 과제 (Future Scope)</div><ul class="list"><li><b>정지 중 유령 속도 필터링</b> — 아래 참조</li><li><b>노드 카드 가동 기준 정렬</b> — 기간 통계와 같은 정의로 맞출지 비교 분석</li></ul></div>
     </div>
     <details open><summary><span class="ic">+</span><span class="q">향후 과제 · 정지 중 유령 속도(Ghost Speed) 필터링<span class="sub">가설 검증 완료 · 임계값 정립은 추가 분포 분석 후 진행</span></span></summary><div class="acc-body">
@@ -266,8 +266,8 @@
   </div></section>
 
   <section><div class="wrap lesson">
-    <div class="big">제조 데이터는 값보다 <em>정의가 먼저</em>입니다.<br/>분자·분모·예외를 명시하고, 불변식으로 고정합니다.</div>
-    <div><p style="color:var(--ink-dim);font-size:14.5px">근거가 부족한 기준은 임의로 정하지 않습니다. 분석 결과를 제시하고, 추가 데이터를 검토한 뒤 현장과 함께 결정합니다.</p><div class="chips"><span class="chip mint">정의 재합의</span><span class="chip mint">불변식 검증</span><span class="chip mint">계약 테스트</span><span class="chip mint">결정 기록</span></div></div>
+    <div class="big">제조 데이터는 값보다 <em>정의가 먼저</em>입니다.</div>
+    <div><p style="color:var(--ink-dim);font-size:14.5px">근거가 부족한 기준은 임의로 정하지 않습니다. 분석 결과를 제시하고, 추가 데이터를 검토한 뒤 현장과 함께 결정합니다.</p><div class="chips"><span class="chip mint">정의 재합의</span><span class="chip mint">규칙 검증</span><span class="chip mint">계약 테스트</span><span class="chip mint">결정 기록</span></div></div>
   </div></section>
   </main>
 
