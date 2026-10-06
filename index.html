@@ -1910,8 +1910,9 @@ function setupTheme(){
 
 /* ── nav spy ── */
 function setupNavSpy(){
-  const links = [...document.querySelectorAll('nav ul a')];
-  const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const links = [...document.querySelectorAll('nav ul a')]
+    .filter(a => /^#[\w-]+$/.test(a.getAttribute('href') || ''));
+  const sections = links.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
   const io = new IntersectionObserver(entries=>{
     entries.forEach(e=>{
       if(!e.isIntersecting) return;
