@@ -20,8 +20,7 @@ const projects = [
       "컴포넌트 재사용률을 높이고, 권한별 UI 전환과 AI 기능을 같은 엔진 위에 얹었습니다."
     ],
     links: [
-      { label: "GitHub", url: "https://github.com/feed-mina/SDUI", primary: true },
-      { label: "Live Demo", url: "https://sdui-delta.vercel.app/view/MAIN_PAGE" }
+      { label: "GitHub", url: "https://github.com/feed-mina/SDUI", primary: true }
     ]
   },
   {
