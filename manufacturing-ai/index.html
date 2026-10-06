@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>제조 데이터 · AI 자동화 | 민예린 Portfolio</title>
-  <meta name="description" content="제조 센서 데이터의 지표 정의를 맞추고, AI 작업을 승인 게이트로 통제해 온 사례 네 가지를 한 장에 모았습니다." />
+  <meta name="description" content="제조 센서 데이터의 지표 정의를 맞추고, AI 작업을 승인 게이트로 통제해 온 사례 다섯 가지를 한 장에 모았습니다." />
   <meta name="robots" content="noindex" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,17 +141,18 @@
   <header><div class="wrap">
     <div class="eyebrow">Manufacturing Data · Agentic Automation · 2026</div>
     <h1>센서 숫자는 <em>정의부터</em> 맞추고,<br/>AI 작업은 <em>승인</em>을 거치게 합니다.</h1>
-    <p class="lede">제조 현장 센서 대시보드를 만들고 고치면서, 그리고 AI 에이전트로 기획·요약 작업을 자동화하면서 해 온 일을 네 가지 사례로 모았습니다. 고친 것은 숫자로, 아직 못 정한 것은 못 정했다고 적었습니다.</p>
+    <p class="lede">제조 현장 센서 대시보드를 만들고 고치면서, 그리고 AI 에이전트로 기획·요약 작업을 자동화하면서 해 온 일을 다섯 가지 사례로 모았습니다. 고친 것은 숫자로, 아직 못 정한 것은 못 정했다고 적었습니다.</p>
     <div class="three">
       <div class="c"><div class="n">01 · 현장 데이터</div><div class="t">지표 정의를 맞춘다</div><div class="d">가동 1.2시간 · 0회 모순을 1.2시간 · 6회로 정합. 36일치 화면을 '항상 맞아야 할 규칙'으로 검증</div></div>
       <div class="c"><div class="n">02 · 판단 근거</div><div class="t">정할 수 없는 건 남긴다</div><div class="d">같은 센서 값이 화면 세 곳에서 다르게 판정되는 이유를 코드 세 지점으로 설명</div></div>
-      <div class="c"><div class="n">03 · AI 자동화</div><div class="t">승인 게이트로 통제한다</div><div class="d">AI 기획 루프와 회의록 요약 API. 사람 승인 전에는 외부 작업을 하지 않게 설계</div></div>
+      <div class="c"><div class="n">03 · AI 자동화</div><div class="t">승인 게이트로 통제한다</div><div class="d">AI 기획 루프 · 회의록 요약 API · 제조 Agentic AI 샘플. 사람 승인 전에는 외부 작업도 명령도 하지 않게 설계</div></div>
     </div>
     <div class="toc">
       <a href="#case-1">① 가동 지표 정의</a>
       <a href="#case-2">② 세 가지 "가동"</a>
       <a href="#case-3">③ AI 기획 루프</a>
       <a href="#case-4">④ 회의록 AI 요약 API</a>
+      <a href="#case-5">⑤ Factory AI Copilot</a>
       <a href="#how">일하는 방식</a>
     </div>
   </div></header>
@@ -245,21 +246,45 @@
     </div>
   </div></section>
 
+  <!-- CASE 5 -->
+  <section id="case-5"><div class="wrap">
+    <div class="case-k">Case 05 · Factory AI Copilot <span class="status done">라이브 · 허구 데이터 샘플</span></div>
+    <div class="sec-h"><h2>승인 없이는 명령이 안 나간다 — 제조 Agentic AI 샘플</h2></div>
+    <p class="body">허구 센서 사이클 30건(노드 4개 · 속도 · 진동) 위에서 <b>공정 판단 → 원인 추적 → 행동 제안 → 사람 승인 → 모의 명령</b>을 한 화면에 구현한 샘플입니다. 메일 승인 에이전트(Javis)가 "초안은 사람이 승인해야만 저장된다"를 지키던 승인 구조를 제조 데이터로 옮겼습니다. Monitor는 결정대장 규칙 2개만 쓰고(LLM 없음), Root Cause는 Tool로 앞 5사이클을 거슬러 시작 노드·사이클·이벤트를 ID로 찍습니다. 행동 제안은 승인 8조건을 통과해야만 모의 명령 1회가 되고, 자동으로 넘어가는 전이는 0개입니다.</p>
+    <div class="flow">
+      <div class="s">Monitor<small>규칙 2개 · 속도 급변 · 노드 불일치</small></div><span class="ar">→</span>
+      <div class="s">Root Cause<small>Tool 호출 · 앞 5사이클 추적</small></div><span class="ar">→</span>
+      <div class="s">행동 제안<small>STOP · SLOW · INSPECT · NO_ACTION</small></div><span class="ar">→</span>
+      <div class="s gate">사람 승인 8조건<small>여기서 멈춘다 · 24h 만료</small></div><span class="ar">→</span>
+      <div class="s">모의 명령 1회<small>simulated · 재시도 없음</small></div>
+    </div>
+    <div class="two">
+      <div class="box ok"><div class="k">설계에서 지킨 것</div><ul class="list check"><li>근거 ID는 Monitor → 추적 → 제안 → 명령으로 그대로 상속, 중간에 새 ID 없음</li><li>데이터 지문이 바뀌면 승인 무효, 두 번 눌러도 명령 1건</li><li>못 찾으면 추측하지 않고 "사람 확인 필요" 큐에 쌓임 (자동 재실행 없음)</li><li>테스트 30개 — 승인 전 명령 0건, 질문 10개의 답 ID가 원본 데이터와 일치</li></ul></div>
+      <div class="box"><div class="k">정확히 말하면</div><ul class="list"><li>데이터 30건은 전부 허구이며 실제 PLC · 로봇 · LLM · DB 연결은 없습니다</li><li>노드 불일치 허용폭 2.0 m/min과 행동 선택 기준은 결정대장에 없는 <b>AI 제안</b>이라 화면에 그렇게 표시합니다</li><li>진동은 관측만 기록하고 판단에 쓰지 않습니다 — 상한이 정해진 적이 없기 때문</li></ul></div>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="https://jarvis-factory-copilot-sample.evolvix.workers.dev" target="_blank" rel="noopener">Live Demo ↗</a>
+      <a class="btn" href="https://github.com/feed-mina/jarvis-factory-copilot-portfolio/tree/main/samples/factory-copilot" target="_blank" rel="noopener">GitHub ↗</a>
+      <span class="btn-note">승인·명령은 브라우저 안에서만 기록 · 로그인 없이 체험</span>
+    </div>
+  </div></section>
+
   <!-- HOW -->
   <section id="how"><div class="wrap">
-    <div class="sec-h"><h2>네 사례에서 반복한 일하는 방식</h2></div>
+    <div class="sec-h"><h2>다섯 사례에서 반복한 일하는 방식</h2></div>
     <div class="ways">
       <div class="way"><div class="big">정의 먼저</div><div class="s">분자·분모·예외를 한 줄로 적고 현장과 합의한 뒤에 코드를 고친다</div><div class="src">Case 01 · 02</div></div>
       <div class="way"><div class="big">항상 맞아야 할 규칙으로 잠근다</div><div class="s">"맞는 화면이면 반드시 성립하는 것"(예: 가동 시간이 0보다 크면 가동 횟수도 0이 아니다)을 먼저 쓰고 전수 대조, 테스트로 고정</div><div class="src">Case 01</div></div>
-      <div class="way"><div class="big">승인 게이트</div><div class="s">AI가 만든 결과는 사람이 승인하기 전까지 외부에 반영하지 않는다</div><div class="src">Case 03 · 04</div></div>
-      <div class="way"><div class="big">한계를 적는다</div><div class="s">측정 안 한 것, 정하지 못한 것은 그렇다고 쓰고 다음 작업으로 남긴다</div><div class="src">Case 02 · 04</div></div>
+      <div class="way"><div class="big">승인 게이트</div><div class="s">AI가 만든 결과는 사람이 승인하기 전까지 외부에 반영하지 않는다</div><div class="src">Case 03 · 04 · 05</div></div>
+      <div class="way"><div class="big">한계를 적는다</div><div class="s">측정 안 한 것, 정하지 못한 것은 그렇다고 쓰고 다음 작업으로 남긴다</div><div class="src">Case 02 · 04 · 05</div></div>
     </div>
-    <div class="chips"><span class="chip mint">FastAPI</span><span class="chip mint">React</span><span class="chip mint">DuckDB · Parquet</span><span class="chip mint">pytest</span><span class="chip mint">Docker · Nginx</span><span class="chip mint">Cloudflare Workers · D1</span><span class="chip mint">Claude Code 스킬</span><span class="chip mint">Workers AI · Gemini</span></div>
+    <div class="chips"><span class="chip mint">FastAPI</span><span class="chip mint">React</span><span class="chip mint">DuckDB · Parquet</span><span class="chip mint">pytest</span><span class="chip mint">Docker · Nginx</span><span class="chip mint">Cloudflare Workers · D1</span><span class="chip mint">Claude Code 스킬</span><span class="chip mint">Workers AI · Gemini</span><span class="chip mint">JSON 계약 · node:test · Playwright</span></div>
     <details><summary><span class="ic">+</span><span class="q">이 페이지의 숫자 출처</span></summary><div class="acc-body">
       <ul class="list">
         <li>Case 02 — evol 현장 지표 사례 문서 (2026-10-04, 코드 읽기와 열린 이슈 대조, 새 실행 없음)</li>
         <li>Case 03 — Planning Harness 저장소 README·플러그인 문서</li>
         <li>Case 04 — work-cycle 회의록 요약 API 흐름 문서 (2026-10-04, 코드 읽기 기준)</li>
+        <li>Case 05 — jarvis-factory-copilot-portfolio samples/factory-copilot README · 테스트 30개(npm test) · 설계 문서 ME Phase 3.5 D08~D19 (2026-10-05)</li>
         <li>화면 캡처는 공개 샘플 데이터이며 고객사명·운영 원자료는 싣지 않았습니다</li>
       </ul>
     </div></details>
