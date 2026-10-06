@@ -165,6 +165,32 @@
   </div></header>
 
   <main>
+  <section id="basics"><div class="wrap">
+    <div class="sec-h"><h2>0 · 데이터의 기본 단위 <span style="font-size:15px;color:var(--ink-mute)">Sensor Basics</span></h2><span class="hint">케이스를 읽기 전에 2분 · 그림은 비유, 표 오른쪽이 실제 값</span></div>
+    <div class="panel" style="margin-top:0">
+      <h3>속도는 "패턴 1개가 센서 앞을 지나는 시간"에서 시작합니다</h3>
+      <p>가이드롤 표면의 패턴이 센서 앞을 지날 때마다 <b>펄스</b> 1개가 생깁니다. 1초 동안 지나간 패턴 수를 세면 패턴 1개의 통과 시간이 나오고, 이 간격이 일정할 때 속도(MPM)가 정확히 계산됩니다.</p>
+      <p>롤이 멈춰 있어도 필름이 펄럭이면 센서는 <b>불규칙한 펄스</b>를 받습니다. 이것이 정지 구간에 0보다 큰 속도가 찍히는 <b>유령 속도(Ghost Speed)</b>의 원리이고, 아래 케이스의 <a href="#ghost-speed" style="color:var(--amber)">향후 과제</a>로 이어집니다.</p>
+      <div class="shots" style="margin-top:16px">
+        <figure><img src="assets/images/evol-unit-pattern-10ms.webp" alt="비유 그림: 둘레 10cm 롤에 1cm 패턴 10개, 1초에 10바퀴면 1초에 패턴 100개가 지나가 패턴 1개 시간은 10ms" loading="lazy" width="1600" height="880"/><figcaption>비유 예시 · 둘레 10cm에 패턴 10개, 1초 10바퀴 → 패턴 1개 = 10ms (NotebookLM 학습 그림)</figcaption></figure>
+        <figure><img src="assets/images/evol-ghost-speed-pulse.webp" alt="비유 그림: 정상 가동은 일정한 10ms 펄스, 정지 중 필름 펄럭임은 불규칙 펄스로 유령 속도를 만든다" loading="lazy" width="1376" height="768"/><figcaption>비유 예시 · 일정한 펄스 = 정확한 속도, 불규칙 펄스 = 유령 속도 (NotebookLM 학습 그림)</figcaption></figure>
+      </div>
+      <div class="tbl" style="margin-top:16px"><table><thead><tr><th>항목</th><th>그림·영상의 비유 예시</th><th>evol 실제 (확인된 값)</th></tr></thead><tbody>
+        <tr><td>속도의 원천</td><td class="dim">패턴 1개 통과 시간 10ms</td><td class="hi">센서 노드가 펄스를 세어 MPM으로 보고. 10분마다 11초 측정, 측정 칸 220개 = 사이클 1회</td></tr>
+        <tr><td>가동 판정</td><td class="dim">펄스 간격의 표준편차, 이론 패턴 수와 실제 수의 모순 (영상 설명, evol 미적용)</td><td class="hi">속도 1 MPM 이상, 속도가 이어지는 구간 하나 = 가동 1회</td></tr>
+        <tr><td>유령 속도 구분</td><td class="dim">불규칙 펄스 (원리)</td><td class="hi">220칸 중 속도가 기록된 칸의 비율로 구분하는 가설, 실측 682 사이클로 검증. 임계값은 미정</td></tr>
+      </tbody></table></div>
+      <p style="margin-top:12px;font-size:13px;color:var(--ink-mute)">그림·영상 속 숫자(10cm, 10 RPS, 10ms 등)는 이해를 돕기 위한 비유이며 evol 현장 값이 아닙니다. 표 오른쪽 열만 evol 코드·문서에서 확인한 값입니다.</p>
+    </div>
+    <details><summary><span class="ic">+</span><span class="q">학습 영상 2편 · NotebookLM으로 만든 설명 영상<span class="sub">원리 이해용 · 각 1~2분 · 새 창에서 열림</span></span></summary><div class="acc-body">
+      <ul class="list">
+        <li><a href="https://youtube.com/shorts/dwLTXVnflmc" target="_blank" rel="noopener" style="color:var(--amber)">영상 1 · 쇼츠 ↗</a></li>
+        <li><a href="https://youtu.be/V_HqH74pZF4" target="_blank" rel="noopener" style="color:var(--amber)">영상 2 ↗</a></li>
+      </ul>
+      <p style="margin-top:10px;font-size:13px;color:var(--ink-mute)">영상은 원리 설명이며, 영상 속 판별 방법(간격 표준편차·패턴 수 모순·노드 간 편차)은 evol에 적용한 방식이 아닙니다.</p>
+    </div></details>
+  </div></section>
+
   <section><div class="wrap">
     <div class="sec-h"><h2>문제 정의 및 원인 분석 <span style="font-size:15px;color:var(--ink-mute)">Problem &amp; Root Cause</span></h2><span class="hint">단계를 누르면 내용이 바뀝니다</span></div>
     <div class="steps" role="tablist">
@@ -250,7 +276,7 @@
       <div class="box ok"><div class="k">기여 (Contributions)</div><ul class="list check"><li>가동 정의 재합의안 작성·제안 및 구현 (최종 결정은 대표·현장 협의)</li><li>합산 함수 단일화와 일간·주별·월별 화면 연결</li><li>36일 전수 규칙 검증, 계약 테스트 26건 작성</li><li>첫 조회 성능 개선: DB 연결 1회화, Parquet 병합 사본, 원본 자동 복귀 검증</li><li>결정대장·유지보수 문서화</li></ul></div>
       <div class="box"><div class="k">향후 과제 (Future Scope)</div><ul class="list"><li><b>정지 중 유령 속도 필터링</b> — 아래 참조</li><li><b>노드 카드 가동 기준 정렬</b> — 기간 통계와 같은 정의로 맞출지 비교 분석</li></ul></div>
     </div>
-    <details open><summary><span class="ic">+</span><span class="q">향후 과제 · 정지 중 유령 속도(Ghost Speed) 필터링<span class="sub">가설 검증 완료 · 임계값 정립은 추가 분포 분석 후 진행</span></span></summary><div class="acc-body">
+    <details open id="ghost-speed"><summary><span class="ic">+</span><span class="q">향후 과제 · 정지 중 유령 속도(Ghost Speed) 필터링<span class="sub">가설 검증 완료 · 임계값 정립은 추가 분포 분석 후 진행</span></span></summary><div class="acc-body">
       <p><b>현상</b> — 롤러가 정지해 있어도 필름의 미세 진동으로 센서가 속도를 기록해, 정지 구간의 평균 속도가 0보다 크게 계산됩니다. 1차 사례가 "정의가 서로 달랐던" 문제라면, 이 현상은 <b>정지 판정 기준 자체가 정의되지 않은</b> 문제입니다.</p>
       <p><b>가설과 검증</b> — 사이클 1회의 측정 칸 220개 중 속도가 기록된 칸의 비율로 실제 가동과 유령 속도를 구분할 수 있다는 가설을 세우고, 실측 682 사이클에서 구분 가능함을 확인했습니다.</p>
       <p><b>다음 단계</b> — 사이클 길이에 따라 비율 분포가 달라, 사이클 길이별 분포 분석을 거쳐 임계값을 정하고 필터를 적용할 계획입니다.</p>
