@@ -104,10 +104,10 @@
   }
   nav.top .row{
     display:flex; align-items:center; justify-content:space-between; gap:24px;
-    padding: 16px 32px; max-width: 1180px; margin: 0 auto;
+    padding: 16px 32px; max-width: 1280px; margin: 0 auto;
   }
   .brand{
-    display:flex; align-items:center; gap:10px;
+    display:flex; align-items:center; gap:10px; flex:none; white-space:nowrap;
     font-family: "JetBrains Mono", monospace; font-size:13px; letter-spacing:0.02em; font-weight:600;
   }
   .brand .dot{
@@ -119,9 +119,9 @@
     box-shadow: 0 0 14px rgba(255,138,61,0.25);
   }
   .brand i{color:var(--ink-dim); font-style:normal; font-weight:400;}
-  nav ul{list-style:none; display:flex; gap:22px;}
+  nav ul{list-style:none; display:flex; gap:18px; flex:none;}
   nav ul a{
-    font-family: "JetBrains Mono", monospace; font-size: 12.5px; letter-spacing:0.04em;
+    font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing:0.04em;
     color: var(--ink-dim); transition: color .2s;
     text-transform: uppercase; white-space: nowrap;
   }
@@ -940,6 +940,9 @@
   .reveal.in{ opacity: 1; transform: translateY(0);}
 
   /* ─── responsive ─── */
+  @media (max-width: 1280px){ .brand i{ display: none;} }
+  @media (max-width: 1120px){ nav ul{ gap: 12px;} nav ul a{ font-size: 11.5px;} }
+  @media (max-width: 1040px){ nav ul{ display: none;} }
   @media (max-width: 980px){
     nav.top .row{ padding: 14px 22px;}
     nav ul{ display: none;}
@@ -1566,8 +1569,8 @@ const projects = [
     links: [
       { label: "Live Demo", url: "https://harness-meeting-app.kibayerin.workers.dev", primary: true },
       { label: "화면 편집기 (Studio)", url: "https://sdui-template-kit-productization.pages.dev/studio/" },
-      { label: "사용자 가이드 (PPT)", url: "assets/docs/planning-harness-user-guide.pptx" },
-      { label: "개발자 문서 (PPT)", url: "assets/docs/planning-harness-developer-guide.pptx" },
+      { label: "사용자 가이드", url: "assets/docs/planning-harness-user-guide.html" },
+      { label: "개발자 문서", url: "assets/docs/planning-harness-developer-guide.html" },
       { label: "GitHub (포트폴리오 사본)", url: "https://github.com/feed-mina/planning-harness-portfolio" }
     ]
   },
