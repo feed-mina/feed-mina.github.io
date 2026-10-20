@@ -1178,6 +1178,26 @@
     html{ scroll-behavior:auto;}
     *, *::before, *::after{ transition: none !important; animation: none !important;}
   }
+  /* Personal IoT: approved portfolio preview */
+  section.iot-feature{padding:24px 0 48px;}
+  .iot-band{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center;padding:36px;border:1px solid var(--line-strong);border-radius:20px;background:linear-gradient(120deg,var(--surface),rgba(75,139,119,.12));}
+  .iot-copy{min-width:0;}
+  .iot-copy .iot-eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.13em;color:var(--amber);}
+  .iot-copy h2{font-family:"Instrument Serif","Noto Serif KR",serif;font-weight:400;font-size:clamp(27px,3vw,38px);line-height:1.35;letter-spacing:-.04em;margin:14px 0;}
+  .iot-copy p{font-size:14px;line-height:1.75;color:var(--ink-dim);margin-top:9px;}
+  .iot-copy p b{color:var(--ink);}
+  .iot-copy .iot-lead{font-size:16px;margin-bottom:18px;}
+  .iot-states{display:flex;flex-wrap:wrap;gap:7px;margin:20px 0;}
+  .iot-states span{font-size:11px;padding:5px 9px;border:1px solid var(--line-strong);border-radius:6px;color:var(--mint);}
+  .iot-states .iot-pending{color:var(--amber);}
+  .iot-actions{display:flex;flex-wrap:wrap;gap:9px;}
+  .iot-actions .btn{font-size:13px;padding:10px 16px;}
+  .iot-visual{min-width:0;border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;background:var(--bg);}
+  .iot-browserbar{display:flex;justify-content:space-between;padding:12px 14px;font-family:monospace;font-size:10px;color:var(--ink-mute);border-bottom:1px solid var(--line);}
+  .iot-browserbar strong{color:var(--mint);letter-spacing:.12em;}
+  .iot-visual img{display:block;width:100%;height:auto;}
+  .iot-visual figcaption{padding:12px 14px;font-size:11px;line-height:1.6;color:var(--ink-dim);border-top:1px solid var(--line);}
+  @media(max-width:800px){.iot-band{grid-template-columns:1fr;padding:24px 20px;gap:24px;}section.iot-feature{padding:12px 0 32px;}}
 </style>
 </head>
 <body>
@@ -1284,6 +1304,30 @@
 </section>
 
 <!-- ─────────────── 제조 × AI WORK (한 장 요약으로 가는 띠) ─────────────── -->
+<section class="iot-feature" id="personal-iot" aria-labelledby="iot-heading">
+  <div class="wrap">
+    <div class="iot-band">
+      <div class="iot-copy">
+        <div class="iot-eyebrow">PERSONAL IoT / EVERYDAY SIGNALS</div>
+        <h2 id="iot-heading">집의 작은 신호를<br>설명 가능한 자동화로.</h2>
+        <p class="iot-lead">세탁·건조 종료를 놓치지 않도록,<br>관측과 추정을 나누어 보여주는 생활 IoT.</p>
+        <p><b>문제</b> 기존 가전은 완료 상태를 Home Assistant에 직접 전달하지 않습니다.</p>
+        <p><b>접근</b> 진동 관측 → 종료 추정 → 사용자 확인 흐름을 설계하고, 샘플 화면으로 먼저 검토합니다.</p>
+        <div class="iot-states"><span>데모 공개 완료</span><span>휴대폰 시험 알림 수신</span><span class="iot-pending">실물 센서 검증 전</span></div>
+        <div class="iot-actions">
+          <a class="btn primary" href="https://feed-mina.github.io/personal_iot_dashboard/dashboard.html" target="_blank" rel="noopener">샘플 대시보드 ↗</a>
+          <a class="btn" href="https://github.com/feed-mina/personal_iot_dashboard" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+      <figure class="iot-visual">
+        <div class="iot-browserbar"><span aria-hidden="true">● ● ●</span><strong>SAMPLE DATA</strong></div>
+        <img src="assets/images/iot-dashboard-desktop.png" alt="Everyday Signals 샘플 대시보드: 생활 상태와 세탁·건조 관측 예시" loading="lazy">
+        <figcaption>현재 공개된 데모 화면 · 모든 수치는 샘플 · 실제 가전 제어 없음</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <section class="mfg" id="manufacturing">
   <div class="wrap">
     <a class="mfg-band" href="manufacturing-ai/">
@@ -1930,3 +1974,4 @@ setupNavSpy();
 </script>
 </body>
 </html>
+
