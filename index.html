@@ -1198,6 +1198,36 @@
   .iot-visual img{display:block;width:100%;height:auto;}
   .iot-visual figcaption{padding:12px 14px;font-size:11px;line-height:1.6;color:var(--ink-dim);border-top:1px solid var(--line);}
   @media(max-width:800px){.iot-band{grid-template-columns:1fr;padding:24px 20px;gap:24px;}section.iot-feature{padding:12px 0 32px;}}
+
+  /* Recent project: Paybridge */
+  .pb-card{margin-bottom:24px;border:1px solid var(--line-strong);border-radius:18px;overflow:hidden;background:var(--surface);}
+  .pb-main{display:grid;grid-template-columns:1.08fr 1fr;}
+  .pb-copy{min-width:0;padding:28px 30px;display:flex;flex-direction:column;gap:13px;}
+  .pb-kicker{font:11px/1.6 "JetBrains Mono",monospace;letter-spacing:.12em;color:var(--amber);}
+  .pb-copy h3{font-family:"Instrument Serif","Noto Sans KR",serif;font-weight:400;font-size:clamp(27px,3vw,36px);line-height:1.25;letter-spacing:-.03em;}
+  .pb-copy h3 span{display:block;margin-top:7px;font:500 16px/1.5 "Geist","Noto Sans KR",sans-serif;color:var(--ink-dim);}
+  .pb-copy p{font-size:13.5px;line-height:1.8;color:var(--ink-dim);}
+  .pb-copy p b{color:var(--ink);font-weight:600;}
+  .pb-tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:2px 0;}
+  .pb-tags li{font:10px/1.6 "JetBrains Mono",monospace;padding:5px 8px;border:1px solid var(--line-strong);border-radius:5px;color:var(--mint);}
+  .pb-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:5px;}
+  .pb-actions .btn{font-size:12px;padding:9px 13px;}
+  .pb-visual{min-width:0;display:flex;flex-direction:column;background:#e8ece2;border-left:1px solid var(--line);}
+  .pb-visual-header{display:flex;justify-content:space-between;gap:12px;padding:16px 20px;color:#3b5b4c;font:10px/1.6 "JetBrains Mono",monospace;letter-spacing:.07em;}
+  .pb-visual svg{display:block;width:100%;height:auto;flex:1;max-height:330px;}
+  .pb-visual figcaption{padding:14px 20px;font-size:12px;line-height:1.7;color:#355445;background:#dce6db;}
+  .pb-system{border-top:1px solid var(--line);padding:20px 30px;background:var(--bg);}
+  .pb-system summary{font-size:13px;color:var(--ink);cursor:pointer;line-height:1.7;}
+  .pb-system summary::marker{color:var(--amber);}
+  .pb-hosts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0;}
+  .pb-hosts>div{min-width:0;border:1px solid var(--line-strong);border-radius:9px;padding:14px;background:var(--surface);}
+  .pb-hosts dt{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:7px;}
+  .pb-hosts dd{font-size:12px;line-height:1.8;color:var(--ink-dim);overflow-wrap:anywhere;}
+  .pb-hosts .pb-api{border-color:var(--amber);}
+  .pb-system p{font-size:12px;line-height:1.8;color:var(--ink-dim);margin:8px 0;}
+  .pb-scope{padding:14px 30px;border-top:1px solid var(--line);font-size:11.5px;line-height:1.8;color:var(--ink-mute);}
+  .pb-card a:focus-visible,.pb-system summary:focus-visible{outline:2px solid var(--amber);outline-offset:4px;}
+  @media(max-width:800px){.pb-main{grid-template-columns:1fr;}.pb-copy{padding:24px 20px;}.pb-visual{border-left:0;border-top:1px solid var(--line);}.pb-hosts{grid-template-columns:1fr;}.pb-system{padding:16px 20px;}.pb-scope{padding:14px 20px;}.pb-visual svg{max-height:300px;}}
 </style>
 </head>
 <body>
@@ -1256,9 +1286,79 @@
       <div class="num">01 / Projects</div>
       <div>
         <h2>Featured <span class="it">Projects.</span></h2>
-        <p class="blurb">직접 만들고 고친 것 세 가지. 카드마다 무엇이 문제였고 무엇이 달라졌는지 적었습니다.</p>
+        <p class="blurb">최근 만든 스마트홈 서비스와 대표 문제 해결 사례입니다. 카드마다 서비스의 목적과 구현한 구조를 적었습니다.</p>
       </div>
     </div>
+
+
+    <article class="pb-card" id="paybridge" aria-labelledby="paybridge-title">
+      <div class="pb-main">
+        <div class="pb-copy">
+          <div class="pb-kicker">RECENT PROJECT · 2026.10 · PERSONAL DEMO</div>
+          <h3 id="paybridge-title">Paybridge<span>생활 장면으로 고르는 스마트홈 커머스</span></h3>
+          <p><b>서비스</b> “새벽에 발밑 조명만 켜고 싶다면?” 침실·주방·데스크·화장실의 <b>16개 생활 장면을 3D로 체험</b>하고, Zigbee 기기의 공식 가격과 설치 조건을 비교해 내 구성을 만드는 서비스입니다.</p>
+          <p><b>연결 구조</b> 고객·판매자·관리자를 서로 다른 환경에 배포하고, <b>Firestore의 주문 요청과 MySQL의 확정 결제를 API로 연결</b>했습니다. 같은 확정 결제가 고객에게는 영수증으로, 판매자에게는 매출 화면으로 보입니다.</p>
+          <ul class="pb-tags" aria-label="주요 기술">
+            <li>React · Next.js</li><li>Three.js</li><li>Firestore · MySQL</li><li>Firebase · Vercel · Cloudflare</li>
+          </ul>
+          <div class="pb-actions">
+            <a class="btn primary" href="https://paybridge-mock.web.app/" target="_blank" rel="noopener">3D 공간 체험 ↗</a>
+            <a class="btn" href="https://github.com/wevolmina/paybridge-mock" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="btn" href="https://paybridge-mock.vercel.app/" target="_blank" rel="noopener">판매자 화면 ↗</a>
+          </div>
+        </div>
+        <figure class="pb-visual">
+          <div class="pb-visual-header"><span>SMART LIVING / BEDROOM</span><span>04 SPACES · 16 SCENARIOS</span></div>
+          <svg viewBox="0 0 600 370" role="img" aria-labelledby="pb-room-title pb-room-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="pb-room-title">침실 조명과 커튼을 비교하는 3D 체험 구성도</title>
+            <desc id="pb-room-desc">입체 침실에 침대, 창문, 커튼과 발밑 조명을 배치한 서비스 개념 그림입니다.</desc>
+            <defs>
+              <linearGradient id="pb-floor" x2="1" y2="1"><stop stop-color="#d5b38a"/><stop offset="1" stop-color="#ae845d"/></linearGradient>
+              <radialGradient id="pb-light"><stop stop-color="#ffeaaa" stop-opacity=".85"/><stop offset="1" stop-color="#ffeaaa" stop-opacity="0"/></radialGradient>
+            </defs>
+            <ellipse cx="303" cy="315" rx="222" ry="32" fill="#27493c" opacity=".10"/>
+            <path d="M65 223L292 114L535 235L306 350Z" fill="url(#pb-floor)"/>
+            <path d="M65 223V65L292 7V114Z" fill="#dddccf"/>
+            <path d="M292 7L535 113V235L292 114Z" fill="#f5f0e6"/>
+            <path d="M340 53L476 111V201L340 142Z" fill="#a4c7cb" stroke="#7e9e9d" stroke-width="5"/>
+            <path d="M408 82V172M340 98L476 155" fill="none" stroke="#edf3eb" stroke-width="4"/>
+            <path d="M331 48L360 60V155L331 145ZM459 103L487 114V211L459 199Z" fill="#729381"/>
+            <path d="M141 220L282 151L426 220L285 296Z" fill="#f8f4e8"/>
+            <path d="M141 220V249L285 326V296Z" fill="#638771"/>
+            <path d="M285 296L426 220V250L285 326Z" fill="#3d6654"/>
+            <path d="M151 207L279 146L279 120L151 178Z" fill="#a67f58"/>
+            <path d="M174 206L221 183L256 201L209 224Z M235 177L279 156L314 173L269 196Z" fill="#fffdf4"/>
+            <path d="M163 236L270 183L407 230L285 295Z" fill="#819c87"/>
+            <ellipse cx="284" cy="295" rx="143" ry="38" fill="url(#pb-light)"/>
+            <path d="M146 253L285 329L424 255" fill="none" stroke="#ffdb84" stroke-width="4"/>
+            <path d="M91 208L126 191L159 208L123 225Z" fill="#bd9671"/>
+            <path d="M91 208V242L123 259V225Z" fill="#a47d57"/>
+            <path d="M123 225L159 208V240L123 259Z" fill="#896344"/>
+            <path d="M124 181V199M109 178L125 169L142 177L125 186Z" fill="#fcf2d6" stroke="#bdac7a" stroke-width="2"/>
+            <circle cx="128" cy="268" r="8" fill="#f9fbf4" stroke="#658b77" stroke-width="3"/>
+            <path d="M128 257V238M128 238L72 215" fill="none" stroke="#63856f" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <g font-family="'Noto Sans KR',sans-serif" font-size="12" fill="#315746">
+              <rect x="24" y="178" width="116" height="29" rx="14" fill="#f8faf3"/><text x="82" y="197" text-anchor="middle">새벽 발밑 조명</text>
+              <rect x="433" y="40" width="126" height="29" rx="14" fill="#f8faf3"/><text x="496" y="59" text-anchor="middle">커튼 열림 체험</text>
+              <path d="M474 72L470 104" fill="none" stroke="#63856f" stroke-dasharray="4 4"/>
+            </g>
+          </svg>
+          <figcaption>공간 체험 구성도 · 조명 밝기·커튼 열림·센서 상태를 가상 공간에서 확인합니다.</figcaption>
+        </figure>
+      </div>
+      <details class="pb-system">
+        <summary>서로 다른 DB·호스팅을 하나의 주문 흐름으로 연결한 방법</summary>
+        <dl class="pb-hosts">
+          <div><dt>고객 · Firebase</dt><dd>Firebase Hosting에서 구매자 화면 제공<br>Firestore에 주문 요청 원문 접수</dd></div>
+          <div class="pb-api"><dt>공통 서버 · Vercel + MySQL</dt><dd>API가 로그인·상품·금액 확인<br>주문·항목·모의 결제를 함께 확정</dd></div>
+          <div><dt>판매자 · Vercel / 관리자 · Cloudflare</dt><dd>판매자는 본인 매출·상담 구성 확인<br>관리자는 카탈로그·권한 신청 관리</dd></div>
+        </dl>
+        <p>고객 영수증과 판매자 매출은 Vercel API를 통해 같은 MySQL 확정 결제를 조회합니다. 관리자도 같은 서버 API를 사용하며, 호스팅마다 DB를 복제하지 않습니다.</p>
+        <p>확정 중 오류가 나면 MySQL 변경 전체를 되돌리고 Firestore 요청은 보관합니다. 같은 요청 번호로 다시 보내도 중복 결제가 생기지 않도록 고유 키와 트랜잭션을 적용했습니다.</p>
+        <p><a href="https://github.com/wevolmina/paybridge-mock#db-책임과-재시도" target="_blank" rel="noopener">저장 책임·재시도 설계 보기 ↗</a> · <a href="https://paybridge-admin.evolvix.workers.dev/" target="_blank" rel="noopener">관리자 화면 ↗</a></p>
+      </details>
+      <p class="pb-scope">현재 범위: 가상 3D 체험·공식 가격 비교·상담 초안·기존 모의 결제. 3D 선택 구성의 주문 전송은 후속 연결 대상이며, 실제 기기 제어와 카드 결제는 포함하지 않습니다.</p>
+    </article>
 
     <div class="cases">
       <div class="case">
