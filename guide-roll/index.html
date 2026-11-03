@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>가이드롤 생산 모니터링 · 화면 보기 | 민예린</title>
+  <meta name="description" content="가이드롤 생산 모니터링의 일간 관제, 주간·월간 통계 화면을 확인합니다.">
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#0a0a0b;color:#f5f1ea;font:16px/1.7 system-ui,'Malgun Gothic',sans-serif;word-break:keep-all}main{max-width:1440px;margin:auto;padding:32px 24px 60px}a{color:#ffad75}nav{display:flex;gap:24px;flex-wrap:wrap;font-size:14px}h1{font-size:clamp(26px,4vw,42px);line-height:1.3;margin:32px 0 16px}.note{padding:16px 20px;border:1px solid #3e3b37;border-left:3px solid #ff8a3d;border-radius:10px;color:#ccc5bb;max-width:960px}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0 16px}.tabs a{padding:10px 20px;border:1px solid #48433e;border-radius:24px;text-decoration:none;color:#f5f1ea}.tabs a[aria-current=true]{background:#ff8a3d;color:#111;border-color:#ff8a3d}.tabs a:focus-visible{outline:3px solid #8fd6c7;outline-offset:4px}section{scroll-margin-top:20px;margin-bottom:36px}h2{font-size:22px}p{color:#bfb9af}figure{margin:0;border:1px solid #3e3b37;border-radius:12px;overflow:hidden;background:#fff}img{display:block;width:100%;height:auto}figcaption{background:#15151a;color:#bfb9af;padding:12px 16px;font-size:14px}section[hidden]{display:none}footer{border-top:1px solid #3e3b37;padding-top:20px;color:#aaa;font-size:14px}
+  </style>
+</head>
+<body><main>
+  <nav><a href="/">포트폴리오</a><a href="/evol-case-study.html">문제 해결 과정 보기</a><a href="/assets/resume-yerin-min-full.pdf">이력서 전체판</a></nav>
+  <h1>가이드롤 생산 모니터링</h1>
+  <p class="note">포트폴리오에 공개된 저장 화면입니다. 일간 관제와 주간·월간 통계의 구성을 확인할 수 있습니다. 실시간 센서 조회나 날짜 변경 기능은 제공하지 않습니다. 기존 임시 라이브 주소의 접속 여부와 관계없이 볼 수 있습니다.</p>
+  <nav class="tabs" aria-label="모니터링 화면 선택"><a href="#daily" aria-current="true">일간 관제</a><a href="#weekly">주간 통계</a><a href="#monthly">월간 통계</a></nav>
+  <section id="daily"><h2>일간 관제</h2><p>노드별 상태, 속도 변화와 사이클을 한 화면에서 살펴보는 화면입니다.</p><figure><a href="/assets/images/evol-daily.webp" target="_blank" rel="noopener"><img src="/assets/images/evol-daily.webp" alt="가이드롤 일간 관제 저장 화면: 센서별 상태 카드, 속도 그래프와 사이클 목록"></a><figcaption>이미지를 누르면 원본 크기로 열립니다.</figcaption></figure></section>
+  <section id="weekly"><h2>주간 통계</h2><p>기간별 가동 시간과 가동 횟수를 비교하는 화면입니다.</p><figure><a href="/assets/images/evol-period-week.webp" target="_blank" rel="noopener"><img src="/assets/images/evol-period-week.webp" alt="가이드롤 주간 통계 저장 화면: 날짜별 가동 시간과 가동 횟수"></a><figcaption>이미지를 누르면 원본 크기로 열립니다.</figcaption></figure></section>
+  <section id="monthly"><h2>월간 통계</h2><p>월 단위 통계를 펼쳐 일별 가동 지표를 확인하는 화면입니다.</p><figure><a href="/assets/images/evol-case-period-month-2026-07.png" target="_blank" rel="noopener"><img src="/assets/images/evol-case-period-month-2026-07.png" alt="가이드롤 월간 통계 저장 화면: 일별 가동 시간과 횟수 비교"></a><figcaption>기존 케이스 스터디에 공개된 월간 화면입니다. 이미지를 누르면 원본 크기로 열립니다.</figcaption></figure></section>
+  <footer>개발 배경과 지표 정의, 검증 방법은 <a href="/evol-case-study.html">케이스 스터디</a>에서 확인할 수 있습니다.</footer>
+</main>
+<script>
+  const tabs=[...document.querySelectorAll('.tabs a')];
+  const sections=[...document.querySelectorAll('main > section')];
+  function show(){const id=sections.some(s=>'#'+s.id===location.hash)?location.hash:'#daily';for(const s of sections)s.hidden='#'+s.id!==id;for(const a of tabs){if(a.hash===id)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');}}
+  window.addEventListener('hashchange',show);show();
+</script></body></html>
