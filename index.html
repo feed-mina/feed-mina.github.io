@@ -170,53 +170,104 @@
   :root[data-theme="light"] .theme-toggle .opt[data-mode="light"]{ color: #f7f4ed;}
 
   /* ────── hero ────── */
-  header.hero{
-    padding: 96px 0 90px;
-    position: relative;
+  .hero{
+    padding: clamp(36px, 6vw, 86px) 0 clamp(32px, 5vw, 72px);
   }
   .hero-grid{
-    display:grid; grid-template-columns: 1.15fr 360px; gap: 64px;
-    align-items: center;
+    display:grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
+    grid-template-areas: "intro portrait" "details portrait";
+    column-gap: clamp(36px, 7vw, 108px);
+    row-gap: 28px;
+    align-items:center;
   }
+  .hero-intro{ grid-area:intro; align-self:end; min-width:0; }
   .hero .eyebrow{
-    font-family: "JetBrains Mono", monospace; font-size: 12px;
-    color: var(--amber); letter-spacing: 0.16em; text-transform: uppercase;
-    display:flex; align-items:center; gap:14px;
-    margin-bottom: 36px;
+    font: 500 11px/1.5 "JetBrains Mono", monospace;
+    color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom: clamp(14px, 2vw, 24px);
   }
   .hero .eyebrow::before{
-    content:""; width:36px; height:1px; background: var(--amber);
+    content:""; width:24px; height:1px; background:currentColor;
   }
   .hero h1{
-    font-family: "Instrument Serif", "Noto Serif KR", serif;
-    font-weight: 400;
-    font-size: clamp(48px, 7vw, 96px);
-    line-height: 0.98;
-    letter-spacing: -0.02em;
-    margin-bottom: 24px;
+    font: 800 clamp(32px, 5vw, 72px)/1.15 "Noto Sans KR", system-ui, sans-serif;
+    letter-spacing: -0.06em;
+    word-break: keep-all;
+    animation: hero-title-rise 620ms cubic-bezier(.2,.7,.3,1) both;
   }
-  .hero h1 .it{ font-style: italic; color: var(--amber);}
-  .hero h1 .small{
-    display:block;
-    font-family: "Geist", "Noto Sans KR", sans-serif;
-    font-size: clamp(17px, 1.7vw, 22px);
-    font-weight: 400;
-    font-style: normal;
-    color: var(--ink-dim);
-    letter-spacing: 0;
-    margin-top: 22px;
-    max-width: 640px;
-    line-height: 1.55;
+  .hero h1 span{ display:block; color: var(--amber); }
+  .hero-summary{
+    margin-top: 16px; max-width: 460px;
+    color: var(--ink-dim); font-size: clamp(14px, 1.45vw, 17px);
+    word-break: keep-all;
   }
-  .hero .lede{
-    margin-top: 36px;
-    max-width: 580px;
-    font-size: 17px;
-    color: var(--ink);
-    line-height: 1.65;
+  .hero-actions{
+    display:flex; flex-wrap:wrap; align-items:center; gap:10px;
+    margin-top: clamp(16px, 3vw, 30px);
   }
-  .hero .lede strong{ color: var(--amber); font-weight: 500;}
-  .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top: 36px;}
+  .hero .btn{ min-height:44px; padding: 10px 16px; transition:none; }
+  .hero .btn:hover{ transform:none; }
+  .hero .btn.primary{ background:#ffb17b; color:#1a1814; }
+  .hero .btn.primary:hover{ background:#ffc79f; }
+  .hero a:focus-visible{ outline:2px solid var(--mint); outline-offset:4px; }
+
+  .hero-portrait{
+    grid-area:portrait;
+    display:grid; grid-template-rows: minmax(0, 1fr) auto;
+    height: clamp(340px, 39vw, 486px);
+    min-width:0;
+    padding: 8px;
+    border: 1px solid var(--line-strong); border-radius: 18px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .hero-portrait-frame{
+    overflow:hidden; border-radius: 11px; background: var(--surface-2);
+  }
+  .hero-portrait img{
+    width:100%; height:100%; object-fit:cover; object-position:center 65%;
+    animation: hero-photo-settle 900ms cubic-bezier(.2,.7,.3,1) both;
+  }
+  .hero-portrait figcaption{
+    padding: 9px 6px 1px; color: var(--ink-dim);
+    font: 500 10px/1.5 "JetBrains Mono", monospace;
+    letter-spacing: .13em;
+  }
+  @keyframes hero-photo-settle{
+    from{ transform:scale(1.05); }
+    to{ transform:scale(1); }
+  }
+  @keyframes hero-title-rise{
+    from{ transform:translateY(6px); }
+    to{ transform:translateY(0); }
+  }
+  .hero-details{ grid-area:details; align-self:start; }
+  .hero .chips{ margin-top: 10px; }
+  .hero-mail{
+    display:inline-block; margin-top: 10px;
+    color: var(--ink-dim); font-size: 13px;
+  }
+  .hero-mail:hover{ color: var(--amber); }
+  #projects{ scroll-margin-top: 66px; }
+
+  @media (max-width: 760px){
+    .hero-grid{
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: "intro" "portrait" "details";
+      row-gap: 18px;
+    }
+    .hero-portrait{ height: clamp(174px, 54vw, 280px); }
+    .hero-portrait img{ object-position:center 36%; }
+  }
+  @media (max-width: 380px){
+    .hero{ padding-top: 24px; }
+    .hero-grid{ row-gap: 14px; }
+    .hero-portrait{ height: 152px; }
+    .hero-actions{ gap:8px; }
+    .hero .btn{ padding-inline: 10px; font-size: 12px; }
+  }
   .btn{
     display:inline-flex; align-items:center; gap:8px;
     padding: 12px 22px; border-radius: 999px;
@@ -948,7 +999,6 @@
     nav ul{ display: none;}
     .wrap{ padding: 0 22px;}
     section{ padding: 100px 0;}
-    .hero-grid{ grid-template-columns: 1fr; gap: 48px;}
     .profile-panel{ max-width: 380px; margin: 0 auto;}
     .sec-head{ grid-template-columns: 1fr; gap: 18px;}
     .sec-head .blurb{ grid-column: 1;}
@@ -979,20 +1029,11 @@
 
   /* ────── 2026-10 개편: 결과 먼저, 나머지는 접기 ────── */
   section{ padding: 84px 0;}
-  header.hero{ padding: 72px 0 60px;}
   .reveal{ opacity:1; transform:none; transition:none;}
   .sec-head{ margin-bottom: 40px; padding-bottom: 22px;}
   .sec-head .blurb{ margin-top: 10px;}
 
-  .hero-one h1{
-    font-family: "Instrument Serif", "Noto Serif KR", serif;
-    font-weight: 400;
-    font-size: clamp(30px, 4.2vw, 50px);
-    line-height: 1.18; letter-spacing: -0.012em;
-    max-width: 880px; margin-bottom: 0;
-  }
-  .hero-one h1 .it{ font-style: italic; color: var(--amber);}
-  .hero-num{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 22px;}
+  .hero-num{ display:flex; flex-wrap:wrap; gap:8px; }
   .hero-num span{
     font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--mint);
     border: 1px solid color-mix(in srgb, var(--mint) 40%, transparent);
@@ -1004,9 +1045,6 @@
     border: 1px solid var(--line); background: var(--surface);
     border-radius: 999px; padding: 4px 10px;
   }
-  .hero-one .hero-actions{ margin-top: 28px; align-items:center; gap: 18px;}
-  .hero-mail{ font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--ink-dim);}
-  .hero-mail:hover{ color: var(--amber);}
 
   /* cases */
   .cases{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;}
@@ -1136,16 +1174,13 @@
     .about-two{ grid-template-columns: 1fr;}
     details.more ul{ grid-template-columns: 1fr;}
     section{ padding: 64px 0;}
-    header.hero{ padding: 48px 0 44px;}
   }
 
   /* 세로 길이 목표(데스크톱 4,000px 안팎)에 맞춘 간격 */
   section{ padding: 48px 0;}
-  header.hero{ padding: 52px 0 40px;}
   .sec-head{ grid-template-columns: 110px 1fr; gap: 32px; margin-bottom: 26px; padding-bottom: 14px;}
   .sec-head h2{ font-size: clamp(30px, 3.6vw, 44px);}
   .sec-head .blurb{ font-size: 15px; margin-top: 8px;}
-  .hero-one h1{ font-size: clamp(28px, 3.8vw, 44px);}
   .case img{ aspect-ratio: 2/1;}
   .case .b{ padding: 14px 16px 16px; gap: 6px;}
   .case h3{ font-size: 21px;}
@@ -1172,7 +1207,6 @@
     details.acc summary .s{ margin-left: 34px; white-space: normal;}
     details.more ul{ grid-template-columns: 1fr;}
     section{ padding: 40px 0;}
-    header.hero{ padding: 36px 0 32px;}
     .contact{ padding: 40px 0 !important;}
   }
   @media (prefers-reduced-motion: reduce){
@@ -1265,16 +1299,27 @@
 </nav>
 
 <!-- ─────────────── HERO ─────────────── -->
-<header class="hero hero-one" id="top">
-  <div class="wrap">
-    <div class="eyebrow">Portfolio · 2026 · Seoul, KR</div>
-    <h1>현실 데이터를 현장이 보는 화면으로 만들고,<br/>AI와 웹 서비스로 연결하는 <span class="it">풀스택 개발자</span> <span style="white-space:nowrap">민예린입니다.</span></h1>
-    <div class="hero-num"><span>첫 조회 18.0초 → 0.89초</span></div>
-    <div class="chips"><span class="chip">FastAPI</span><span class="chip">Spring Boot</span><span class="chip">Next.js · React</span><span class="chip">PostgreSQL · DuckDB</span></div>
-    <div class="hero-actions">
-      <a class="btn primary" href="manufacturing-ai/">제조 × AI Work →</a>
-      <a class="btn" href="#projects">케이스 보기 ↓</a>
-      <a class="hero-mail" href="mailto:myelin24@naver.com">✉ myelin24@naver.com</a>
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-intro">
+      <p class="eyebrow">Portfolio · 2026</p>
+      <h1>현장 데이터를 <span>쓸 수 있는 서비스로.</span></h1>
+      <p class="hero-summary">제조 센서 데이터를 대시보드로 보여 주고, AI와 웹 서비스로 연결하는 풀스택 개발자 민예린입니다.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#projects">프로젝트 보기 <span aria-hidden="true">↓</span></a>
+        <a class="btn" href="manufacturing-ai/">제조 × AI Work <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <figure class="hero-portrait">
+      <div class="hero-portrait-frame">
+        <img src="assets/images/profile.jpg" alt="민예린 프로필 사진" width="1050" height="1470" fetchpriority="high" />
+      </div>
+      <figcaption>YERIN MIN / FULLSTACK DEVELOPER</figcaption>
+    </figure>
+    <div class="hero-details">
+      <div class="hero-num"><span>대시보드 첫 조회 18.0초 → 0.89초</span></div>
+      <div class="chips"><span class="chip">FastAPI</span><span class="chip">Spring Boot</span><span class="chip">Next.js · React</span><span class="chip">PostgreSQL · DuckDB</span></div>
+      <a class="hero-mail" href="mailto:myelin24@naver.com">myelin24@naver.com</a>
     </div>
   </div>
 </header>
