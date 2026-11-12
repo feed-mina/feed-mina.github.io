@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KMovement 여행지 검색 | 지역 필터와 RAG 설계</title>
+<meta name="description" content="KMovement가 여행지 추천에서 지역 조건을 따로 적용하고, 근거가 부족할 때 안내하는 방식입니다. 검색 화면과 GitHub 소스를 함께 볼 수 있습니다." />
+<link rel="canonical" href="https://feed-mina.github.io/kmovement-rag/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="민예린 포트폴리오" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:url" content="https://feed-mina.github.io/kmovement-rag/" />
+<meta property="og:title" content="KMovement 여행지 검색 | 지역 필터와 RAG 설계" />
+<meta property="og:description" content="KMovement가 여행지 추천에서 지역 조건을 따로 적용하고, 근거가 부족할 때 안내하는 방식입니다. 검색 화면과 GitHub 소스를 함께 볼 수 있습니다." />
+<meta property="og:image" content="https://feed-mina.github.io/KMovement/assets/capture/evidence-rag.png" />
+<meta property="og:image:alt" content="KMovement 여행지 검색의 근거 표시 화면" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "KMovement 여행지 검색 | 지역 필터와 RAG 설계",
+  "description": "KMovement가 여행지 추천에서 지역 조건을 따로 적용하고, 근거가 부족할 때 안내하는 방식입니다. 검색 화면과 GitHub 소스를 함께 볼 수 있습니다.",
+  "inLanguage": "ko",
+  "mainEntityOfPage": "https://feed-mina.github.io/kmovement-rag/",
+  "image": "https://feed-mina.github.io/KMovement/assets/capture/evidence-rag.png",
+  "author": {
+    "@type": "Person",
+    "@id": "https://feed-mina.github.io/#person",
+    "name": "민예린",
+    "url": "https://feed-mina.github.io/"
+  }
+}
+</script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #0a0a0b; color: #f5f1ea; font: 1rem/1.75 system-ui, sans-serif; word-break: keep-all; overflow-wrap: anywhere; }
+    main, nav { width: min(calc(100% - 40px), 760px); margin-inline: auto; }
+    nav { padding-block: 22px; }
+    main { padding-block: 24px 56px; }
+    h1, h2 { line-height: 1.25; letter-spacing: -.04em; }
+    h1 { font-size: clamp(2rem, 6vw, 3.6rem); margin: 0 0 18px; }
+    h2 { margin: 0 0 12px; }
+    p, li, figcaption { color: #d2ccc3; }
+    section { border-top: 1px solid #3c3934; padding-block: 26px 10px; }
+    a { color: #9be0d0; text-underline-offset: 4px; }
+    a:focus-visible { outline: 2px solid #9be0d0; outline-offset: 4px; }
+    figure { margin: 24px 0; }
+    img { display: block; width: 100%; height: auto; border: 1px solid #3c3934; border-radius: 12px; }
+    figcaption { font-size: .9rem; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <nav aria-label="포트폴리오 탐색"><a href="/#projects">민예린 포트폴리오 · 프로젝트 목록</a></nav>
+  <main>
+    <article>
+      <header>
+        <h1>KMovement 여행지 검색</h1>
+        <p>KMovement는 팬이 관심 있는 아티스트와 관련된 여행지를 찾는 개인 프로젝트입니다. 장소 설명이 질문과 얼마나 비슷한지 살피고, 지역 조건을 따로 확인합니다. 근거가 부족하면 확인할 수 있는 장소가 부족하다고 안내합니다.</p>
+      </header>
+      <section>
+        <h2>검색 점수와 지역을 왜 따로 확인하나요?</h2>
+        <p>‘경기도 촬영지’를 찾을 때 서울의 장소 설명이 질문과 비슷하다는 이유로 함께 나올 수 있습니다. 장소 설명을 비교해 후보를 찾되, 경기도라는 지역 조건도 충족하는 후보를 답변에 사용합니다.</p>
+      </section>
+      <section>
+        <h2>추천의 근거는 어떻게 보여 주나요?</h2>
+        <p>검색 증강 생성(RAG, Retrieval-Augmented Generation)은 먼저 관련 자료를 찾고, 그 자료를 바탕으로 답을 만드는 방식입니다. KMovement에서는 찾은 장소를 답변의 근거로 사용합니다. 질문과 관련된 자료가 충분하지 않으면 화면에 그 상태를 표시합니다.</p>
+        <figure>
+          <img src="/KMovement/assets/capture/evidence-rag.png" alt="KMovement 여행지 검색에서 답변과 장소 근거를 확인하는 화면" loading="lazy" />
+          <figcaption>KMovement에서 답변의 장소 근거를 확인하는 포트폴리오 캡처</figcaption>
+        </figure>
+      </section>
+      <section>
+        <h2>민예린이 맡은 작업</h2>
+        <p>개인 프로젝트로 추천 흐름을 설계하고 구현했습니다. 여기서는 장소 설명 검색과 지역 조건을 나눈 설계를 소개합니다. 추천 정확도는 별도 평가가 필요한 상태입니다.</p>
+        <ul>
+          <li><a href="https://github.com/feed-mina/KMovement">KMovement 소스와 프로젝트 문서</a></li>
+          <li><a href="https://kmovement.srv1869569.hstgr.cloud/view/ROUTE_PLANNER">KMovement 여행 코스 데모</a></li>
+        </ul>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
