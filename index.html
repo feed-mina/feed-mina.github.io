@@ -3,13 +3,58 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>민예린 | AI 자동화 Fullstack Portfolio</title>
-<meta name="description" content="현실 데이터를 현장이 보는 화면으로 만들고, AI 와 웹 서비스로 연결하는 풀스택 개발자" />
-<meta property="og:title" content="민예린 | AI 자동화 Fullstack Portfolio" />
-<meta property="og:description" content="현실 데이터를 현장이 보는 화면으로 만들고, AI 와 웹 서비스로 연결하는 풀스택 개발자" />
-<meta property="og:image" content="assets/images/profile.jpg" />
-<meta property="og:locale" content="ko_KR" />
+<title>민예린 포트폴리오 | 제조 데이터·AI 자동화 풀스택 개발자</title>
+<meta name="description" content="풀스택 개발자 민예린의 포트폴리오입니다. 제조 센서 대시보드의 첫 조회를 18.0초에서 0.89초로 줄인 과정, KMovement의 여행지 검색, 사람 승인을 거치는 AI 자동화 사례를 소개합니다." />
 <link rel="canonical" href="https://feed-mina.github.io/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="민예린 포트폴리오" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:url" content="https://feed-mina.github.io/" />
+<meta property="og:title" content="민예린 포트폴리오 | 제조 데이터·AI 자동화 풀스택 개발자" />
+<meta property="og:description" content="풀스택 개발자 민예린의 포트폴리오입니다. 제조 센서 대시보드의 첫 조회를 18.0초에서 0.89초로 줄인 과정, KMovement의 여행지 검색, 사람 승인을 거치는 AI 자동화 사례를 소개합니다." />
+<meta property="og:image" content="https://feed-mina.github.io/assets/images/profile.jpg" />
+<meta property="og:image:alt" content="풀스택 개발자 민예린의 프로필 사진" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://feed-mina.github.io/#website",
+      "url": "https://feed-mina.github.io/",
+      "name": "민예린 포트폴리오",
+      "inLanguage": "ko"
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://feed-mina.github.io/#profile-page",
+      "url": "https://feed-mina.github.io/",
+      "name": "민예린 포트폴리오 | 제조 데이터·AI 자동화 풀스택 개발자",
+      "description": "풀스택 개발자 민예린의 포트폴리오입니다. 제조 센서 대시보드의 첫 조회를 18.0초에서 0.89초로 줄인 과정, KMovement의 여행지 검색, 사람 승인을 거치는 AI 자동화 사례를 소개합니다.",
+      "inLanguage": "ko",
+      "isPartOf": {
+        "@id": "https://feed-mina.github.io/#website"
+      },
+      "mainEntity": {
+        "@id": "https://feed-mina.github.io/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://feed-mina.github.io/#person",
+      "name": "민예린",
+      "alternateName": "Yerin Min",
+      "url": "https://feed-mina.github.io/",
+      "image": "https://feed-mina.github.io/assets/images/profile.jpg",
+      "jobTitle": "풀스택 개발자",
+      "sameAs": [
+        "https://github.com/feed-mina"
+      ]
+    }
+  ]
+}
+</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -1136,6 +1181,11 @@
   :root[data-theme="light"] .legend .d{ background:#3b6fd6;}
 
   /* about */
+  .portfolio-answers{ margin-top: 26px; }
+  .portfolio-answers h3{ margin-bottom: 12px; }
+  .portfolio-answers dt{ margin-top: 12px; color: var(--ink); font-weight: 700; }
+  .portfolio-answers dd{ margin: 4px 0 0; color: var(--ink-dim); }
+  .portfolio-answers a{ text-decoration: underline; text-underline-offset: 3px; }
   .about-two{ display:grid; grid-template-columns: 1fr 340px; gap: 48px; align-items:start;}
   .three{ font-size: 17px; color: var(--ink); line-height: 1.65; max-width: 640px;}
   .three + .three{ margin-top: 6px;}
@@ -1304,7 +1354,7 @@
     <div class="hero-intro">
       <p class="eyebrow">Portfolio · 2026</p>
       <h1>현장 데이터를 <span>쓸 수 있는 서비스로.</span></h1>
-      <p class="hero-summary">제조 센서 데이터를 대시보드로 보여 주고, AI와 웹 서비스로 연결하는 풀스택 개발자 민예린입니다.</p>
+      <p class="hero-summary">민예린입니다. 제조 센서 대시보드와 AI 자동화를 만드는 풀스택 개발자입니다.</p>
       <div class="hero-actions">
         <a class="btn primary" href="#projects">프로젝트 보기 <span aria-hidden="true">↓</span></a>
         <a class="btn" href="manufacturing-ai/">제조 × AI Work <span aria-hidden="true">→</span></a>
@@ -1411,29 +1461,29 @@
         <a href="evol-case-study.html"><img src="assets/images/evol-period-week.webp" alt="가이드롤 생산 모니터링 기간 통계 주 화면" loading="lazy" width="1280" height="720" /></a>
         <div class="b">
           <div class="tag">01 · 제조 센서 데이터</div>
-          <h3>가동 0회인데 1.2시간</h3>
+          <h3>제조 센서 대시보드의 가동 지표 개선</h3>
           <div class="q"><b>문제</b> 한 주 통계에 가동 1.2시간과 가동 0회가 같이 떴다. 횟수와 시간이 다른 기준으로 세고 있었다.</div>
           <div class="q"><b>결과</b> "가동 1회"를 현장과 다시 정하고 합산 함수 한 곳으로 통일. 36일치 화면 전부를 대조해 두 숫자가 맞는지 확인.</div>
           <div class="m">36일치 화면 전부 일치 · 18.0초 → 0.89초</div>
-          <div class="ln"><a class="btn primary" href="evol-case-study.html">케이스 →</a><a class="btn" href="https://evol.srv1869569.hstgr.cloud/" target="_blank" rel="noopener">Live Demo ↗</a><span class="st tmp">라이브</span></div>
+          <div class="ln"><a class="btn primary" href="evol-case-study.html">가동 지표 개선 과정 →</a><a class="btn" href="https://evol.srv1869569.hstgr.cloud/" target="_blank" rel="noopener">Live Demo ↗</a><span class="st tmp">라이브</span></div>
         </div>
       </div>
       <div class="case">
         <a href="https://kmovement.srv1869569.hstgr.cloud/view/ROUTE_PLANNER" target="_blank" rel="noopener"><img src="KMovement/assets/capture/evidence-rag.png" alt="KMovement 검색 근거 화면" loading="lazy" width="1280" height="720" /></a>
         <div class="b">
           <div class="tag">02 · RAG 검색</div>
-          <h3>검색 점수 하나로 답하지 않는다</h3>
+          <h3>KMovement 여행지 검색</h3>
           <div class="q"><b>문제</b> "경기도 촬영지"를 물었는데 서울 장소가 섞이거나, 실제로 없는 장소가 답에 들어갔다.</div>
           <div class="q"><b>결과</b> 질문과 충분히 비슷한 장소만 답에 쓰고, "서울" 같은 지역 조건은 점수와 상관없이 따로 거릅니다. 근거가 되는 장소를 못 찾으면 못 찾았다고 화면에 표시합니다.</div>
           <div class="m">비슷함 기준 0.25 · 후보 3개 · 근거 없으면 표시</div>
-          <div class="ln"><a class="btn primary" href="https://kmovement.srv1869569.hstgr.cloud/view/ROUTE_PLANNER" target="_blank" rel="noopener">Live Demo ↗</a><a class="btn" href="https://github.com/feed-mina/KMovement#readme" target="_blank" rel="noopener">GitHub ↗</a><span class="st">라이브</span></div>
+          <div class="ln"><a class="btn primary" href="/kmovement-rag/">KMovement 검색 설계 →</a><a class="btn" href="https://kmovement.srv1869569.hstgr.cloud/view/ROUTE_PLANNER" target="_blank" rel="noopener">여행 코스 데모 ↗</a><a class="btn" href="https://github.com/feed-mina/KMovement#readme" target="_blank" rel="noopener">GitHub ↗</a></div>
         </div>
       </div>
       <div class="case">
         <a href="https://jarvis-factory-copilot-sample.evolvix.workers.dev" target="_blank" rel="noopener"><img src="assets/images/factory-copilot-proposal.webp" alt="Factory AI Copilot 제안 쪽지 — 근거·추적·승인·모의 명령 화면" loading="lazy" width="1280" height="1100" /></a>
         <div class="b">
           <div class="tag">03 · 제조 Agentic AI</div>
-          <h3>승인 없이는 명령이 안 나간다</h3>
+          <h3>Factory AI Copilot의 사람 승인 흐름</h3>
           <div class="q"><b>문제</b> "에이전트 판단 → 사람 승인 → 로봇 명령" 흐름을 말로만 설명할 수 있었다. 승인 구조를 실제로 만든 자비스는 비공개 저장소 안에 있었다.</div>
           <div class="q"><b>결과</b> 허구 센서 사이클 30건 위에 규칙 2개로 이상을 잡고, Tool로 앞 5사이클을 거슬러 시작점을 ID로 찍고, 행동 제안은 사람이 승인 8조건을 통과시켜야만 모의 명령이 된다. 자동 전이 0개.</div>
           <div class="m">승인 8조건 · 자동 전이 0 · 테스트 30개 통과</div>
@@ -1532,6 +1582,7 @@
         </svg>
       <div class="links">
         <a class="btn" href="https://sdui-template-kit-productization.pages.dev/studio/" target="_blank" rel="noopener">스튜디오 열기 ↗</a>
+        <a class="btn" href="/planning-harness.html">Planning Harness 승인 흐름 →</a>
       </div>
     </div>
     <p class="fig-note">세 제품은 "화면을 코드가 아니라 데이터로 다룬다"는 한 가지 규칙을 같이 씁니다. 스튜디오는 지금 열립니다.</p>
@@ -1557,6 +1608,17 @@
             <div class="chips"><span class="chip">정의 먼저</span><span class="chip">운영 안정성</span><span class="chip">AI 위임</span><span class="chip">읽히는 시스템</span></div>
           </div>
         </details>
+        <div class="portfolio-answers">
+          <h3>프로젝트에서 어떤 문제를 해결했나요?</h3>
+          <dl>
+            <dt>제조 대시보드에서 무엇을 개선했나요?</dt>
+            <dd>가동 시간과 가동 횟수를 같은 기준으로 계산하도록 고쳤습니다. 36일치 화면을 대조했고, 첫 조회는 18.0초에서 0.89초로 줄였습니다. <a href="/evol-case-study.html">제조 대시보드 검증 과정</a></dd>
+            <dt>KMovement는 여행지를 어떻게 추천하나요?</dt>
+            <dd>질문의 의미와 장소 설명을 비교하고, 지역 조건을 따로 적용합니다. 근거가 부족하면 그 사실을 화면에 표시합니다. <a href="/kmovement-rag/">KMovement 검색 설계와 근거 화면</a></dd>
+            <dt>AI 자동화에서 사람은 언제 승인하나요?</dt>
+            <dd>Planning Harness는 먼저 요구사항과 테스트 초안을 만들고, 반영될 내용을 사람이 확인한 뒤 GitHub에 전달합니다. <a href="/planning-harness.html">Planning Harness 구현 흐름</a></dd>
+          </dl>
+        </div>
       </div>
       <aside class="profile-panel" aria-label="프로필 요약">
         <div class="profile-image">
@@ -1698,7 +1760,8 @@
 
 <footer>
   <div class="wrap row">
-    <div class="signature">© 2026 Yerin Min — Built with intent.</div>
+    <div class="signature">© 2026 Yerin Min</div>
+    <a href="/blog/">기술 블로그</a>
     <div>"운영의 문제에서 핑계를 찾기 전에 아키텍처로 해결합니다."</div>
   </div>
 </footer>
