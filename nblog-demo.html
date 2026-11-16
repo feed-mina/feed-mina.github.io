@@ -3,8 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="예시 캠페인으로 네이버 블로그 후기 초안 만들기와 검토를 체험하는 NBlog 공개 데모입니다.">
-<title>NBlog 공개 체험판 | 민예린 포트폴리오</title>
+<meta name="description" content="로그인 없이 예시 캠페인을 고르고 방문 메모로 네이버 블로그 후기 초안을 만들어 보세요. 초안을 수정하고, 검토를 마친 뒤 복사할 수 있습니다.">
+<title>NBlog 공개 체험판 | 네이버 블로그 후기 초안 만들기 | 민예린 포트폴리오</title>
+<link rel="canonical" href="https://feed-mina.github.io/nblog-demo.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="민예린 포트폴리오">
+<meta property="og:url" content="https://feed-mina.github.io/nblog-demo.html">
+<meta property="og:title" content="NBlog 공개 체험판 | 네이버 블로그 후기 초안 만들기">
+<meta property="og:description" content="로그인 없이 예시 캠페인을 고르고 방문 메모로 네이버 블로그 후기 초안을 만들어 보세요. 초안을 수정하고, 검토를 마친 뒤 복사할 수 있습니다.">
 <style>
   :root {
     color-scheme: light; --bg: #f4f7f4; --card: #fff; --ink: #192923;
@@ -32,6 +39,10 @@
   button.secondary { color: var(--accent); background: var(--card); }
   button:disabled { color: #50625a; background: #eef3ef; border-color: var(--line); cursor: default; }
   :focus-visible { outline: 3px solid #267d64; outline-offset: 3px; }
+  .about { margin-top: 1rem; }
+  .about dt { margin-top: .8rem; font-weight: 650; }
+  .about dd { margin: .25rem 0 0; color: var(--muted); }
+  .about ul { padding-inline-start: 1.3rem; }
   .status { margin-top: .75rem; font-weight: 650; color: var(--accent); }
   #copy-feedback:not(:empty) { margin-top: .5rem; }
   @media (max-width: 44rem) { .layout { grid-template-columns: 1fr; } }
@@ -39,7 +50,7 @@
 </head>
 <body>
 <main>
-  <a href="./#work-cycle">포트폴리오로 돌아가기</a>
+  <a href="/#work-cycle">포트폴리오로 돌아가기</a>
   <header>
     <h1>NBlog 공개 체험판</h1>
     <p>예시 캠페인으로 네이버 블로그 후기 초안을 만들고, 내용을 확인한 뒤 복사해 보세요.</p>
@@ -78,6 +89,21 @@
       </div>
     </section>
   </div>
+  <section class="about" aria-labelledby="demo-faq">
+    <h2 id="demo-faq">NBlog 체험판에서 할 수 있는 일</h2>
+    <dl>
+      <dt>로그인 없이 어디까지 체험할 수 있나요?</dt>
+      <dd>예시 캠페인을 고르고 방문 메모를 입력해 후기 초안을 만듭니다. 문구를 수정하고 검토 완료를 누르면 초안을 복사할 수 있습니다.</dd>
+      <dt>방문 메모는 어떻게 쓰이나요?</dt>
+      <dd>입력한 문장을 예시 후기 틀에 넣어 보여줍니다. 이 화면의 메모와 초안은 브라우저에서 처리합니다.</dd>
+      <dt>네이버 블로그에도 글이 올라가나요?</dt>
+      <dd>체험판에서는 초안 복사까지 진행합니다. 실제 게시하려면 사용자가 네이버 글쓰기 화면에서 내용을 확인하고 발행합니다.</dd>
+    </dl>
+    <ul>
+      <li><a href="https://work-cycle.evolvix.workers.dev/s/m/a885dcc78bf1b8abc24db0e8c7a0430e201bc448447ecb022f508676eac7b703">NBlog 화면과 초안 처리 흐름 가이드</a></li>
+      <li><a href="/work-cycle/">work-cycle 회의록·칸반 사례</a></li>
+    </ul>
+  </section>
 </main>
 <script>
   const campaigns = {
