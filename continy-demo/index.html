@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Continy 체험판</title>
+  <meta name="description" content="한 문장에서 숏폼 영상까지 만드는 Continy를 예시 데이터로 둘러보는 공개 체험판입니다. 실제 생성·업로드는 꺼져 있습니다.">
+  <link rel="icon" href="/favicon.svg">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="banner" role="note">
+    <b>체험판</b> 예시 데이터로 화면 흐름만 보여 드려요. AI 생성·렌더 서버·유튜브 업로드는 꺼져 있어 비용이 나가지 않습니다.
+  </div>
+
+  <header class="top">
+    <div class="wrap">
+      <nav class="topnav" aria-label="이동">
+        <a href="/#continy">← 포트폴리오로 돌아가기</a>
+        <a href="https://www.youtube.com/watch?v=4WITNdxP8V8" target="_blank" rel="noopener">실제 화면 2분 데모 영상 ↗</a>
+      </nav>
+      <p class="eyebrow">CONTINY · 숏폼 제작 스튜디오</p>
+      <h1>한 문장이 콘티가 되고,<br>콘티가 숏폼이 됩니다.</h1>
+      <p class="lead">기획(콘티) → 장면별 프롬프트 → 영상 생성 → 자막·편집 → 업로드 준비를 한 화면 흐름으로 묶었어요. 아래 6단계를 순서대로 눌러 보세요.</p>
+      <ol class="steps" aria-label="작업 순서">
+        <li><a href="#s1" data-step="1">요청 입력</a></li>
+        <li><a href="#s2" data-step="2">장면 콘티</a></li>
+        <li><a href="#s3" data-step="3">캐릭터·고정 규칙</a></li>
+        <li><a href="#s4" data-step="4">영상 생성</a></li>
+        <li><a href="#s5" data-step="5">자막·완성본</a></li>
+        <li><a href="#s6" data-step="6">업로드 키트</a></li>
+      </ol>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section id="s1" class="card" aria-labelledby="s1-h">
+      <p class="num">1단계</p>
+      <h2 id="s1-h">만들고 싶은 영상을 평소 말하듯 적어 주세요</h2>
+      <label for="req">영상 제작 요청</label>
+      <textarea id="req" rows="3">안개 낀 아침 초원에서 시작해, 에이니가 수분 크림으로 아침 루틴을 하는 24초짜리 뷰티 숏폼. 마지막엔 "촉촉함이 오래가는 아침"이라는 문구로 끝내 줘.</textarea>
+      <div class="row">
+        <label>화면 비율
+          <select id="ratio"><option value="9:16" selected>9:16 세로 (쇼츠·릴스)</option><option value="16:9">16:9 가로</option><option value="1:1">1:1 정사각</option></select>
+        </label>
+        <label>장면 수
+          <select id="count"><option>4</option><option selected>6</option><option>8</option></select>
+        </label>
+        <label>연출
+          <select id="preset">
+            <option value="beauty" selected>Beauty Close-Up · 질감 클로즈업</option>
+            <option value="social">Social Reel · 빠른 세로 컷</option>
+            <option value="cinema">Cinematic Orbit · 천천히 도는 샷</option>
+          </select>
+        </label>
+      </div>
+      <button id="split" class="primary">장면으로 나누기</button>
+      <ol id="splitProgress" class="progress" hidden>
+        <li>요청 이해 <small>목적·길이·분위기·마지막 문구를 정리합니다</small></li>
+        <li>장면 자동 분리 <small>전체 시간을 장면별로 나누고 흐름을 만듭니다</small></li>
+        <li>모델별 준비 <small>장면마다 영상 프롬프트를 조립합니다</small></li>
+      </ol>
+      <p class="hint">실제 서비스에서는 이 단계에서 AI가 요청을 읽고 콘티를 씁니다. 체험판은 미리 만들어 둔 예시 콘티를 보여 드려요.</p>
+    </section>
+
+    <section id="s2" class="card" aria-labelledby="s2-h" data-locked>
+      <p class="num">2단계</p>
+      <h2 id="s2-h">장면 콘티를 검토하고 승인하기</h2>
+      <p>가져온 장면은 모두 <span class="pill warn">검토 필요</span> 상태로 시작해요. 승인된 장면만 영상 생성으로 넘어갑니다. 장면을 누르면 실제로 조립되는 영어 프롬프트를 볼 수 있어요.</p>
+      <div class="ready"><span>생성 준비도</span><div class="bar"><i id="readyBar"></i></div><b id="readyText">0 / 0</b></div>
+      <div class="scene-layout">
+        <ul id="scenes" class="scenes" aria-label="장면 목록"></ul>
+        <aside id="prompt" class="prompt" aria-live="polite">
+          <p class="muted">왼쪽에서 장면을 고르세요.</p>
+        </aside>
+      </div>
+      <button id="approveAll">남은 장면 모두 승인</button>
+    </section>
+
+    <section id="s3" class="card" aria-labelledby="s3-h" data-locked>
+      <p class="num">3단계</p>
+      <h2 id="s3-h">캐릭터 시트와 고정 규칙</h2>
+      <p>장면마다 인물 얼굴·옷·색감이 바뀌는 문제를 막으려고, 모든 프롬프트에 같은 기준을 붙여요.</p>
+      <div class="two">
+        <div class="box">
+          <h3>캐릭터 시트 · 에이니</h3>
+          <dl>
+            <dt>기본 정보</dt><dd>20대 중반 여성, 가상 인물</dd>
+            <dt>외형</dt><dd>어깨까지 오는 흑갈색 머리, 맑은 피부, 아이보리 니트</dd>
+            <dt>스타일</dt><dd>자연광, 부드러운 파스텔, 필름 같은 결</dd>
+          </dl>
+        </div>
+        <div class="box">
+          <h3>고정 규칙</h3>
+          <ul class="rules">
+            <li>모든 장면에 같은 캐릭터 시트를 참조</li>
+            <li>로고·글자를 영상 안에 그리지 않기 (자막은 편집에서)</li>
+            <li>마지막 장면 끝 프레임 = 첫 장면 시작 프레임 (반복 재생 연결)</li>
+            <li>손가락·얼굴 왜곡이 보이면 그 장면만 다시 생성</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="s4" class="card" aria-labelledby="s4-h" data-locked>
+      <p class="num">4단계</p>
+      <h2 id="s4-h">장면별 영상 생성</h2>
+      <div class="two">
+        <div class="box">
+          <h3>영상 생성 공급자</h3>
+          <label class="radio"><input type="radio" name="prov" checked disabled> 빠른 생성 (Kling 계열)</label>
+          <label class="radio"><input type="radio" name="prov" disabled> 고품질 생성 (Veo 계열)</label>
+          <label class="radio"><input type="radio" name="prov" disabled> 다른 곳에서 만든 영상 가져오기 (힉스필드 등)</label>
+          <button disabled title="체험판에서는 꺼져 있어요">실제 API로 생성 · 체험판 잠금</button>
+        </div>
+        <div class="box">
+          <h3>이 프로젝트의 추정 원가</h3>
+          <table class="cost">
+            <tr><td>요청한 영상 길이</td><td id="costSec">24초 (장면 6개)</td></tr>
+            <tr><td>계산 방식</td><td>공급자 초당 단가 × 초</td></tr>
+            <tr><td>재시도로 버린 길이</td><td>따로 집계</td></tr>
+            <tr class="zero"><td>체험판에서 쓰는 돈</td><td>0원</td></tr>
+          </table>
+          <p class="hint">실제 서비스는 비용 스위치가 꺼져 있으면 유료 생성 요청을 자동으로 멈춰요.</p>
+        </div>
+      </div>
+      <button id="simulate" class="primary">예시 결과로 채워 보기</button>
+      <ul id="jobs" class="jobs" aria-label="장면별 생성 상태"></ul>
+    </section>
+
+    <section id="s5" class="card" aria-labelledby="s5-h" data-locked>
+      <p class="num">5단계</p>
+      <h2 id="s5-h">단어 자막을 얹은 완성본 미리보기</h2>
+      <p>정지 컷은 카메라 무브로 움직이고, 장면 사이는 크로스페이드로 이어 붙여요. 말소리는 단어 단위로 시간을 맞춰 자막이 한 단어씩 강조됩니다.</p>
+      <div class="player-wrap">
+        <div id="player" class="player" aria-label="완성본 미리보기 (예시 화면)">
+          <div id="frame" class="frame"></div>
+          <div class="tagline">Continy 체험판 미리보기</div>
+          <p id="caption" class="caption"></p>
+          <div class="tl"><i id="tlBar"></i></div>
+        </div>
+        <div class="player-side">
+          <button id="play" class="primary">▶ 미리보기 재생</button>
+          <ol id="timeline" class="timeline"></ol>
+          <p class="hint">실제 완성본은 렌더 서버가 MP4로 만들어요. 체험판은 장면 색과 자막 타이밍만 흉내 냅니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="s6" class="card" aria-labelledby="s6-h" data-locked>
+      <p class="num">6단계</p>
+      <h2 id="s6-h">업로드 키트</h2>
+      <p>콘티 내용으로 유튜브 쇼츠·인스타그램 릴스에 붙일 제목, 설명, 태그를 자동으로 만들어요.</p>
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-tab="yt">YouTube Shorts</button>
+        <button role="tab" aria-selected="false" data-tab="ig">Instagram Reels</button>
+      </div>
+      <div id="kit" class="kit"></div>
+      <div class="row">
+        <button id="copyKit">문구 복사</button>
+        <button disabled title="체험판에서는 꺼져 있어요">유튜브에 바로 올리기 · 체험판 잠금</button>
+      </div>
+      <p id="copied" class="hint" aria-live="polite"></p>
+    </section>
+
+    <section class="card outro" aria-labelledby="out-h">
+      <h2 id="out-h">실제 Continy는 이렇게 동작해요</h2>
+      <ul class="facts">
+        <li><b>화면</b> Next.js 호환 vinext · React 19 · Tailwind</li>
+        <li><b>서버</b> Cloudflare Workers · D1 · R2 · Durable Objects</li>
+        <li><b>생성</b> fal.ai · Replicate 영상 모델, 외부 영상 가져오기</li>
+        <li><b>렌더</b> 컨테이너에서 FFmpeg로 크로스페이드·단어 자막 합성</li>
+        <li><b>안전장치</b> 승인된 장면만 생성 · 비용 한도 자동 정지 · 실패 장면만 재시도</li>
+      </ul>
+      <p>체험판은 서버와 통신하지 않는 정적 페이지예요. 계정·비밀값·결제 정보가 하나도 들어 있지 않습니다.</p>
+      <div class="row">
+        <a class="btn primary" href="https://www.youtube.com/watch?v=4WITNdxP8V8" target="_blank" rel="noopener">실제 화면 데모 영상 보기 ↗</a>
+        <a class="btn" href="/#continy">포트폴리오로 돌아가기</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
