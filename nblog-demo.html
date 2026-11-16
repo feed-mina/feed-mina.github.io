@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="예시 캠페인으로 네이버 블로그 후기 초안 만들기와 검토를 체험하는 NBlog 공개 데모입니다.">
+<title>NBlog 공개 체험판 | 민예린 포트폴리오</title>
+<style>
+  :root {
+    color-scheme: light; --bg: #f4f7f4; --card: #fff; --ink: #192923;
+    --muted: #50625a; --line: #d6e2db; --accent: #116048;
+    font: 16px/1.65 "Pretendard", "Malgun Gothic", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; color: var(--ink); background: var(--bg); }
+  main { max-width: 67rem; margin: auto; padding: 2rem clamp(1rem, 4vw, 3rem) 4rem; }
+  header { margin: 1.75rem 0 1.5rem; }
+  h1, h2, p { margin: 0; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.2; }
+  h2 { font-size: 1.25rem; }
+  header p, .hint { margin-top: .6rem; color: var(--muted); }
+  a { color: var(--accent); font-weight: 650; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 1rem; }
+  section { padding: clamp(1rem, 3vw, 1.5rem); background: var(--card); border: 1px solid var(--line); border-radius: 1rem; }
+  label { display: block; margin-top: 1rem; font-weight: 650; }
+  select, textarea, button { font: inherit; }
+  select, textarea { width: 100%; margin-top: .3rem; padding: .65rem; border: 1px solid #a8bcb0; border-radius: .5rem; color: var(--ink); background: var(--card); }
+  textarea { display: block; min-height: 8rem; resize: vertical; }
+  #draft { min-height: 15rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  button { padding: .55rem .85rem; border: 1px solid var(--accent); border-radius: .5rem; background: var(--accent); color: white; font-weight: 650; cursor: pointer; }
+  button.secondary { color: var(--accent); background: var(--card); }
+  button:disabled { color: #50625a; background: #eef3ef; border-color: var(--line); cursor: default; }
+  :focus-visible { outline: 3px solid #267d64; outline-offset: 3px; }
+  .status { margin-top: .75rem; font-weight: 650; color: var(--accent); }
+  #copy-feedback:not(:empty) { margin-top: .5rem; }
+  @media (max-width: 44rem) { .layout { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <a href="./#work-cycle">포트폴리오로 돌아가기</a>
+  <header>
+    <h1>NBlog 공개 체험판</h1>
+    <p>예시 캠페인으로 네이버 블로그 후기 초안을 만들고, 내용을 확인한 뒤 복사해 보세요.</p>
+    <p>로그인 없이 사용할 수 있어요. 초안은 예시 문장으로 만들며, 입력한 메모는 이 브라우저 화면에서만 사용합니다.</p>
+  </header>
+  <div class="layout">
+    <section aria-labelledby="campaign-title">
+      <h2 id="campaign-title">캠페인 선택</h2>
+      <form id="campaign-form">
+        <label for="campaign">예시 캠페인</label>
+        <select id="campaign">
+          <option value="cafe">바다 앞 카페 방문 후기</option>
+          <option value="workshop">도자기 공방 체험 후기</option>
+        </select>
+        <p class="hint" id="campaign-details"></p>
+        <label for="notes">방문 메모</label>
+        <textarea id="notes" maxlength="500"></textarea>
+        <div class="actions">
+          <button type="submit">예시 초안 만들기</button>
+          <button type="button" class="secondary" id="reset">초기화</button>
+        </div>
+      </form>
+    </section>
+    <section aria-labelledby="review-title">
+      <h2 id="review-title">초안 검토</h2>
+      <p class="status" id="status" role="status">초안 만들기 전</p>
+      <div id="draft-panel" hidden>
+        <label for="draft">후기 초안</label>
+        <textarea id="draft" spellcheck="false"></textarea>
+        <div class="actions">
+          <button type="button" id="approve">검토 완료</button>
+          <button type="button" class="secondary" id="copy" disabled>초안 복사</button>
+        </div>
+        <p class="hint">실제 네이버 발행은 네이버 글쓰기 화면에서 직접 진행합니다.</p>
+        <p id="copy-feedback" role="status"></p>
+      </div>
+    </section>
+  </div>
+</main>
+<script>
+  const campaigns = {
+    cafe: {
+      title: "바다 앞 카페 방문 후기",
+      details: "예시 제공 내역 · 음료 2잔과 디저트 1개",
+      notes: "창가에서 바다가 보였고, 레몬 케이크는 상큼했어요.",
+      intro: "오늘은 바다가 보이는 작은 카페를 방문했어요."
+    },
+    workshop: {
+      title: "도자기 공방 체험 후기",
+      details: "예시 제공 내역 · 도자기 체험 1회",
+      notes: "컵 손잡이를 붙이는 방법을 배웠고, 유약 색을 직접 골랐어요.",
+      intro: "오늘은 도자기 공방에서 컵을 만드는 체험을 했어요."
+    }
+  };
+
+  const form = document.getElementById("campaign-form");
+  const campaign = document.getElementById("campaign");
+  const details = document.getElementById("campaign-details");
+  const notes = document.getElementById("notes");
+  const panel = document.getElementById("draft-panel");
+  const draft = document.getElementById("draft");
+  const status = document.getElementById("status");
+  const approve = document.getElementById("approve");
+  const copy = document.getElementById("copy");
+  const feedback = document.getElementById("copy-feedback");
+
+  function requestReview() {
+    status.textContent = "검토 대기";
+    approve.disabled = !draft.value.trim();
+    copy.disabled = true;
+    feedback.textContent = "";
+  }
+
+  function loadCampaign() {
+    const sample = campaigns[campaign.value];
+    details.textContent = sample.details;
+    notes.value = sample.notes;
+    draft.value = "";
+    panel.hidden = true;
+    status.textContent = "초안 만들기 전";
+    copy.disabled = true;
+    feedback.textContent = "";
+  }
+
+  campaign.addEventListener("change", loadCampaign);
+  document.getElementById("reset").addEventListener("click", () => {
+    form.reset();
+    loadCampaign();
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const sample = campaigns[campaign.value];
+    draft.value = [
+      sample.title,
+      "이용권을 제공받아 직접 체험한 뒤 작성한 후기입니다.",
+      sample.intro,
+      notes.value.trim()
+    ].filter(Boolean).join("\n\n");
+    panel.hidden = false;
+    requestReview();
+    draft.focus();
+  });
+
+  draft.addEventListener("input", requestReview);
+  approve.addEventListener("click", () => {
+    status.textContent = "검토 완료 · 복사할 수 있어요";
+    approve.disabled = true;
+    copy.disabled = false;
+  });
+
+  copy.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(draft.value);
+      feedback.textContent = "초안을 복사했어요.";
+    } catch {
+      draft.select();
+      feedback.textContent = "초안을 선택했어요. 기기의 복사 기능을 사용해 주세요.";
+    }
+  });
+
+  loadCampaign();
+</script>
+</body>
+</html>
