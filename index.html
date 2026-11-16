@@ -1297,9 +1297,10 @@
   .pb-tags li{font:10px/1.6 "JetBrains Mono",monospace;padding:5px 8px;border:1px solid var(--line-strong);border-radius:5px;color:var(--mint);}
   .pb-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:5px;}
   .pb-actions .btn{font-size:12px;padding:9px 13px;}
-  .pb-visual{min-width:0;display:flex;flex-direction:column;background:#e8ece2;border-left:1px solid var(--line);}
-  .pb-visual-header{display:flex;justify-content:space-between;gap:12px;padding:16px 20px;color:#3b5b4c;font:10px/1.6 "JetBrains Mono",monospace;letter-spacing:.07em;}
-  .pb-visual svg{display:block;width:100%;height:auto;flex:1;max-height:330px;}
+  .pb-visual{min-width:0;display:flex;flex-direction:column;background:#f3f1e9;border-left:1px solid var(--line);}
+  .pb-visual-header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px;padding:16px 20px;color:#3b5b4c;font:10px/1.6 "JetBrains Mono",monospace;letter-spacing:.07em;}
+  .pb-room-frame{display:grid;align-items:center;flex:1;min-width:0;}
+  .pb-room-image{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;}
   .pb-visual figcaption{padding:14px 20px;font-size:12px;line-height:1.7;color:#355445;background:#dce6db;}
   .pb-system{border-top:1px solid var(--line);padding:20px 30px;background:var(--bg);}
   .pb-system summary{font-size:13px;color:var(--ink);cursor:pointer;line-height:1.7;}
@@ -1312,7 +1313,7 @@
   .pb-system p{font-size:12px;line-height:1.8;color:var(--ink-dim);margin:8px 0;}
   .pb-scope{padding:14px 30px;border-top:1px solid var(--line);font-size:11.5px;line-height:1.8;color:var(--ink-mute);}
   .pb-card a:focus-visible,.pb-system summary:focus-visible{outline:2px solid var(--amber);outline-offset:4px;}
-  @media(max-width:800px){.pb-main{grid-template-columns:1fr;}.pb-copy{padding:24px 20px;}.pb-visual{border-left:0;border-top:1px solid var(--line);}.pb-hosts{grid-template-columns:1fr;}.pb-system{padding:16px 20px;}.pb-scope{padding:14px 20px;}.pb-visual svg{max-height:300px;}}
+  @media(max-width:800px){.pb-main{grid-template-columns:1fr;}.pb-copy{padding:24px 20px;}.pb-visual{border-left:0;border-top:1px solid var(--line);}.pb-hosts{grid-template-columns:1fr;}.pb-system{padding:16px 20px;}.pb-scope{padding:14px 20px;}}
 </style>
 </head>
 <body>
@@ -1405,41 +1406,10 @@
         </div>
         <figure class="pb-visual">
           <div class="pb-visual-header"><span>SMART LIVING / BEDROOM</span><span>04 SPACES · 16 SCENARIOS</span></div>
-          <svg viewBox="0 0 600 370" role="img" aria-labelledby="pb-room-title pb-room-desc" xmlns="http://www.w3.org/2000/svg">
-            <title id="pb-room-title">침실 조명과 커튼을 비교하는 3D 체험 구성도</title>
-            <desc id="pb-room-desc">입체 침실에 침대, 창문, 커튼과 발밑 조명을 배치한 서비스 개념 그림입니다.</desc>
-            <defs>
-              <linearGradient id="pb-floor" x2="1" y2="1"><stop stop-color="#d5b38a"/><stop offset="1" stop-color="#ae845d"/></linearGradient>
-              <radialGradient id="pb-light"><stop stop-color="#ffeaaa" stop-opacity=".85"/><stop offset="1" stop-color="#ffeaaa" stop-opacity="0"/></radialGradient>
-            </defs>
-            <ellipse cx="303" cy="315" rx="222" ry="32" fill="#27493c" opacity=".10"/>
-            <path d="M65 223L292 114L535 235L306 350Z" fill="url(#pb-floor)"/>
-            <path d="M65 223V65L292 7V114Z" fill="#dddccf"/>
-            <path d="M292 7L535 113V235L292 114Z" fill="#f5f0e6"/>
-            <path d="M340 53L476 111V201L340 142Z" fill="#a4c7cb" stroke="#7e9e9d" stroke-width="5"/>
-            <path d="M408 82V172M340 98L476 155" fill="none" stroke="#edf3eb" stroke-width="4"/>
-            <path d="M331 48L360 60V155L331 145ZM459 103L487 114V211L459 199Z" fill="#729381"/>
-            <path d="M141 220L282 151L426 220L285 296Z" fill="#f8f4e8"/>
-            <path d="M141 220V249L285 326V296Z" fill="#638771"/>
-            <path d="M285 296L426 220V250L285 326Z" fill="#3d6654"/>
-            <path d="M151 207L279 146L279 120L151 178Z" fill="#a67f58"/>
-            <path d="M174 206L221 183L256 201L209 224Z M235 177L279 156L314 173L269 196Z" fill="#fffdf4"/>
-            <path d="M163 236L270 183L407 230L285 295Z" fill="#819c87"/>
-            <ellipse cx="284" cy="295" rx="143" ry="38" fill="url(#pb-light)"/>
-            <path d="M146 253L285 329L424 255" fill="none" stroke="#ffdb84" stroke-width="4"/>
-            <path d="M91 208L126 191L159 208L123 225Z" fill="#bd9671"/>
-            <path d="M91 208V242L123 259V225Z" fill="#a47d57"/>
-            <path d="M123 225L159 208V240L123 259Z" fill="#896344"/>
-            <path d="M124 181V199M109 178L125 169L142 177L125 186Z" fill="#fcf2d6" stroke="#bdac7a" stroke-width="2"/>
-            <circle cx="128" cy="268" r="8" fill="#f9fbf4" stroke="#658b77" stroke-width="3"/>
-            <path d="M128 257V238M128 238L72 215" fill="none" stroke="#63856f" stroke-width="1.5" stroke-dasharray="4 4"/>
-            <g font-family="'Noto Sans KR',sans-serif" font-size="12" fill="#315746">
-              <rect x="24" y="178" width="116" height="29" rx="14" fill="#f8faf3"/><text x="82" y="197" text-anchor="middle">새벽 발밑 조명</text>
-              <rect x="433" y="40" width="126" height="29" rx="14" fill="#f8faf3"/><text x="496" y="59" text-anchor="middle">커튼 열림 체험</text>
-              <path d="M474 72L470 104" fill="none" stroke="#63856f" stroke-dasharray="4 4"/>
-            </g>
-          </svg>
-          <figcaption>공간 체험 구성도 · 조명 밝기·커튼 열림·센서 상태를 가상 공간에서 확인합니다.</figcaption>
+          <div class="pb-room-frame">
+            <img class="pb-room-image" src="/assets/images/paybridge-bedroom.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="세이지색 침구와 열린 커튼, 따뜻한 침대 하부 조명을 갖춘 스마트 침실 콘셉트 이미지" />
+          </div>
+          <figcaption>스마트 침실 콘셉트 이미지 · 3D 공간 체험에서 조명·커튼·센서 시나리오를 살펴보세요.</figcaption>
         </figure>
       </div>
       <details class="pb-system">
@@ -1507,8 +1477,8 @@
         <h3 id="jarvis-title">자비스</h3>
         <p class="q">예시 메일과 외주 제안서를 검토하고, 에이전트가 어떤 순서로 작업했는지 확인할 수 있습니다.</p>
         <div class="ln">
-          <a class="btn primary" href="https://srv1869569.hstgr.cloud/demo/" target="_blank" rel="noopener">자비스 공개 체험판</a>
-          <a class="btn" href="https://work-cycle.evolvix.workers.dev/s/m/b4109c0272c0c438f25913097c6ed0f79b6ee4c9f38f14c43bcff1537f4a7110" target="_blank" rel="noopener">자비스 화면·코드 인수인계 ↗</a>
+          <a class="btn primary" href="https://srv1869569.hstgr.cloud/demo/" target="_blank" rel="noopener" style="display: none;">자비스 공개 체험판</a>
+          <a class="btn" href="https://work-cycle.evolvix.workers.dev/s/m/b4109c0272c0c438f25913097c6ed0f79b6ee4c9f38f14c43bcff1537f4a7110" target="_blank" rel="noopener">자비스 화면·코드 가이드 ↗</a>
         </div>
       </div>
     </article>
@@ -1518,11 +1488,11 @@
         <h3 id="work-cycle-title">work-cycle</h3>
         <p class="q">로그인 없이 예시 데이터로 회의록, 칸반, 로드맵, 주간보고를 체험할 수 있습니다.</p>
         <div class="ln">
-          <a class="btn primary" href="/work-cycle-demo/" target="_blank" rel="noopener">최신 기능 체험판 열기</a>
+          <a class="btn primary" href="/work-cycle-demo/" target="_blank" rel="noopener" style="display: none;">최신 기능 체험판 열기</a>
         <a class="btn" href="https://work-cycle-demo.minyerin.chatgpt.site/" target="_blank" rel="noopener">기본 기능 체험판 열기</a>
           <a class="btn" href="nblog-demo.html" target="_blank" rel="noopener">NBlog 공개 체험판</a>
           <a class="btn" href="https://work-cycle.evolvix.workers.dev/s/m/aa04c42ec5f7e5084e57814953864fe52d1a51e18c5d0dd153d12ab98afc365c" target="_blank" rel="noopener">Work-cycle·자비스·NBlog 연결 설계 ↗</a>
-          <a class="btn" href="https://work-cycle.evolvix.workers.dev/s/m/a885dcc78bf1b8abc24db0e8c7a0430e201bc448447ecb022f508676eac7b703" target="_blank" rel="noopener">NBlog 화면·코드 인수인계 ↗</a>
+          <a class="btn" href="https://work-cycle.evolvix.workers.dev/s/m/a885dcc78bf1b8abc24db0e8c7a0430e201bc448447ecb022f508676eac7b703" target="_blank" rel="noopener">NBlog 화면·코드 가이드 ↗</a>
         </div>
       </div>
     </article>
