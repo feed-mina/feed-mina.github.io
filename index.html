@@ -1315,6 +1315,29 @@
   .pb-scope{padding:14px 30px;border-top:1px solid var(--line);font-size:11.5px;line-height:1.8;color:var(--ink-mute);}
   .pb-card a:focus-visible,.pb-system summary:focus-visible{outline:2px solid var(--amber);outline-offset:4px;}
   @media(max-width:800px){.pb-main{grid-template-columns:1fr;}.pb-copy{padding:24px 20px;}.pb-visual{border-left:0;border-top:1px solid var(--line);}.pb-hosts{grid-template-columns:1fr;}.pb-system{padding:16px 20px;}.pb-scope{padding:14px 20px;}}
+
+  /* Featured Windows app: Mini Workstation Hub */
+  .wh-card{border-color:#557e65;}
+  .wh-card .pb-main{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);}
+  .wh-release{display:grid;gap:3px;padding:12px 15px;border:1px solid #92b9a1;border-radius:10px;background:#e1eee4;color:#193a2b;}
+  .wh-release-label{font:700 10px/1.5 "JetBrains Mono",monospace;letter-spacing:.12em;color:#2d5d43;}
+  .wh-release strong{font-size:18px;line-height:1.35;font-weight:700;}
+  .wh-release>span:last-child{font-size:12px;line-height:1.65;color:#355545;}
+  .wh-visual{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:18px;background:linear-gradient(140deg,#183b2f,#102b25);color:#f2f5e8;border-left:1px solid var(--line);}
+  .wh-app{margin:0;min-width:0;overflow:hidden;border:1px solid #648b76;border-radius:12px;background:#102b25;}
+  .wh-visual-header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;padding:10px 12px;font:10px/1.5 "JetBrains Mono",monospace;letter-spacing:.06em;color:#d3e8d0;}
+  .wh-app a{display:block;}
+  .wh-app img{display:block;width:100%;height:auto;object-fit:contain;}
+  .wh-app figcaption{padding:10px 12px;font-size:11px;line-height:1.6;color:#d3e8d0;border-top:1px solid #648b76;}
+  .wh-store-proof{min-width:0;display:grid;grid-template-columns:minmax(0,38%) minmax(0,1fr);align-items:center;gap:14px;padding:12px;border:1px solid #648b76;border-radius:12px;background:#edf2e7;color:#18382b;text-decoration:none;}
+  .wh-store-proof:hover{border-color:#b7dbad;background:#f5f8ed;}
+  .wh-store-proof img{display:block;width:100%;height:auto;border-radius:6px;border:1px solid #c1d0bf;}
+  .wh-proof-copy{display:grid;gap:7px;min-width:0;font-size:12px;line-height:1.65;color:#355545;}
+  .wh-proof-copy .wh-visual-header{padding:0;color:#355545;}
+  .wh-proof-copy strong{font-size:16px;line-height:1.45;color:#193a2b;}
+  .wh-proof-link{font-weight:700;text-decoration:underline;text-underline-offset:3px;color:#234f38;}
+  @media(max-width:800px){.wh-card .pb-main{grid-template-columns:minmax(0,1fr);}.wh-visual{border-left:0;border-top:1px solid var(--line);padding:14px;}}
+  @media(max-width:360px){.wh-store-proof{grid-template-columns:minmax(0,1fr);}.wh-store-proof img{max-width:200px;margin-inline:auto;}}
 </style>
 </head>
 <body>
@@ -1384,7 +1407,7 @@
       <div class="num">01 / Projects</div>
       <div>
         <h2>Featured <span class="it">Projects.</span></h2>
-        <p class="blurb">최근 만든 스마트홈 서비스와 대표 문제 해결 사례입니다. 카드마다 서비스의 목적과 구현한 구조를 적었습니다.</p>
+        <p class="blurb">최근 만든 스마트홈 서비스, Microsoft Store 등록 Windows 앱, 대표 문제 해결 사례입니다. 카드마다 실제 화면과 서비스의 목적, 구현한 구조를 소개합니다.</p>
       </div>
     </div>
 
@@ -1427,15 +1450,47 @@
       <p class="pb-scope">현재 범위: 가상 3D 체험·공식 가격 비교·상담 초안·기존 모의 결제. 3D 선택 구성의 주문 전송은 후속 연결 대상이며, 실제 기기 제어와 카드 결제는 포함하지 않습니다.</p>
     </article>
 
-    <article class="case work-cycle-demo" id="workstation-hub" aria-labelledby="workstation-hub-title">
-      <div class="b">
-        <div class="tag">WINDOWS DESKTOP · 0.8</div>
-        <h3 id="workstation-hub-title">Mini Workstation Hub</h3>
-        <p class="q">작업을 시작할 때 반복해서 여는 앱과 개발 도구를 매크로 키에 모았습니다. 독립 창에서 PC 상태를 확인하고 프로젝트별 스킬을 실행할 수 있습니다.</p>
-        <div class="ln">
-          <a class="btn primary" href="/workstation-hub/">미니PC 시연과 스토어 화면 보기 →</a>
+    <article class="pb-card wh-card" id="workstation-hub" aria-labelledby="workstation-hub-title">
+      <div class="pb-main">
+        <div class="pb-copy">
+          <div class="pb-kicker">RECENT PROJECT · WINDOWS DESKTOP · 0.8.0.0</div>
+          <h3 id="workstation-hub-title">Mini Workstation Hub<span>나만의 Windows 작업실을 한곳에서</span></h3>
+          <div class="wh-release">
+            <span class="wh-release-label">MICROSOFT STORE</span>
+            <strong>Microsoft Store 등록 앱</strong>
+            <span>제품 상세 페이지와 등록된 스크린샷을 확인할 수 있습니다.</span>
+          </div>
+          <p><b>서비스</b> 업무 시작, 앱 실행, 터미널, 녹화, 집중 모드 등 반복 작업을 매크로 키에 모았습니다. PC 성능과 스마트홈, 작업 기록은 필요한 창만 따로 열어 확인할 수 있습니다.</p>
+          <p><b>구현</b> C# Windows Forms와 WebView2를 사용해 독립 창과 매크로 화면을 구성하고, CPU·메모리·디스크·네트워크 상태를 표시합니다. 프로젝트별 스킬을 선택한 GPT 또는 Claude 데스크톱 앱에 전달합니다.</p>
+          <ul class="pb-tags" aria-label="주요 기술">
+            <li>C# · Windows Forms</li><li>WebView2</li><li>GitHub</li><li>Home Assistant</li>
+          </ul>
+          <div class="pb-actions">
+            <a class="btn primary" href="/workstation-hub/#store">Microsoft Store 등록 화면 →</a>
+            <a class="btn" href="/workstation-hub/#demo">미니PC 시연 영상 →</a>
+            <a class="btn" href="/workstation-hub/">프로젝트 상세 →</a>
+          </div>
+        </div>
+        <div class="wh-visual">
+          <figure class="wh-app">
+            <div class="wh-visual-header"><span>MINI WORKSTATION HUB</span><span>WINDOWS / ACTUAL UI</span></div>
+            <a href="/workstation-hub/#demo" aria-label="실제 미니PC 시연 영상 보기">
+              <img src="/workstation-hub/media/macro.jpg" width="1330" height="521" loading="lazy" decoding="async" alt="Mini Workstation Hub의 업무 시작, 터미널, 집중 표시, 스킬 실행 매크로 키 실제 화면">
+            </a>
+            <figcaption>Windows 미니PC에서 직접 실행한 0.8.0.0 매크로 패드</figcaption>
+          </figure>
+          <a class="wh-store-proof" href="/workstation-hub/#store" aria-label="Microsoft Store 등록 캡처 상세 보기">
+            <img src="/workstation-hub/media/store.jpg" width="642" height="750" loading="lazy" decoding="async" alt="Microsoft Store에 등록된 Mini Workstation Hub 제품 페이지와 열기 버튼">
+            <div class="wh-proof-copy">
+              <span class="wh-visual-header">MICROSOFT STORE / LISTING</span>
+              <strong>개발한 앱을 스토어에 등록</strong>
+              <span>제품명, 앱 아이콘, 열기 버튼, 등록 스크린샷이 담긴 실제 캡처입니다.</span>
+              <span class="wh-proof-link">등록 화면 크게 보기 →</span>
+            </div>
+          </a>
         </div>
       </div>
+      <p class="pb-scope">Windows 앱 개발 · 실제 미니PC 시연 · Microsoft Store 제품 상세 화면. 앱의 기능과 등록 증빙은 상세 페이지에서 확인할 수 있습니다.</p>
     </article>
 
     <div class="cases">
