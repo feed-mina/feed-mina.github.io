@@ -86,6 +86,10 @@
     h2 { font-size: clamp(1.57rem, 3.2vw, 2.35rem); line-height: 1.2; letter-spacing: -.04em; }
     .intro { color: var(--muted); max-width: 65ch; margin-top: 11px; }
     .demo-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(210px, .37fr); gap: 24px; margin-top: 24px; align-items: start; }
+    .workflow-demos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 40px; }
+    .workflow-demo { min-width: 0; scroll-margin-top: 24px; }
+    .workflow-demo h3 { font-size: clamp(1.22rem, 2.5vw, 1.58rem); }
+    .workflow-demo > p { color: var(--muted); margin: 6px 0 14px; font-size: .91rem; }
     .steps { padding-left: 1.38rem; color: var(--muted); }
     .steps li { padding-left: 6px; margin-bottom: 16px; }
     .steps li::marker { color: var(--amber); font-weight: 600; }
@@ -101,7 +105,7 @@
     .store-grid figure a { display: block; }
     footer { border-top: 1px solid var(--line); padding-block: 22px 32px; color: var(--muted); font-size: .85rem; }
     @media (max-width: 780px) {
-      .hero, .demo-grid, .store-grid { grid-template-columns: minmax(0, 1fr); }
+      .hero, .demo-grid, .store-grid, .workflow-demos { grid-template-columns: minmax(0, 1fr); }
       .flow, .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 480px) {
@@ -153,6 +157,30 @@
           <li><strong>집중 표시</strong>매크로 패드에서 버튼을 누르면 허브 안의 집중 상태와 표시가 바뀝니다.</li>
           <li><strong>PC 성능</strong>CPU와 메모리 사용률, 디스크 여유 공간, 네트워크 송수신을 확인합니다. GPU 항목을 펼치면 사용률과 메모리 수치가 표시됩니다.</li>
         </ol>
+      </div>
+      <div class="workflow-demos">
+        <article class="workflow-demo" id="demo-work-start" aria-labelledby="demo-work-start-title">
+          <h3 id="demo-work-start-title">업무 시작</h3>
+          <p>업무 시작에서 work-cycle 새 탭과 GPT(Codex) 작업을 엽니다. Claude를 선택한 시연에서는 새 Claude Code 세션을 엽니다.</p>
+          <figure class="capture">
+            <video controls playsinline preload="none" poster="media/work-start.jpg" aria-label="업무 시작 버튼을 눌러 work-cycle과 AI 앱 열기">
+              <source src="media/work-start.mp4" type="video/mp4">
+              <a href="media/work-start.mp4">업무 시작 영상 다운로드</a>
+            </video>
+            <figcaption>업무 시작 버튼 · Windows 미니PC 실제 녹화</figcaption>
+          </figure>
+        </article>
+        <article class="workflow-demo" id="demo-project-skill" aria-labelledby="demo-project-skill-title">
+          <h3 id="demo-project-skill-title">프로젝트별 스킬</h3>
+          <p>Hub Demo에 ‘한 줄 요약’ 버튼을 등록한 뒤, Claude Code에서 스킬을 실행해 요약 답변을 받습니다.</p>
+          <figure class="capture">
+            <video controls playsinline preload="none" poster="media/project-skill.jpg" aria-label="프로젝트 스킬 버튼 등록과 Claude Code 실행">
+              <source src="media/project-skill.mp4" type="video/mp4">
+              <a href="media/project-skill.mp4">프로젝트 스킬 영상 다운로드</a>
+            </video>
+            <figcaption>시연용 프로젝트 · Windows 미니PC 실제 녹화</figcaption>
+          </figure>
+        </article>
       </div>
     </section>
 
