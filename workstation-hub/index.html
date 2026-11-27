@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Workstation Hub 0.8 | 민예린 포트폴리오</title>
+  <meta name="description" content="매크로 키, PC 성능, 개발 도구를 모은 Windows 데스크톱 앱 Mini Workstation Hub 0.8의 미니PC 시연과 Microsoft Store 등록 화면을 소개합니다.">
+  <link rel="canonical" href="https://feed-mina.github.io/workstation-hub/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Mini Workstation Hub 0.8">
+  <meta property="og:description" content="미니PC에서 시연한 Windows 작업 도구와 Microsoft Store 등록 화면">
+  <meta property="og:url" content="https://feed-mina.github.io/workstation-hub/">
+  <meta property="og:image" content="https://feed-mina.github.io/workstation-hub/media/macro.jpg">
+  <meta property="og:image:alt" content="Mini Workstation Hub 0.8의 매크로 키 화면">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Instrument+Serif&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --background: #0a0a0b;
+      --surface: #141517;
+      --line: #313133;
+      --ink: #f5f1ea;
+      --muted: #b9b3ab;
+      --amber: #ff9c59;
+      --green: #bed6bb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Geist, "Noto Sans KR", system-ui, sans-serif;
+      line-height: 1.65;
+      background: radial-gradient(ellipse at 84% 2%, #192820, transparent 42rem), var(--background);
+    }
+    a { color: inherit; }
+    a:focus-visible, video:focus-visible { outline: 2px solid var(--amber); outline-offset: 5px; }
+    h1, h2, h3, p, figure, ul, ol { margin: 0; }
+    figure { min-width: 0; }
+    img, video { display: block; max-width: 100%; height: auto; }
+    .wrap { width: min(1140px, calc(100% - 56px)); margin-inline: auto; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav, .nav-links, .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .nav { min-height: 65px; justify-content: space-between; padding-block: 12px; }
+    .nav a, .button { font-size: .88rem; font-weight: 600; text-decoration: none; }
+    .nav-links { color: var(--muted); gap: clamp(12px, 2vw, 24px); }
+    .nav a:hover, footer a:hover { color: var(--amber); }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr);
+      gap: clamp(24px, 5vw, 70px);
+      align-items: center;
+      padding-block: clamp(54px, 10vw, 108px);
+    }
+    .eyebrow { color: var(--amber); font-size: .77rem; font-weight: 700; letter-spacing: .12em; }
+    h1 {
+      font: 400 clamp(3.25rem, 7.2vw, 6.15rem)/.92 "Instrument Serif", Georgia, serif;
+      letter-spacing: -.025em;
+      margin: 16px 0 24px;
+    }
+    .lede { font-size: clamp(1rem, 2vw, 1.16rem); max-width: 35ch; color: var(--muted); }
+    .actions { margin-top: 25px; gap: 10px; }
+    .button {
+      display: inline-flex;
+      min-height: 43px;
+      align-items: center;
+      padding: 8px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+    }
+    .button.primary { background: var(--amber); color: #171110; border-color: transparent; }
+    .button:hover { border-color: var(--amber); }
+    .button.primary:hover { background: #ffb481; }
+    .capture {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+    .capture img, .capture video { width: 100%; }
+    .capture video { aspect-ratio: 16 / 9; object-fit: contain; background: #102922; }
+    figcaption { padding: 11px 14px; color: var(--muted); font-size: .83rem; border-top: 1px solid var(--line); }
+    section { padding-block: clamp(38px, 6vw, 68px); border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+    h2 { font-size: clamp(1.57rem, 3.2vw, 2.35rem); line-height: 1.2; letter-spacing: -.04em; }
+    .intro { color: var(--muted); max-width: 65ch; margin-top: 11px; }
+    .demo-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(210px, .37fr); gap: 24px; margin-top: 24px; align-items: start; }
+    .steps { padding-left: 1.38rem; color: var(--muted); }
+    .steps li { padding-left: 6px; margin-bottom: 16px; }
+    .steps li::marker { color: var(--amber); font-weight: 600; }
+    .steps strong { display: block; color: var(--ink); margin-bottom: 2px; }
+    .flow, .features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .flow { list-style: none; padding: 0; margin-top: 24px; }
+    .flow li, .features article { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 19px; }
+    .flow strong, .features h3 { display: block; margin-bottom: 7px; font-size: 1rem; color: var(--green); }
+    .flow p, .features p { color: var(--muted); font-size: .91rem; }
+    .features { margin-top: 14px; }
+    .store-grid { display: grid; grid-template-columns: minmax(0, .56fr) minmax(0, 1fr); gap: 28px; align-items: center; }
+    .store-grid img { background: #eef0f3; }
+    .store-grid figure a { display: block; }
+    footer { border-top: 1px solid var(--line); padding-block: 22px 32px; color: var(--muted); font-size: .85rem; }
+    @media (max-width: 780px) {
+      .hero, .demo-grid, .store-grid { grid-template-columns: minmax(0, 1fr); }
+      .flow, .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 480px) {
+      .wrap { width: calc(100% - 32px); }
+      .flow, .features { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="wrap nav" aria-label="페이지 이동">
+      <a href="/#projects">← 포트폴리오</a>
+      <div class="nav-links">
+        <a href="#demo">시연</a>
+        <a href="#workflow">동작 원리</a>
+        <a href="#store">Microsoft Store</a>
+      </div>
+    </nav>
+  </header>
+  <main class="wrap">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">WINDOWS DESKTOP · 0.8.0.0</p>
+        <h1>Mini Workstation Hub</h1>
+        <p class="lede">자주 쓰는 작업은 매크로 키로 시작하고, 개발 도구와 PC 상태는 필요한 창만 펼쳐 확인하는 Windows 데스크톱 앱입니다.</p>
+        <div class="actions">
+          <a class="button primary" href="#demo">미니PC 시연 보기 ↓</a>
+          <a class="button" href="#store">스토어 화면</a>
+        </div>
+      </div>
+      <figure class="capture">
+        <img src="media/macro.jpg" width="1330" height="521" alt="업무 시작, 집중 표시, 터미널 등 자주 쓰는 동작을 모은 Mini Workstation Hub 매크로 패드">
+        <figcaption>미니PC에서 실행한 0.8.0.0 매크로 패드</figcaption>
+      </figure>
+    </header>
+
+    <section id="demo" aria-labelledby="demo-title">
+      <h2 id="demo-title">미니PC에서 실행해 보기</h2>
+      <p class="intro">미니PC에서 버튼을 누르고 성능 창을 확인하는 과정을 여섯 장면으로 담았습니다.</p>
+      <div class="demo-grid">
+        <figure class="capture">
+          <video controls playsinline preload="metadata" poster="media/macro.jpg" aria-label="Mini Workstation Hub 0.8 기능 시연">
+            <source src="media/demo.mp4" type="video/mp4">
+            <a href="media/demo.mp4">시연 영상 다운로드</a>
+          </video>
+          <figcaption>Windows 미니PC · Mini Workstation Hub 0.8.0.0</figcaption>
+        </figure>
+        <ol class="steps" aria-label="시연 순서">
+          <li><strong>집중 표시</strong>매크로 패드에서 버튼을 누르면 허브 안의 집중 상태와 표시가 바뀝니다.</li>
+          <li><strong>PC 성능</strong>CPU와 메모리 사용률, 디스크 여유 공간, 네트워크 송수신을 확인합니다. GPU 항목을 펼치면 사용률과 메모리 수치가 표시됩니다.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="workflow" aria-labelledby="workflow-title">
+      <h2 id="workflow-title">버튼을 누르면 어떻게 동작하나요?</h2>
+      <p class="intro">C# Windows Forms에서 창을 관리하고, WebView2로 매크로 키와 성능 그래프를 표시합니다.</p>
+      <ol class="flow">
+        <li><strong>화면에서 선택</strong><p>매크로 키를 누르거나 개발자 컨트롤, PC 성능 등 필요한 창을 엽니다.</p></li>
+        <li><strong>Windows에서 실행</strong><p>C#에서 입력과 PC 설정을 읽어 앱을 열고, 성능 창에 필요한 값을 측정합니다.</p></li>
+        <li><strong>결과 확인</strong><p>버튼 상태와 성능 그래프가 갱신되고, 작업 기록에서 실행 결과를 확인합니다.</p></li>
+      </ol>
+      <div class="features">
+        <article><h3>프로젝트별 스킬</h3><p>로컬 폴더나 GitHub 저장소를 프로젝트로 등록하고, 선택한 GPT 또는 Claude 데스크톱 앱에 스킬 요청을 전달합니다.</p></article>
+        <article><h3>개발자 컨트롤</h3><p>프로젝트의 개발 도구와 GitHub 작업 화면에 접근하고, 필요한 패널을 꺼내 창 배치를 조절합니다.</p></article>
+        <article><h3>스마트홈과 보조 위젯</h3><p>연결된 Home Assistant 기기를 보거나, 별도 위젯에서 시계와 달력을 확인합니다.</p></article>
+      </div>
+    </section>
+
+    <section id="store" aria-labelledby="store-title" class="store-grid">
+      <div>
+        <h2 id="store-title">Microsoft Store 등록 화면</h2>
+        <p class="intro">Microsoft Store 제품 상세 페이지에서 앱 소개와 등록된 스크린샷을 확인할 수 있습니다.</p>
+      </div>
+      <figure class="capture">
+        <a href="media/store.jpg" aria-label="Microsoft Store 캡처 원본 보기">
+          <img src="media/store.jpg" width="642" height="750" loading="lazy" alt="Microsoft Store의 Mini Workstation Hub 제품 이름, 앱 아이콘, 소개와 등록된 스크린샷">
+        </a>
+        <figcaption>Microsoft Store에서 캡처 · 선택하면 크게 볼 수 있습니다.</figcaption>
+      </figure>
+    </section>
+  </main>
+  <footer><div class="wrap"><a href="/#projects">← 다른 포트폴리오 프로젝트 보기</a></div></footer>
+</body>
+</html>
