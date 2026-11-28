@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>사장님 홍보 대행 예시 | 블로그 글·릴스 결과물 미리보기</title>
+<meta name="description" content="시술 사진과 한 줄 메모만 보내 주시면 네이버 블로그 시술 소개 글과 릴스·쇼츠 영상, 업로드 문구까지 만들어 드려요. 가상 네일샵으로 만든 예시 결과물입니다.">
+<link rel="canonical" href="https://feed-mina.github.io/salon-promo-sample/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://feed-mina.github.io/salon-promo-sample/">
+<meta property="og:title" content="사진만 보내 주시면 블로그 글·릴스까지 (예시 결과물)">
+<meta property="og:description" content="1인 네일·미용·피부관리샵 사장님을 위한 홍보 대행. 가상 네일샵으로 만든 블로그 글과 릴스 예시를 확인해 보세요.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --bg: #fbf6f4; --card: #fff; --ink: #2a2226; --muted: #6d5f65; --line: #eadfdc;
+    --accent: #c2456e; --accent-2: #8a5cf6; --soft: #fbe9ef; --ok: #1f7a4d;
+    font: 16px/1.7 "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #1b1619; --card: #251e22; --ink: #f4ecef; --muted: #bcaab2; --line: #3a2f35; --soft: #3a2430; --accent: #ef7aa0; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); }
+  h1, h2, h3, p { margin: 0; }
+  button { font: inherit; cursor: pointer; }
+  a { color: var(--accent); }
+  .wrap { max-width: 60rem; margin: 0 auto; padding: 0 1rem 5rem; }
+  .note { padding: .55rem 1rem; background: #2a2226; color: #f7eef1; font-size: .85rem; text-align: center; }
+
+  header.hero { padding: 2.75rem 0 1.5rem; }
+  .eyebrow { display: inline-block; padding: .2rem .7rem; border-radius: 999px; background: var(--soft); color: var(--accent); font-weight: 800; font-size: .85rem; }
+  header.hero h1 { margin-top: .8rem; font-size: clamp(1.75rem, 6vw, 2.75rem); line-height: 1.25; letter-spacing: -.02em; }
+  header.hero p { margin-top: .7rem; color: var(--muted); max-width: 40rem; }
+
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; margin: 1.5rem 0 0; padding: 0; list-style: none; counter-reset: s; }
+  .steps li { padding: .8rem; border: 1px solid var(--line); border-radius: .9rem; background: var(--card); font-size: .9rem; counter-increment: s; }
+  .steps li::before { content: counter(s); display: grid; place-items: center; width: 1.6rem; height: 1.6rem; margin-bottom: .35rem; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 800; font-size: .85rem; }
+  .steps b { display: block; }
+  .steps span { color: var(--muted); }
+
+  section.part { margin-top: 3rem; }
+  .part-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem .8rem; margin-bottom: 1rem; }
+  .part-head h2 { font-size: 1.35rem; }
+  .part-head p { color: var(--muted); font-size: .92rem; }
+  .tag { padding: .1rem .55rem; border-radius: .4rem; background: var(--accent); color: #fff; font-size: .78rem; font-weight: 800; }
+
+  /* 1. 사장님이 보내는 것 */
+  .chat { max-width: 26rem; padding: 1rem; border-radius: 1.1rem; background: #b2c7da; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chat { background: #33414f; } }
+  .bubble { width: fit-content; max-width: 85%; margin: .35rem 0 .35rem auto; padding: .55rem .8rem; border-radius: .9rem .2rem .9rem .9rem; background: #fef01b; color: #222; font-size: .93rem; }
+  .bubble.photos { display: grid; grid-template-columns: repeat(2, 5.5rem); gap: .3rem; padding: .35rem; background: transparent; }
+  .bubble.photos .ph { height: 5.5rem; border-radius: .6rem; font-size: .7rem; }
+  .bubble small { display: block; color: #555; }
+
+  .ph { position: relative; display: grid; place-items: end start; padding: .5rem; overflow: hidden; color: #fff; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+  .ph::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55) 0 8%, transparent 9%), radial-gradient(circle at 55% 25%, rgba(255,255,255,.4) 0 6%, transparent 7%), radial-gradient(circle at 75% 40%, rgba(255,255,255,.35) 0 5%, transparent 6%); }
+  .ph span { position: relative; z-index: 1; }
+  .p1 { background: linear-gradient(135deg, #2b2d6e, #7b6fd6 55%, #c9c3ff); }
+  .p2 { background: linear-gradient(135deg, #7a1f3d, #c2456e 55%, #f6b7c9); }
+  .p3 { background: linear-gradient(135deg, #8b6b4a, #d8b48a 55%, #f6e7d3); }
+  .p4 { background: linear-gradient(135deg, #3e3a39, #a7a19c 55%, #efeae6); }
+
+  /* 2. 블로그 */
+  .split { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+  .blog { border: 1px solid var(--line); border-radius: 1rem; background: var(--card); overflow: hidden; }
+  .blog-top { display: flex; align-items: center; gap: .5rem; padding: .6rem 1rem; border-bottom: 1px solid var(--line); font-size: .82rem; color: var(--muted); }
+  .blog-top i { width: .65rem; height: .65rem; border-radius: 50%; background: #03c75a; }
+  .blog-body { padding: 1.25rem clamp(1rem, 4vw, 1.75rem) 1.5rem; }
+  .blog-body h3 { font-size: 1.35rem; line-height: 1.4; }
+  .meta { margin-top: .35rem; color: var(--muted); font-size: .82rem; }
+  .blog-body p { margin-top: .9rem; }
+  .blog-body .ph { height: 13rem; margin-top: 1rem; border-radius: .7rem; font-size: .85rem; }
+  .blog-body .cap { margin-top: .3rem; color: var(--muted); font-size: .82rem; text-align: center; }
+  .place { margin-top: 1.1rem; padding: .85rem 1rem; border-radius: .7rem; background: var(--soft); font-size: .9rem; }
+  .tags { margin-top: 1rem; color: var(--accent); font-size: .9rem; word-break: keep-all; }
+  .side { display: grid; gap: .8rem; position: sticky; top: 1rem; }
+  .card { padding: 1rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--card); }
+  .card h3 { font-size: 1rem; margin-bottom: .4rem; }
+  .card ul { margin: 0; padding-left: 1.1rem; font-size: .92rem; }
+  .card li + li { margin-top: .25rem; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .3rem; padding: .65rem 1rem; border: 1px solid var(--accent); border-radius: .65rem; background: var(--accent); color: #fff; font-weight: 800; text-decoration: none; }
+  .btn.sub { background: transparent; color: var(--accent); }
+
+  /* 3. 릴스 */
+  .reel-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+  .phone { position: relative; width: min(17rem, 78vw); aspect-ratio: 9 / 16; border-radius: 1.4rem; overflow: hidden; background: #111; box-shadow: 0 18px 40px rgba(0,0,0,.25); border: 6px solid #111; }
+  .scene { position: absolute; inset: -6%; opacity: 0; transition: opacity .6s ease; }
+  .scene.on { opacity: 1; animation: kb 4.2s ease-out forwards; }
+  @keyframes kb { from { transform: scale(1) translate(0,0); } to { transform: scale(1.12) translate(-2%, -2%); } }
+  .scene .ph { position: absolute; inset: 0; }
+  .shop { position: absolute; top: .8rem; left: .8rem; z-index: 3; display: flex; align-items: center; gap: .4rem; color: #fff; font-size: .78rem; font-weight: 800; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
+  .shop i { width: 1.4rem; height: 1.4rem; border-radius: 50%; background: linear-gradient(135deg, #f6b7c9, #8a5cf6); border: 2px solid #fff; }
+  .subline { position: absolute; left: 0; right: 0; bottom: 18%; z-index: 3; padding: 0 1rem; text-align: center; font-weight: 900; font-size: 1.15rem; line-height: 1.35; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.6); word-break: keep-all; }
+  .subline .w { opacity: .35; transition: opacity .15s, color .15s; }
+  .subline .w.hit { opacity: 1; color: #ffe86b; }
+  .play { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; border: 0; background: rgba(0,0,0,.35); color: #fff; font-size: 1rem; font-weight: 800; }
+  .play span { padding: .7rem 1.1rem; border-radius: 999px; background: rgba(0,0,0,.55); }
+  .bar { position: absolute; top: .45rem; left: .6rem; right: .6rem; z-index: 3; display: flex; gap: .2rem; }
+  .bar i { flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,.35); overflow: hidden; }
+  .bar i b { display: block; width: 0; height: 100%; background: #fff; }
+  .conti { margin: 0; padding: 0; list-style: none; display: grid; gap: .5rem; }
+  .conti li { display: grid; grid-template-columns: 3.2rem 1fr; gap: .7rem; padding: .65rem .8rem; border: 1px solid var(--line); border-radius: .8rem; background: var(--card); font-size: .9rem; cursor: pointer; }
+  .conti li.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--soft); }
+  .conti .t { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .82rem; }
+  .conti b { display: block; }
+  .conti span { color: var(--muted); }
+
+  /* 4. 업로드 문구 */
+  .kit { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .kit pre { margin: .5rem 0 .75rem; padding: .85rem; border-radius: .7rem; background: var(--soft); white-space: pre-wrap; font: inherit; font-size: .9rem; }
+
+  /* 5. 가격 */
+  .plans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .plan { padding: 1.25rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--card); }
+  .plan.best { border: 2px solid var(--accent); }
+  .plan h3 { font-size: 1.05rem; }
+  .price { margin: .3rem 0 .6rem; font-size: 1.7rem; font-weight: 900; letter-spacing: -.02em; }
+  .price small { font-size: .9rem; color: var(--muted); font-weight: 700; }
+  .plan ul { margin: 0; padding-left: 1.1rem; font-size: .93rem; }
+  details { margin-top: .6rem; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: .8rem; background: var(--card); }
+  summary { font-weight: 800; cursor: pointer; }
+  details p { margin-top: .5rem; color: var(--muted); font-size: .93rem; }
+  .cta { margin-top: 2.5rem; padding: 1.5rem; border-radius: 1.1rem; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; text-align: center; }
+  .cta h2 { font-size: 1.3rem; }
+  .cta p { margin-top: .4rem; opacity: .92; }
+  .toast { position: fixed; left: 50%; bottom: 1.25rem; transform: translateX(-50%); padding: .6rem 1rem; border-radius: .6rem; background: #2a2226; color: #fff; font-weight: 700; font-size: .9rem; }
+  footer { margin-top: 2rem; color: var(--muted); font-size: .82rem; text-align: center; }
+
+  @media (max-width: 46rem) {
+    .steps { grid-template-columns: 1fr 1fr; }
+    .split, .reel-wrap, .kit, .plans { grid-template-columns: 1fr; }
+    .side { position: static; }
+    .phone { margin: 0 auto; }
+  }
+  @media (prefers-reduced-motion: reduce) { .scene.on { animation: none; } }
+</style>
+</head>
+<body>
+<p class="note">예시 페이지예요. '네일 오늘'은 가상의 가게이고, 사진은 실제 시술 사진 대신 색 견본으로 넣었어요.</p>
+<div class="wrap">
+
+<header class="hero">
+  <span class="eyebrow">1인 네일 · 미용 · 피부관리샵 사장님 홍보 대행</span>
+  <h1>사진 몇 장과 한 줄 메모만 보내 주시면<br>블로그 글과 릴스까지 만들어 드려요</h1>
+  <p>시술하느라 바쁜 사장님 대신 네이버 블로그 시술 소개 글, 인스타 릴스·유튜브 쇼츠용 세로 영상, 올릴 때 쓰는 문구까지 준비해 드려요. 아래는 가상 네일샵 '네일 오늘'로 만든 실제 결과물 예시예요.</p>
+  <ol class="steps">
+    <li><b>사진·메모 보내기</b><span>시술 사진 3~6장과 한 줄 설명</span></li>
+    <li><b>초안 받기</b><span>보통 2일 안에 글과 영상 초안</span></li>
+    <li><b>확인·수정</b><span>사장님 말투로, 2회까지 무료 수정</span></li>
+    <li><b>올리기</b><span>사장님 계정에 붙여 넣고 발행</span></li>
+  </ol>
+</header>
+
+<section class="part" aria-labelledby="h-send">
+  <div class="part-head"><span class="tag">1</span><h2 id="h-send">사장님이 보내 주시는 것</h2><p>이게 전부예요.</p></div>
+  <div class="chat" role="img" aria-label="사장님이 보낸 사진 4장과 메모">
+    <div class="bubble photos">
+      <div class="ph p1"><span>사진 1</span></div>
+      <div class="ph p2"><span>사진 2</span></div>
+      <div class="ph p3"><span>사진 3</span></div>
+      <div class="ph p4"><span>사진 4</span></div>
+    </div>
+    <div class="bubble">이번 주 겨울 자석젤 손님 시술이에요. 오로라 자석젤이 반응 제일 좋았어요! 12월 한정 이벤트로 자석젤 아트 10% 할인해요<small>오후 3:12</small></div>
+  </div>
+</section>
+
+<section class="part" aria-labelledby="h-blog">
+  <div class="part-head"><span class="tag">2</span><h2 id="h-blog">네이버 블로그 시술 소개 글</h2><p>사장님 블로그에 그대로 붙여 넣는 글이에요.</p></div>
+  <div class="split">
+    <article class="blog" id="blogPost">
+      <div class="blog-top"><i></i>네일 오늘 · 공식 블로그</div>
+      <div class="blog-body">
+        <h3>겨울엔 역시 자석젤 💜 오로라 자석젤로 손끝까지 반짝이게 (12월 이벤트)</h3>
+        <p class="meta">네일 오늘 · 시술 기록</p>
+        <p>안녕하세요, 네일 오늘입니다 😊<br>날이 추워지면서 요즘 가장 많이 찾아 주시는 디자인이 바로 <b>겨울 자석젤</b>이에요. 이번 주에 시술해 드린 디자인 몇 가지를 소개해 드릴게요.</p>
+        <div class="ph p1"><span>📷 오로라 자석젤 · 딥 퍼플</span></div>
+        <p class="cap">빛 받는 각도에 따라 오로라처럼 결이 바뀌어요</p>
+        <p><b>① 오로라 자석젤 (딥 퍼플)</b><br>이번 주 반응이 가장 좋았던 디자인이에요. 자석으로 빛 결을 한쪽으로 모아 주면 손을 움직일 때마다 결이 살아나서, 단색인데도 전혀 심심하지 않아요. 짧은 손톱에도 잘 어울려서 처음 자석젤 해 보시는 분께 추천드려요.</p>
+        <div class="ph p2"><span>📷 로즈 자석젤 + 포인트 파츠</span></div>
+        <p><b>② 로즈 자석젤 + 포인트 파츠</b><br>연말 모임 많으신 분들께 추천드리는 조합이에요. 약지에만 작은 파츠를 올려서 과하지 않게 포인트를 줬어요.</p>
+        <div class="ph p3"><span>📷 베이지 자석젤 · 데일리</span></div>
+        <p><b>③ 데일리 베이지 자석젤</b><br>직장 다니시는 분들이 부담 없이 하시기 좋은 톤이에요. 은은하게 반짝여서 출근길에도 자연스러워요.</p>
+        <p>✔️ 시술 시간은 디자인에 따라 1시간~1시간 30분 정도 걸려요.<br>✔️ 젤 제거가 필요하시면 예약하실 때 말씀해 주세요.</p>
+        <div class="place">🎄 <b>12월 한정 이벤트</b> · 자석젤 아트 10% 할인<br>📍 네일 오늘 (예시 주소) · 예약은 네이버 예약으로 받아요</div>
+        <p class="tags">#자석젤 #겨울네일 #오로라자석젤 #연말네일 #동네네일샵 #네일오늘</p>
+      </div>
+    </article>
+    <aside class="side">
+      <div class="card">
+        <h3>이렇게 써 드려요</h3>
+        <ul>
+          <li>사장님이 직접 쓴 것처럼 <b>가게 시점의 소개 글</b></li>
+          <li>사진 순서에 맞춘 설명과 사진 아래 짧은 설명</li>
+          <li>검색에 잘 걸리도록 제목·해시태그 정리</li>
+          <li>이벤트·예약 안내는 메모에 쓰신 내용만</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>이런 글은 쓰지 않아요</h3>
+        <ul>
+          <li>손님인 척 쓰는 가짜 후기</li>
+          <li>확인되지 않은 효과·최저가 같은 과장</li>
+        </ul>
+      </div>
+      <button class="btn" type="button" data-copy="blogPost">글 전체 복사해 보기</button>
+    </aside>
+  </div>
+</section>
+
+<section class="part" aria-labelledby="h-reel">
+  <div class="part-head"><span class="tag">3</span><h2 id="h-reel">릴스·쇼츠용 세로 영상</h2><p>보내 주신 사진에 카메라 움직임과 단어 자막을 입혀 15초 영상으로 만들어요.</p></div>
+  <div class="reel-wrap">
+    <div class="phone" id="phone">
+      <div class="bar" id="bar"></div>
+      <div class="shop"><i></i>nail_today</div>
+      <div id="scenes"></div>
+      <p class="subline" id="sub" aria-live="polite"></p>
+      <button class="play" id="play" type="button"><span>▶ 예시 영상 재생 (15초)</span></button>
+    </div>
+    <div>
+      <ol class="conti" id="conti"></ol>
+      <p style="margin-top:.8rem;color:var(--muted);font-size:.88rem">실제 납품은 MP4 파일이에요. 이 미리보기는 장면 순서와 자막 타이밍을 보여 주는 예시예요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="part" aria-labelledby="h-kit">
+  <div class="part-head"><span class="tag">4</span><h2 id="h-kit">올릴 때 쓰는 문구</h2><p>복사해서 붙여 넣기만 하시면 돼요.</p></div>
+  <div class="kit">
+    <div class="card">
+      <h3>인스타그램 릴스</h3>
+      <pre id="igText">손 움직일 때마다 결이 바뀌는 오로라 자석젤 💜
+겨울엔 역시 자석젤이죠 ✨
+
+🎄 12월 한정 자석젤 아트 10% 할인
+📅 예약은 프로필 링크에서
+
+#자석젤 #겨울네일 #오로라네일 #연말네일 #네일오늘</pre>
+      <button class="btn sub" type="button" data-copy="igText">문구 복사</button>
+    </div>
+    <div class="card">
+      <h3>유튜브 쇼츠</h3>
+      <pre id="ytText">제목: 겨울 오로라 자석젤 3가지 💜 #shorts
+
+설명: 이번 주 네일 오늘에서 가장 반응 좋았던 겨울 자석젤 디자인이에요. 12월 한 달 동안 자석젤 아트 10% 할인 중!
+
+태그: 자석젤, 겨울네일, 네일아트, 연말네일</pre>
+      <button class="btn sub" type="button" data-copy="ytText">문구 복사</button>
+    </div>
+  </div>
+</section>
+
+<section class="part" aria-labelledby="h-price">
+  <div class="part-head"><span class="tag">5</span><h2 id="h-price">가격</h2><p>선입금 후 작업을 시작해요.</p></div>
+  <div class="plans">
+    <div class="plan">
+      <h3>처음이세요? 체험</h3>
+      <p class="price">49,000<small>원 · 1회</small></p>
+      <ul>
+        <li>블로그 시술 소개 글 2편</li>
+        <li>릴스·쇼츠 세로 영상 1편</li>
+        <li>업로드 문구 포함, 수정 2회</li>
+      </ul>
+    </div>
+    <div class="plan best">
+      <h3>매달 꾸준히 · 정기</h3>
+      <p class="price">199,000<small>원 · 월</small></p>
+      <ul>
+        <li>블로그 시술 소개 글 4편 (주 1편)</li>
+        <li>릴스·쇼츠 세로 영상 2편</li>
+        <li>이벤트·시즌 일정에 맞춰 미리 준비</li>
+        <li>한 달 단위, 언제든 그만두실 수 있어요</li>
+      </ul>
+    </div>
+  </div>
+  <details><summary>블로그나 인스타에 직접 올려 주시나요?</summary><p>아니요. 계정 비밀번호는 받지 않아요. 완성된 글과 영상을 드리면 사장님이 확인하시고 직접 올리시는 방식이라 계정이 안전해요.</p></details>
+  <details><summary>사진은 어떻게 찍어서 보내면 되나요?</summary><p>휴대폰으로 찍은 사진이면 충분해요. 밝은 곳에서 손 전체가 나오게 3~6장 보내 주시면 좋아요. 손님 얼굴이나 개인 정보가 나온 사진은 쓰지 않아요.</p></details>
+  <details><summary>미용실·피부관리샵도 되나요?</summary><p>네, 시술 전후 사진과 메모만 있으면 업종에 맞춰 써 드려요. 카페·디저트 가게도 가능해요.</p></details>
+</section>
+
+<section class="cta">
+  <h2>우리 가게 사진으로 먼저 받아 보세요</h2>
+  <p>체험 49,000원으로 블로그 글 2편과 릴스 1편을 받아 보시고 정기 여부를 정하시면 돼요.<br>문의는 당근 채팅으로 편하게 주세요 😊</p>
+</section>
+
+<footer>만든 사람: 풀스택 개발자 민예린 · <a href="/">포트폴리오</a> · <a href="/nblog-demo.html">블로그 초안 체험판</a> · <a href="/continy-demo/">숏폼 제작 체험판</a></footer>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(() => {
+  const scenes = [
+    { t: '0–3초', ph: 'p1', title: '훅 · 손 클로즈업', desc: '오로라 결이 보이게 천천히 확대', words: ['손', '움직일', '때마다', '결이', '바뀌는'] },
+    { t: '3–6초', ph: 'p1', title: '디자인 이름', desc: '같은 사진, 반대 방향으로 이동', words: ['오로라', '자석젤', '💜'] },
+    { t: '6–9초', ph: 'p2', title: '연말 추천 조합', desc: '로즈 + 포인트 파츠', words: ['연말', '모임엔', '로즈', '+', '파츠'] },
+    { t: '9–12초', ph: 'p3', title: '데일리 디자인', desc: '베이지 자석젤', words: ['출근길엔', '은은한', '베이지'] },
+    { t: '12–15초', ph: 'p4', title: '이벤트 안내', desc: '마지막 문구로 마무리', words: ['12월', '자석젤', '아트', '10%', '할인'] },
+  ];
+  const DUR = 3000;
+  const $ = (id) => document.getElementById(id);
+  const sceneBox = $('scenes'), sub = $('sub'), bar = $('bar'), conti = $('conti'), play = $('play');
+
+  scenes.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'scene';
+    el.innerHTML = `<div class="ph ${s.ph}"></div>`;
+    if (i === 1) el.style.transformOrigin = 'right bottom';
+    sceneBox.appendChild(el);
+    bar.insertAdjacentHTML('beforeend', '<i><b></b></i>');
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="t">${s.t}</span><div><b>${s.title}</b><span>${s.desc} · 자막 "${s.words.join(' ')}"</span></div>`;
+    li.addEventListener('click', () => start(i));
+    conti.appendChild(li);
+  });
+  const sceneEls = [...sceneBox.children], fills = [...bar.querySelectorAll('b')], items = [...conti.children];
+
+  let timers = [], raf = 0;
+  function clear() { timers.forEach(clearTimeout); timers = []; cancelAnimationFrame(raf); }
+  function show(i) {
+    sceneEls.forEach((el, k) => { el.classList.remove('on'); if (k === i) { void el.offsetWidth; el.classList.add('on'); } });
+    items.forEach((el, k) => el.classList.toggle('on', k === i));
+    fills.forEach((f, k) => f.style.width = k < i ? '100%' : '0');
+    const w = scenes[i].words;
+    sub.innerHTML = w.map((x) => `<span class="w">${x}</span>`).join(' ');
+    const spans = sub.querySelectorAll('.w');
+    w.forEach((_, k) => timers.push(setTimeout(() => spans[k].classList.add('hit'), 250 + k * (2200 / w.length))));
+    const t0 = performance.now();
+    const tick = (now) => { const p = Math.min(1, (now - t0) / DUR); fills[i].style.width = p * 100 + '%'; if (p < 1) raf = requestAnimationFrame(tick); };
+    raf = requestAnimationFrame(tick);
+  }
+  function start(from = 0) {
+    clear(); play.hidden = true;
+    for (let i = from; i < scenes.length; i++) timers.push(setTimeout(() => show(i), (i - from) * DUR));
+    timers.push(setTimeout(() => { play.hidden = false; play.querySelector('span').textContent = '↻ 다시 보기'; }, (scenes.length - from) * DUR));
+  }
+  play.addEventListener('click', () => start(0));
+  show(0); clear(); fills[0].style.width = '0';
+
+  const toast = $('toast');
+  document.querySelectorAll('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+    const text = $(b.dataset.copy).innerText.trim();
+    try { await navigator.clipboard.writeText(text); toast.textContent = '복사했어요. 붙여 넣어 확인해 보세요.'; }
+    catch { toast.textContent = '이 브라우저에서는 복사가 막혀 있어요. 길게 눌러 선택해 주세요.'; }
+    toast.hidden = false; setTimeout(() => toast.hidden = true, 2200);
+  }));
+})();
+</script>
+</body>
+</html>
